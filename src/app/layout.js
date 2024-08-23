@@ -1,5 +1,8 @@
 import "./globals.css";
-import NavBar from "@/components/main/navbar/module.NavBar";
+
+import ContextProvider from "@/components/ContextProvider";
+import NavBar from "@/components/main/navbar/NavBar";
+import Footer from "@/components/main/footer/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -10,8 +13,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className="pt-20">
-        <NavBar></NavBar>
-        {children}
+        <ContextProvider>
+          <NavBar></NavBar>
+            {children}
+          <Footer></Footer>
+        </ContextProvider>
       </body>
     </html>
   );

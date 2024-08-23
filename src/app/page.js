@@ -1,4 +1,4 @@
-import FilterSidebar from "@/components/main/aside/module.FilterSidebar";
+import FilterSidebar from "@/components/main/aside/FilterSidebar";
 
 export default function Home() {
   return (

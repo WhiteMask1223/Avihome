@@ -1,5 +1,13 @@
 //Objeto que maneja el sistema de filtros
 
+const locationData = {
+  item1: {data:'Urb. Rómulo Gallegos', value:true},
+  item2: {data:'Barrio Texto que excede los limites', value:true},
+  item3: {data:'Centro', value:true},
+  item4: {data:'Las Palmas', value:true},
+  item5: {data:'Terminal', value:true},
+}
+
 export const filterObjConstructor = {
     'Tipo': {
       anexo: {data:'Anexo', value:true},
@@ -9,13 +17,7 @@ export const filterObjConstructor = {
       habitacion: {data:'Habitacion', value:true}
     },
 
-    'Ubicación': {
-      item1: {data:'item1', value:true},
-      item2: {data:'item2', value:true},
-      item3: {data:'item3', value:true},
-      item4: {data:'item4', value:true},
-      item5: {data:'item5', value:true},
-    },
+    'Ubicación': locationData,
 
     'Servicios': {
         agua: {data:'Agua', value:true},

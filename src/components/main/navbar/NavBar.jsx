@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 
-import SearchBar from "./module.SearchBar";
-import NavSession from "./module.NavSession";
+import SearchBar from "./SearchBar";
+import NavSession from "./NavSession";
 import { usePathname } from 'next/navigation'
 
 export default function NavBar() {

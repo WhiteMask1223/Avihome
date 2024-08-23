@@ -3,21 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
- 
+  /*Estilos para fondo y letras*/
+  --theme-font-color: 0, 0, 0;
+  --theme-background-color: 255, 255, 255;
 
+  /*Estilos para CheckBoxes*/
+  --theme-checkbox-background-color: 210, 210, 210;
+  --theme-checkbox-border-color: 180, 180, 180;
+  --theme-checkbox-selected-color: 64, 84, 83;
+
+  /*Estilos para elementos*/
+  --theme-element-background-color: 200, 200, 200;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 0, 0, 0;
+    /*Estilos para fondo y letras*/
+    --theme-font-color: 255, 255, 255;
+    --theme-background-color: 15, 15, 15;
+
+    /*Estilos para CheckBoxes*/
+    --theme-checkbox-background-color: 40, 40, 40;
+    --theme-checkbox-border-color: 60, 60, 60;
+    --theme-checkbox-selected-color: 11, 138, 127;
+
+    /*Estilos para elementos*/
+    --theme-element-background-color: 50, 50, 50;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: rgb(var(--theme-font-color));
+  background: rgb(var(--theme-background-color));
 }
 
 @layer utilities {

@@ -16,7 +16,11 @@ module.exports = {
         checkboxThemeSelected: 'rgb(var(--theme-checkbox-selected-color))',
         
         //Estilos para elementos
-        elementThemeColor: 'rgb(var(--theme-element-background-color))'
+        elementThemeColor: 'rgb(var(--theme-element-background-color))',
+
+        //Estilos de paginación
+        arrowThemeColor: 'rgb(var(--theme-arrow-color))',
+        arrowDisableThemeColor: 'rgb(var(--theme-arrow-disable-color))'
       },
 
       backgroundImage: {

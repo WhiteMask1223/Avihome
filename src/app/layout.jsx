@@ -1,4 +1,6 @@
 import "./globals.css";
+import 'remixicon/fonts/remixicon.css';
+
 
 import ContextProvider from "@/components/ContextProvider";
 import NavBar from "@/components/main/navbar/NavBar";

@@ -1,44 +1,49 @@
 import { createContext, useState } from 'react';
 
 const locationData = {
-    item1: {data:'Urb. Rómulo Gallegos', value:true},
-    item2: {data:'Barrio Texto que excede los limites', value:true},
-    item3: {data:'Centro', value:true},
-    item4: {data:'Las Palmas', value:true},
-    item5: {data:'Terminal', value:true},
+    'Urb. Rómulo Gallegos': true,
+    'Barrio Texto que excede los limites': true,
+    'Centro': true,
+    'Las Palmas': true,
+    'Terminal': true,
 };
 
 const filterObjConstructor = {
     'Tipo': {
-      anexo: {data:'Anexo', value:true},
-      casa: {data:'Casa', value:true},
-      complejoResidencial: {data:'Complejo Residencial', value:true},
-      departamento: {data:'Departamento', value:true},
-      habitacion: {data:'Habitacion', value:true}
+      'Anexo': true,
+      'Casa': true,
+      'Complejo Residencial': true,
+      'Departamento': true,
+      'Habitacion': true
     },
 
     'Ubicación': locationData,
 
     'Servicios': {
-        agua: {data:'Agua', value:true},
-        aireAcondicionado: {data:'Aire Acondicionado', value:true},
-        electricidad: {data:'Electricidad', value:true},
-        gas: {data:'Gas', value:true},
-        internet: {data:'Internet', value:true}
+        'Agua': false,
+        'Aire Acondicionado': false,
+        'Electricidad': false,
+        'Gas': false,
+        'Internet': false
     },
 
     'Número de Habitaciones': {
-        Una: {data:'Una Habitación', value:true},
-        DosACinco: {data:'Dos a Cinco Hablitaciones', value:true},
-        CincoADiez: {data:'Cinco a Diez Habitaciones', value:true},
-        MasDeDiez: {data:'Más de Diez Habitaciones', value:true}
+        'Una Habitación': true,
+        'Dos a Cinco Hablitaciones': true,
+        'Cinco a Diez Habitaciones': true,
+        'Más de Diez Habitaciones': true
     },
 
     'Admite': {
-        hombres: {data:'Hombres', value:false},
-        mujeres: {data:'Mujeres', value:false},
-        cualquiera: {data:'Cualquiera', value:true}
-    }
+        'Solo Hombres': true,
+        'Solo Mujeres': true,
+        'Cualquiera': true
+    },
+
+    sortBy: "bestRated",
+
+    showHidden: false
+
 };
 
 
@@ -46,19 +51,22 @@ export const CategoryFilterContext = createContext();
 
 export const CategoryFilterProvider = ({children}) => {
 
+
+    /**************************{ Declaraciones }**************************/
+
+
     const [filterObj, setFilterObj] = useState(filterObjConstructor);
-    const [sortBy, setSortBy] = useState('bestRated');
-    const [showHidden, setShowHidden] = useState(false);
     
+
+    /**************************{ Funciones }**************************/
+
+
     const handleCheckboxChange = (category, categoryItem, newValue) => {
         setFilterObj((prevFilterObj) => ({
             ...prevFilterObj,
             [category]:{
                 ...prevFilterObj[category],
-                [categoryItem]: {
-                    ...prevFilterObj[category][categoryItem],
-                    value: newValue
-                }
+                [categoryItem]: newValue
             }
         }));
 
@@ -79,22 +87,28 @@ export const CategoryFilterProvider = ({children}) => {
         });*/
     };
 
+    const sortAndHiddenHandler = (objKey, newValue) => {
+        setFilterObj((prevFilterObj) => ({
+            ...prevFilterObj,
+            [objKey]: newValue
+        }));
+    }
+
     const resetFilters = () => {
-        setSortBy('mejorPuntuados');
-        setShowHidden(false);
         setFilterObj(filterObjConstructor);
     };
+
+
+    /**************************{ Retorno }**************************/
+
 
     return (
         <CategoryFilterContext.Provider
             value={{
                 filterObj,
-                sortBy,
-                showHidden,
 
-                setSortBy,
-                setShowHidden,
                 handleCheckboxChange,
+                sortAndHiddenHandler,
                 resetFilters   
             }}
         >

@@ -6,8 +6,8 @@ export default function FilterCategory({ category, filterObj, handleClick}) {
             <summary className="font-bold cursor-pointer max-w-56 overflow-hidden text-ellipsis whitespace-nowrap">{category}</summary>
             <div className="flex flex-col">
                             
-                    {Object.entries(filterObj[category]).map(([key, { data, value }]) => (
-                        <FilterItem key={key} objKey={category} objSubKey={key} value={value} data={data} handleClick={handleClick} />
+                    {Object.entries(filterObj[category]).map(([key]) => (
+                        <FilterItem key={key} objKey={category} objSubKey={key} filterObj={filterObj} handleClick={handleClick} />
                     ))}
                 
             </div>

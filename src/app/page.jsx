@@ -6,7 +6,7 @@ export default function Home() {
     <main>
       <div className="flex">
         <FilterSidebar></FilterSidebar>
-        <div className="container mx-auto text-center">
+        <div className="container-sm mx-auto text-center">
           <OffertsMain></OffertsMain>
         </div>
       </div>

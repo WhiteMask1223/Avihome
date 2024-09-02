@@ -10,7 +10,7 @@ const locationData = {
 
 export const filterObjConstructor = {
     'Tipo': {
-      anexo: {data:'Anexo', value:true},
+      'Anexo': true,
       casa: {data:'Casa', value:true},
       complejoResidencial: {data:'Complejo Residencial', value:true},
       departamento: {data:'Departamento', value:true},

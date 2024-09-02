@@ -9,19 +9,19 @@ import FilterCategory from './FilterCategory';
 
 export default function FilterSidebar() {
 
-  const { filterObj, sortBy, showHidden, setSortBy, setShowHidden, handleCheckboxChange, resetFilters } = useContext(CategoryFilterContext);
+  const { filterObj, handleCheckboxChange, sortAndHiddenHandler, resetFilters } = useContext(CategoryFilterContext);
 
   return (
-    <aside className="p-4 w-64 text-left">
+    <aside className="p-3 w-64 text-left">
       <div>
 
-        {Object.entries(filterObj).map(([key]) => (
+        {Object.entries(filterObj).slice(0, 5).map(([key]) => (
           <FilterCategory key={key} category={key} filterObj={filterObj} handleClick={handleCheckboxChange}/>
         ))}
 
         <div className="mt-4">
           <label className="block font-bold max-w-56 overflow-hidden text-ellipsis whitespace-nowrap">Ordenado Por:</label>
-          <select className="mt-1 p-2 rounded-md block w-full bg-elementThemeColor" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <select className="mt-1 p-2 rounded-md block w-full bg-elementThemeColor" value={filterObj.sortBy} onChange={(e) => sortAndHiddenHandler('sortBy', e.target.value)}>
             <option value="bestRated">Mejor Puntuados</option>
             <option value="worstRated">Peor Puntuados</option>
             <option value="latest">Más Recientes</option>
@@ -31,7 +31,7 @@ export default function FilterSidebar() {
 
         <div className="mt-4">
           <label className="inline-flex items-center cursor-pointer ml-2">
-              <input className="hidden peer" type="checkbox" onChange={() => setShowHidden(!showHidden)} checked={showHidden}/>
+              <input className="hidden peer" type="checkbox" onChange={() => sortAndHiddenHandler('showHidden', !filterObj.showHidden)} checked={filterObj.showHidden}/>
               <span className="w-4 h-4 my-auto bg-checkboxThemeColor border border-checkboxThemeBorder rounded-full peer-checked:bg-checkboxThemeSelected peer-checked:border-transparent"></span>
               <span className="ml-2 max-w-48 overflow-hidden text-ellipsis whitespace-nowrap">Mostrar Ocultos</span> 
           </label>

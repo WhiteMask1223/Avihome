@@ -58,8 +58,7 @@ export const MainPagePaginationProvider = ({children}) => {
 
         if(action == 'last' && currentPage !== totalPages) {
             setCurrentPage(totalPages);
-        };
-        
+        };  
     };
 
     const paginationRederedCardHandeler = () => {
@@ -75,29 +74,40 @@ export const MainPagePaginationProvider = ({children}) => {
 
     const offertsFilter = () => {
         const filteredCards = offertsData.filter((card) => {
-            
-            const typeFilter = filterObj['Tipo'][card.type];
 
-            const locationFilter = filterObj['Ubicación'][card.location]
+            const filterReader = (category, cardData) => {
+                if(Object.values(filterObj[category]).some((value) => value === true)) {
+                    return filterObj[category][cardData];
+                }
+                
+                return true
+            };
+
+            const typeFilter = filterReader('Tipo', card.type);
+
+            const locationFilter = filterReader('Ubicación', card.location)
 
             const servicesFilter = Object.entries(filterObj['Servicios']).every(
                 ([service, isSelected]) => !isSelected || card.services[service]
             );
 
-            const roomsFilter = (() => {
+            const availabilityFilter = (() => {
                 const roomFilters = {
-                  'Una Habitación': card.rooms === 1,
-                  'Dos a Cinco Hablitaciones': card.rooms >= 2 && card.rooms <= 5,
-                  'Cinco a Diez Habitaciones': card.rooms >= 6 && card.rooms <= 10,
-                  'Más de Diez Habitaciones': card.rooms > 10,
+                  'Una Habitación': card.availability === 1,
+                  'Dos a Cinco Hablitaciones': card.availability >= 2 && card.availability <= 5,
+                  'Cinco a Diez Habitaciones': card.availability >= 6 && card.availability <= 10,
+                  'Más de Diez Habitaciones': card.availability > 10,
                 };
-              
-                return Object.entries(filterObj['Número de Habitaciones']).some(
-                  ([key, isSelected]) => isSelected && roomFilters[key]
-                );
+
+                if(Object.values(filterObj['Disponibilidad']).some((value) => value === true)) {
+                    return Object.entries(filterObj['Disponibilidad']).some(
+                        ([key, isSelected]) => isSelected && roomFilters[key]
+                    );
+                };   
+                return true
             });
 
-            const admitsFilter = filterObj.Admite[card.admits];
+            const admitsFilter = filterReader('Admite', card.admits);
 
             const hiddenFilter = filterObj.showHidden ? true : !card.hidden;
 
@@ -107,14 +117,34 @@ export const MainPagePaginationProvider = ({children}) => {
                 servicesFilter &&
                 admitsFilter &&
                 hiddenFilter &&
-                roomsFilter()
-                
+                availabilityFilter()
             );
            
-        })
+        });
 
-        setFiltredDataForCards(filteredCards)
-        setCurrentPage(1)
+        const sortedFiltered = [...filteredCards].sort((a, b) => {
+            switch (filterObj.sortBy) {
+                case 'bestRated':
+                    return b.rating - a.rating;
+                case 'worstRated':
+                    return a.rating - b.rating;
+                case 'higherAvailability':
+                    return b.availability - a.availability;
+                case 'lowerAvailability':
+                    return a.availability - b.availability;
+
+                //TODO: orden por fechas
+                case 'latest':
+                    return b.rating - a.rating;
+                case 'older':
+                    return b.rating - a.rating;
+                default:
+                    return b.rating - a.rating;
+            };
+        });
+
+        setFiltredDataForCards(sortedFiltered);
+        setCurrentPage(1);
     };
 
     

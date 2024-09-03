@@ -24,6 +24,8 @@ export default function FilterSidebar() {
           <select className="mt-1 p-2 rounded-md block w-full bg-elementThemeColor" value={filterObj.sortBy} onChange={(e) => sortAndHiddenHandler('sortBy', e.target.value)}>
             <option value="bestRated">Mejor Puntuados</option>
             <option value="worstRated">Peor Puntuados</option>
+            <option value="higherAvailability">Mayor Disponibilidad</option>
+            <option value="lowerAvailability">Menor Disponibilidad</option>
             <option value="latest">Más Recientes</option>
             <option value="older">Más Antiguos</option>
           </select>

@@ -1,20 +1,20 @@
 import { createContext, useState } from 'react';
 
 const locationData = {
-    'Urb. Rómulo Gallegos': true,
-    'Barrio Texto que excede los limites': true,
-    'Centro': true,
-    'Las Palmas': true,
-    'Terminal': true,
+    'Urb. Rómulo Gallegos': false,
+    'Barrio Texto que excede los limites': false,
+    'Centro': false,
+    'Las Palmas': false,
+    'Terminal': false,
 };
 
 const filterObjConstructor = {
     'Tipo': {
-      'Anexo': true,
-      'Casa': true,
-      'Complejo Residencial': true,
-      'Departamento': true,
-      'Habitacion': true
+      'Anexo': false,
+      'Casa': false,
+      'Complejo Residencial': false,
+      'Departamento': false,
+      'Habitacion': false
     },
 
     'Ubicación': locationData,
@@ -27,17 +27,17 @@ const filterObjConstructor = {
         'Internet': false
     },
 
-    'Número de Habitaciones': {
-        'Una Habitación': true,
-        'Dos a Cinco Hablitaciones': true,
-        'Cinco a Diez Habitaciones': true,
-        'Más de Diez Habitaciones': true
+    'Disponibilidad': {
+        'Una Habitación': false,
+        'Dos a Cinco Hablitaciones': false,
+        'Cinco a Diez Habitaciones': false,
+        'Más de Diez Habitaciones': false
     },
 
     'Admite': {
-        'Solo Hombres': true,
-        'Solo Mujeres': true,
-        'Cualquiera': true
+        'Solo Hombres': false,
+        'Solo Mujeres': false,
+        'Cualquiera': false
     },
 
     sortBy: "bestRated",

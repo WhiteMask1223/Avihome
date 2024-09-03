@@ -1,4 +1,4 @@
-export default function OffertCard({ imageSrc, title, location, rating, disponibility, services, type }) {
+export default function OffertCard({ imageSrc, title, location, rating, availability, type }) {
   return (
     <div className="w-52 border border-gray-300 rounded-xl shadow-sm p-2 my-2 mx-auto">
 
@@ -22,10 +22,8 @@ export default function OffertCard({ imageSrc, title, location, rating, disponib
         {Array(5).fill().map((_, index) => (
           <span key={index} className={`text-lg ${index < rating ? 'text-yellow-500' : 'text-gray-300'}`}>&#9733;</span>
         ))}
-        <span className="ml-2 font-bold">{disponibility}</span>
-        <span>{Object.values(services).join(', ')}</span>
+        <span className="ml-2 font-bold">{availability}</span>
         <span>{type}</span>
-
       </div>
     </div>
   );

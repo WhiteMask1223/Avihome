@@ -5,7 +5,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -25,7 +25,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -45,7 +45,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -65,7 +65,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': false,
@@ -85,7 +85,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': true,
@@ -105,7 +105,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -125,7 +125,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -145,7 +145,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -165,7 +165,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -185,7 +185,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -205,7 +205,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': false,
@@ -225,7 +225,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -245,7 +245,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -265,7 +265,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -285,7 +285,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo15', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -305,7 +305,7 @@ export const offertsData =  [
         title: 'Nombre de EjemploPag2', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -325,7 +325,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -345,7 +345,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -365,7 +365,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -385,7 +385,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': true,
@@ -405,7 +405,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -425,7 +425,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -445,7 +445,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -465,7 +465,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -485,7 +485,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -505,7 +505,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': false,
@@ -525,7 +525,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -545,7 +545,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -565,7 +565,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -585,7 +585,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo15', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -605,7 +605,7 @@ export const offertsData =  [
         title: 'Nombre de EjemploPag3', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -625,7 +625,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 4, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -645,7 +645,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -665,7 +665,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 3, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -685,7 +685,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': true,
@@ -705,7 +705,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 6, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -725,7 +725,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -745,7 +745,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -765,7 +765,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -785,7 +785,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 7, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -805,7 +805,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': false,
@@ -825,7 +825,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 5, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -845,7 +845,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -865,7 +865,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 1, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -885,7 +885,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo15', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 15, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -905,7 +905,7 @@ export const offertsData =  [
         title: 'Nombre de EjemploPAg4', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -925,7 +925,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 70, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -945,7 +945,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -965,7 +965,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -984,8 +984,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
-        rating: 3, 
-        disponibility: 2, 
+        rating: 1, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': true,
@@ -1005,7 +1005,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -1025,7 +1025,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1045,7 +1045,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -1065,7 +1065,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1084,8 +1084,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
-        rating: 4, 
-        disponibility: 2, 
+        rating: 1, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -1105,7 +1105,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': false,
@@ -1125,7 +1125,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -1145,7 +1145,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1164,8 +1164,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
-        rating: 4, 
-        disponibility: 2, 
+        rating: 3, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -1185,7 +1185,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo15', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1205,7 +1205,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1225,7 +1225,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -1244,8 +1244,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
-        rating: 4, 
-        disponibility: 3, 
+        rating: 2, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1265,7 +1265,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -1285,7 +1285,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': true,
@@ -1305,7 +1305,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 3, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Habitacion', 
         services: {
             'Agua': true,
@@ -1325,7 +1325,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
         rating: 5, 
-        disponibility: 10, 
+        availability: 10, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1345,7 +1345,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Centro', 
         rating: 4, 
-        disponibility: 2, 
+        availability: 2, 
         type:'Casa', 
         services: {
             'Agua': true,
@@ -1365,7 +1365,7 @@ export const offertsData =  [
         title: 'Nombre de Ejemplo', 
         location: 'Barrio Texto que excede los limites', 
         rating: 4, 
-        disponibility: 3, 
+        availability: 3, 
         type:'Complejo Residencial', 
         services: {
             'Agua': true,
@@ -1384,8 +1384,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Urb. Rómulo Gallegos', 
-        rating: 4, 
-        disponibility: 2, 
+        rating: 0, 
+        availability: 2, 
         type:'Anexo', 
         services: {
             'Agua': true,
@@ -1404,8 +1404,8 @@ export const offertsData =  [
         imageSrc: null, 
         title: 'Nombre de Ejemplo', 
         location: 'Terminal', 
-        rating: 3, 
-        disponibility: 2, 
+        rating: 0, 
+        availability: 2, 
         type:'Departamento', 
         services: {
             'Agua': false,

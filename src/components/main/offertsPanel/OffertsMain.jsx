@@ -24,8 +24,7 @@ export default function OffertsMain() {
                     title={card.title}
                     location={card.location}
                     rating={card.rating}
-                    disponibility={card.id}
-                    services={card.services}
+                    availability={card.availability}
                     type={card.type}
                     />
                 ))}   

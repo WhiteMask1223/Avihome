@@ -2,14 +2,14 @@
 
 import { useContext } from "react";
 
-import { MainPagePaginationContext } from "@/contexts/MainPagePagination.context";
+import { MainPageContext } from "@/contexts/MainPage.context";
 
 import PagingCounter from "./PagingCounter";
 import OffertCard from "./OffertCard";
 
 export default function OffertsMain() {
 
-    const {currentPage, totalPages, renderedCards, pageChangeHandler} = useContext(MainPagePaginationContext);
+    const {currentPage, totalPages, renderedCards, pageChangeHandler} = useContext(MainPageContext);
 
 
     return (

@@ -7,6 +7,11 @@
   --theme-font-color: 0, 0, 0;
   --theme-background-color: 255, 255, 255;
 
+  /*Estilos para Sections*/
+  --theme-section-background-color: 250, 250, 250;
+  --theme-section-border-color: 200, 200, 200;
+  --theme-section-shadow-color: 200, 200, 200;
+
   /*Estilos para CheckBoxes*/
   --theme-checkbox-background-color: 210, 210, 210;
   --theme-checkbox-border-color: 180, 180, 180;
@@ -25,6 +30,11 @@
     /*Estilos para fondo y letras*/
     --theme-font-color: 255, 255, 255;
     --theme-background-color: 15, 15, 15;
+
+    /*Estilos para Sections*/
+    --theme-section-background-color: 10, 10, 10;
+    --theme-section-border-color: 5, 5, 5;
+    --theme-section-shadow-color: 40, 40, 40;
 
     /*Estilos para CheckBoxes*/
     --theme-checkbox-background-color: 40, 40, 40;

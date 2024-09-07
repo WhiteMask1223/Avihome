@@ -1,14 +1,14 @@
 "use client"
 
 import { CategoryFilterProvider } from "@/contexts/CategoryFilter.context"
-import { MainPagePaginationProvider } from "@/contexts/MainPagePagination.context";
+import { MainPageProvider } from "@/contexts/MainPage.context";
 
 export default function ContextProvider({children}) {
     return(
         <CategoryFilterProvider>
-            <MainPagePaginationProvider>
+            <MainPageProvider>
                 {children}
-            </MainPagePaginationProvider>
+            </MainPageProvider>
         </CategoryFilterProvider>
     );
 };

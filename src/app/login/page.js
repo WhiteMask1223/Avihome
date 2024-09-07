@@ -1,160 +1,47 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-const initialFilters = {
-  Tipo: {
-    Anexo: true,
-    Casa: true,
-    'Complejo Residencial': true,
-    Departamento: true,
-    Habitacion: true,
-  },
-  Ubicación: {
-    'Urb. Rómulo Gallegos': true,
-    'Barrio Texto que excede los limites': true,
-    Centro: true,
-    'Las Palmas': true,
-    Terminal: true,
-  },
-  Servicios: {
-    Agua: true,
-    'Aire Acondicionado': true,
-    Electricidad: true,
-    Gas: true,
-    Internet: true,
-  },
-  'Número de Habitaciones': {
-    'Una Habitación': true,
-    'Dos a Cinco Hablitaciones': true,
-    'Cinco a Diez Habitaciones': true,
-    'Más de Diez Habitaciones': true,
-  },
-  Admite: {
-    Hombres: false,
-    Mujeres: false,
-    Cualquiera: true,
-  },
-  sortBy: 'bestRated',
-  showHidden: false,
-};
+export default function testFunction () {
 
-const initialCards = [
-  {
-    id: 0,
-    imageSrc: null,
-    title: 'Nombre de Ejemplo',
-    location: 'Urb. Rómulo Gallegos',
-    rating: 5,
-    disponibility: 10,
-    type: 'Complejo Residencial',
-    services: {
-      Agua: true,
-      'Aire Acondicionado': true,
-      Electricidad: true,
-      Gas: true,
-      Internet: true,
-    },
-    rooms: 15,
-    admits: 'Cualquiera',
-    date: '',
-    hidden: false,
-  },
-  // ... más tarjetas
-];
+  const [searchTerm, setSearchTerm] = useState('');
+  const [cards, setCards] = useState([
+    { id: 1, title: 'Alabarda', ubicacion: 'Ubicación 1', rating: 4 },
+    { id: 2, title: 'Departamento', ubicacion: 'Ubicación 2', rating: 5 },
+    { id: 3, title: 'CUM', ubicacion: 'Ubicación 3', rating: 3 },
+    // ...otras tarjetas
+  ]);
 
-export default function CardsPage() {
-  const [filters, setFilters] = useState(initialFilters);
-  const [cards, setCards] = useState(initialCards);
-  const [filteredCards, setFilteredCards] = useState([]);
+  // Función para manejar el cambio en el término de búsqueda
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-  // Filtrar las tarjetas cuando cambian los filtros
-  useEffect(() => {
-    const applyFilters = () => {
-      const filtered = cards.filter((card) => {
-        // Filtrar por Tipo
-        const typeFilter = filters.Tipo[card.type];
-
-        // Filtrar por Ubicación
-        const locationFilter = filters.Ubicación[card.location];
-
-        // Filtrar por Servicios
-        const servicesFilter = Object.entries(filters.Servicios).every(
-          ([service, isSelected]) => !isSelected || card.services[service]
-        );
-
-        // Filtrar por Número de Habitaciones
-        let roomsFilter = true;
-        if (filters['Número de Habitaciones']['Una Habitación'] && card.rooms === 1) {
-          roomsFilter = true;
-        } else if (
-          filters['Número de Habitaciones']['Dos a Cinco Hablitaciones'] &&
-          card.rooms >= 2 &&
-          card.rooms <= 5
-        ) {
-          roomsFilter = true;
-        } else if (
-          filters['Número de Habitaciones']['Cinco a Diez Habitaciones'] &&
-          card.rooms >= 6 &&
-          card.rooms <= 10
-        ) {
-          roomsFilter = true;
-        } else if (
-          filters['Número de Habitaciones']['Más de Diez Habitaciones'] &&
-          card.rooms > 10
-        ) {
-          roomsFilter = true;
-        } else {
-          roomsFilter = false;
-        }
-
-        // Filtrar por Admite
-        const admitsFilter = filters.Admite[card.admits];
-
-        // Filtrar por "Mostrar Ocultos"
-        const hiddenFilter = filters.showHidden ? true : !card.hidden;
-
-        // Devolver verdadero si todos los filtros coinciden
-        return (
-          typeFilter &&
-          locationFilter &&
-          servicesFilter &&
-          roomsFilter &&
-          admitsFilter &&
-          hiddenFilter
-        );
-      });
-
-      // Ordenar tarjetas según sortBy
-      const sortedFiltered = [...filtered].sort((a, b) => {
-        if (filters.sortBy === 'bestRated') {
-          return b.rating - a.rating; // Ordenar por mejor calificación
-        } else if (filters.sortBy === 'availability') {
-          return b.disponibility - a.disponibility; // Ordenar por disponibilidad
-        } else {
-          return 0; // Sin ordenamiento específico
-        }
-      });
-
-      setFilteredCards(sortedFiltered);
-    };
-
-    applyFilters();
-  }, [filters, cards]);
+  // Filtrar las tarjetas basadas en el término de búsqueda
+  const filteredCards = cards.filter(card =>
+    card.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
-      <h1>Tarjetas Filtradas</h1>
-      <div className="card-container">
-        {filteredCards.map((card) => (
-          <div key={card.id} className="card">
-            <h2>{card.title}</h2>
-            <p>Ubicación: {card.location}</p>
-            <p>Tipo: {card.type}</p>
-            <p>Habitaciones: {card.rooms}</p>
-            <p>Servicios: {Object.keys(card.services).join(', ')}</p>
-            <p>Admite: {card.admits}</p>
-          </div>
+      <input
+        type="text"
+        placeholder="Buscar..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+        className="p-2 mb-4 border border-gray-300 rounded"
+      />
+
+      <div className="grid grid-cols-3 gap-4">
+        {filteredCards.slice(0, 15).map((card) => (
+           <div className="border rounded-lg p-4">
+           <div className="bg-gray-300 h-32 mb-2"></div>
+           <h3 className="text-xl font-semibold">{card.title}</h3>
+           <p className="text-gray-500">{card.ubicacion}</p>
+           <div className="flex items-center">
+             <span>{'⭐'.repeat(card.rating)}</span>
+           </div>
+         </div>
         ))}
       </div>
     </div>

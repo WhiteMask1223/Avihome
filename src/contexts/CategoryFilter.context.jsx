@@ -6,7 +6,28 @@ const locationData = {
     'Centro': false,
     'Las Palmas': false,
     'Terminal': false,
+    'Las Abejitas': false,
+    'Zona Industrial': false,
+    'Urb. Los Jardines': false,
+    'Urb. Los Morros': false,
+    'Bario Las Mercedes': false,
+    'Urb. Santa Isabel': false,
+    'Urb. Los Laureles': false,
+    'Barrio La Ceiba': false,
+    'Barrio Puerta Negra': false,
+    'Barrio Bicentenerio': false,
+    'Barrio La Morera': false,
+    'Barrio Pueblo Nuevo': false,
+    'Urb. Los Naranjos': false
 };
+
+
+const sortedEntries = Object.entries(locationData).sort(([keyA], [keyB]) => {
+    return keyA.localeCompare(keyB); 
+});
+  
+const sortedLocationData = Object.fromEntries(sortedEntries);
+
 
 const filterObjConstructor = {
     'Tipo': {
@@ -14,10 +35,10 @@ const filterObjConstructor = {
       'Casa': false,
       'Complejo Residencial': false,
       'Departamento': false,
-      'Habitacion': false
+      'Habitación': false
     },
 
-    'Ubicación': locationData,
+    'Ubicación': sortedLocationData,
 
     'Servicios': {
         'Agua': false,

@@ -14,7 +14,12 @@ module.exports = {
         checkboxThemeColor: 'rgb(var(--theme-checkbox-background-color))',
         checkboxThemeBorder: 'rgb(var(--theme-checkbox-border-color))',
         checkboxThemeSelected: 'rgb(var(--theme-checkbox-selected-color))',
-        
+
+        //Estilos Para Sections
+        sectionThemeBackground: 'rgb(var(--theme-section-background-color))',
+        sectionThemeBorder: 'rgb(var(--theme-section-border-color))',
+        sectionThemeShadow: 'rgb(var(--theme-section-shadow-color))',
+
         //Estilos para elementos
         elementThemeColor: 'rgb(var(--theme-element-background-color))',
 

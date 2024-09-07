@@ -1,13 +1,16 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 import { CategoryFilterContext } from './CategoryFilter.context';
-import { offertsData } from './offertsCardsObj';
 
-export const MainPagePaginationContext = createContext();
+export const MainPageContext = createContext();
 
-export const MainPagePaginationProvider = ({children}) => {
+import { generateMultipleCards } from './offertsCardsObj'; //TODO: DELETE ME
+
+export const MainPageProvider = ({children}) => {
 
     /**************************{ Declaraciones }**************************/
+
+    const offertsData = generateMultipleCards(100); //TODO: DELETE ME
 
     const MAX_ITEMS_PER_PAGE = 15;
 
@@ -18,7 +21,9 @@ export const MainPagePaginationProvider = ({children}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [filtredDataForCards, setFiltredDataForCards] = useState(offertsData);
     const [renderedCards, setRenderedCards] = useState(filtredDataForCards.slice(0, MAX_ITEMS_PER_PAGE));
+    const [searchTerm, setSearchTerm] = useState('');
 
+    
     const totalPages = Math.ceil(filtredDataForCards.length / MAX_ITEMS_PER_PAGE);
 
 
@@ -31,9 +36,10 @@ export const MainPagePaginationProvider = ({children}) => {
         paginationRederedCardHandeler();
     }, [currentPage, filtredDataForCards]);
 
+    //Se renderiza la pagina cada que cambian los filtros
     useEffect(() => {
-        offertsFilter()
-    }, [filterObj])
+        offertsFilter();
+    }, [filterObj, searchTerm]);
 
 
     /**************************{ Funciones }**************************/
@@ -42,8 +48,8 @@ export const MainPagePaginationProvider = ({children}) => {
 
     /*                         { Paginacion }                         */
 
-    const pageChangeHandler = (action) => {
 
+    const pageChangeHandler = (action) => {
         if(action == 'first' && currentPage !== 1) {
             setCurrentPage(1);
         };
@@ -75,23 +81,33 @@ export const MainPagePaginationProvider = ({children}) => {
     const offertsFilter = () => {
         const filteredCards = offertsData.filter((card) => {
 
+            //Funcion para leer filtros
             const filterReader = (category, cardData) => {
+
+                //En base al tipo/ubicacion/etc, de la carta, se busca su valor en el filterObj y se devuelve
                 if(Object.values(filterObj[category]).some((value) => value === true)) {
                     return filterObj[category][cardData];
-                }
+                };
                 
+                //En caso de que todos los valores de filterObj sean False, se devuelve true para que todas las cartas se muestren
                 return true
             };
 
             const typeFilter = filterReader('Tipo', card.type);
 
-            const locationFilter = filterReader('Ubicación', card.location)
+            const locationFilter = filterReader('Ubicación', card.location);
 
+            //Funcion para filtro de servicios
             const servicesFilter = Object.entries(filterObj['Servicios']).every(
+                
+                //Excluye las cartas donde el servicio seleccionado sea false
                 ([service, isSelected]) => !isSelected || card.services[service]
             );
-
+            
+            //Filtro de disponibilidad
             const availabilityFilter = (() => {
+
+                //Se guardan valores booleanos en base a la disponibilidad de la carta
                 const roomFilters = {
                   'Una Habitación': card.availability === 1,
                   'Dos a Cinco Hablitaciones': card.availability >= 2 && card.availability <= 5,
@@ -118,8 +134,7 @@ export const MainPagePaginationProvider = ({children}) => {
                 admitsFilter &&
                 hiddenFilter &&
                 availabilityFilter()
-            );
-           
+            );   
         });
 
         const sortedFiltered = [...filteredCards].sort((a, b) => {
@@ -143,29 +158,39 @@ export const MainPagePaginationProvider = ({children}) => {
             };
         });
 
-        setFiltredDataForCards(sortedFiltered);
+        //Filtro de busqueda por nombre
+        setFiltredDataForCards(sortedFiltered.filter(card =>
+            card.title.toLowerCase().includes(searchTerm.toLowerCase())
+        ));
+        
         setCurrentPage(1);
     };
 
+
+    /*                         { Busqueda  }                         */
+
     
-      
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
 
 
     /**************************{ Retorno }**************************/
 
 
     return(
-        <MainPagePaginationContext.Provider
+        <MainPageContext.Provider
             value={{
                 currentPage,
                 totalPages,
                 renderedCards,
+                searchTerm,
 
-                pageChangeHandler
+                pageChangeHandler,
+                handleSearchChange
             }}
         >
             {children}
-        </MainPagePaginationContext.Provider>
-    )
-
+        </MainPageContext.Provider>
+    );
 };

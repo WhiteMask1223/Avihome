@@ -87,7 +87,7 @@ function createOfferCard(id) {
 }
 
 // Crear múltiples cartas
-export function generateMultipleCards(count) {
+function generateMultipleCards(count) {
     const cards = [];
     for (let i = 0; i < count; i++) {
         cards.push(createOfferCard(i + 1));
@@ -95,6 +95,4 @@ export function generateMultipleCards(count) {
     return cards;
 }
 
-// Ejemplo: Crear 5 cartas
-const cards = generateMultipleCards(5);
-console.log(cards);
+export const offertsData = generateMultipleCards(100);

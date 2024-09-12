@@ -3,47 +3,52 @@
 import { useState } from 'react';
 
 export default function testFunction () {
+  // Estado para controlar la apertura/cierre del panel
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [cards, setCards] = useState([
-    { id: 1, title: 'Alabarda', ubicacion: 'Ubicación 1', rating: 4 },
-    { id: 2, title: 'Departamento', ubicacion: 'Ubicación 2', rating: 5 },
-    { id: 3, title: 'CUM', ubicacion: 'Ubicación 3', rating: 3 },
-    // ...otras tarjetas
-  ]);
-
-  // Función para manejar el cambio en el término de búsqueda
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+  // Función para alternar la apertura/cierre del panel
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
   };
-
-  // Filtrar las tarjetas basadas en el término de búsqueda
-  const filteredCards = cards.filter(card =>
-    card.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Buscar..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="p-2 mb-4 border border-gray-300 rounded"
-      />
+      {/* Botón para abrir/cerrar el panel */}
+      <button
+        onClick={toggleSidebar}
+        className="fixed top-4 left-4 z-50 p-2 bg-teal-500 text-white rounded-lg focus:outline-none"
+      >
+        {isOpen ? 'Cerrar' : 'Menú'}
+      </button>
 
-      <div className="grid grid-cols-3 gap-4">
-        {filteredCards.slice(0, 15).map((card) => (
-           <div className="border rounded-lg p-4">
-           <div className="bg-gray-300 h-32 mb-2"></div>
-           <h3 className="text-xl font-semibold">{card.title}</h3>
-           <p className="text-gray-500">{card.ubicacion}</p>
-           <div className="flex items-center">
-             <span>{'⭐'.repeat(card.rating)}</span>
-           </div>
-         </div>
-        ))}
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-gray-800 text-white p-6 transform ${
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 ease-in-out z-40`}
+      >
+        <h2 className="text-2xl font-semibold mb-4">Menú</h2>
+        <ul className="space-y-4">
+          <li>
+            <button className="w-full text-left px-4 py-2 bg-teal-500 rounded hover:bg-teal-600">
+              Iniciar Sesión
+            </button>
+          </li>
+          <li>
+            <button className="w-full text-left px-4 py-2 bg-teal-500 rounded hover:bg-teal-600">
+              Registrarse
+            </button>
+          </li>
+        </ul>
       </div>
+
+      {/* Fondo oscuro cuando el panel está abierto */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black opacity-50 z-30"
+          onClick={toggleSidebar}
+        ></div>
+      )}
     </div>
   );
 }

@@ -1,8 +1,10 @@
-export default function OffertCard({ imageSrc, title, location, rating, availability, type }) {
-  return (
-    <div className="w-52 bg-sectionThemeBackground border border-sectionThemeBorder rounded-xl shadow-lg shadow-sectionThemeShadow p-2 my-2 mx-auto cursor-pointer">
+import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
-      <div className="bg-sectionThemeShadow h-40 rounded-xl flex items-center justify-center">
+export default function OffertCard({ imageSrc, title, location, rating, availability }) {
+  return (
+    <div className={OFFERTS_PANEL_STYLES.GENERAL_STYLES}>
+
+      <div className={OFFERTS_PANEL_STYLES.IMG_DIV}>
         {imageSrc ? (
           <img src={imageSrc} alt={'IMG'} className="w-full h-full object-cover rounded-xl" />
         ) : (
@@ -11,10 +13,10 @@ export default function OffertCard({ imageSrc, title, location, rating, availabi
       </div>
       
       {/* Título */}
-      <h2 className="mt-4 text-lg font-bold overflow-hidden text-ellipsis whitespace-nowrap">{title}</h2>
+      <h2 className={OFFERTS_PANEL_STYLES.TITTLE}>{title}</h2>
       
       {/* Ubicación */}
-      <p className="text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap">{location}</p>
+      <p className={OFFERTS_PANEL_STYLES.LOCATION}>{location}</p>
       
       <div className="flex items-center justify-between mt-2">
 
@@ -27,7 +29,10 @@ export default function OffertCard({ imageSrc, title, location, rating, availabi
           ))}
         </div>
 
-        <span className="mx-4 font-bold text-right">{availability}</span>
+        <div className="relative inline-block">
+          <i className={`ri-home-2-fill text-4xl ${availability == 0 ? 'text-red-500' : 'text-checkboxThemeSelected'}`}></i>
+          <span className={OFFERTS_PANEL_STYLES.AVAILABILITY}>{availability}</span>
+        </div>
 
       </div>
     </div>

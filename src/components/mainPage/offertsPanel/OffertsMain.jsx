@@ -25,7 +25,6 @@ export default function OffertsMain() {
                     location={card.location}
                     rating={card.rating}
                     availability={card.availability}
-                    type={card.type}
                     />
                 ))}   
             </div>

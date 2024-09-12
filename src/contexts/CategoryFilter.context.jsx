@@ -63,8 +63,15 @@ const filterObjConstructor = {
 
     sortBy: "bestRated",
 
-    showHidden: false
+    showHidden: false,
 
+    icons: {
+        'Tipo': "ri-community-line", 
+        'Ubicación': "ri-road-map-line",
+        'Servicios': "ri-flashlight-line",
+        'Disponibilidad': "ri-home-2-line",
+        'Admite': "ri-group-line"
+    }
 };
 
 

@@ -4,13 +4,11 @@ import { CategoryFilterContext } from './CategoryFilter.context';
 
 export const MainPageContext = createContext();
 
-import { generateMultipleCards } from './offertsCardsObj'; //TODO: DELETE ME
+import { offertsData } from './offertsCardsObj'; //TODO: DELETE ME
 
 export const MainPageProvider = ({children}) => {
 
     /**************************{ Declaraciones }**************************/
-
-    const offertsData = generateMultipleCards(100); //TODO: DELETE ME
 
     const MAX_ITEMS_PER_PAGE = 15;
 
@@ -174,6 +172,10 @@ export const MainPageProvider = ({children}) => {
         setSearchTerm(event.target.value);
     };
 
+    const clearSearchInput = () => {
+        setSearchTerm('');
+    };
+
 
     /**************************{ Retorno }**************************/
 
@@ -187,7 +189,8 @@ export const MainPageProvider = ({children}) => {
                 searchTerm,
 
                 pageChangeHandler,
-                handleSearchChange
+                handleSearchChange,
+                clearSearchInput
             }}
         >
             {children}

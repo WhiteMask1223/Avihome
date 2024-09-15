@@ -2,16 +2,16 @@
 
 import { CategoryFilterProvider } from "@/contexts/CategoryFilter.context"
 import { MainPageProvider } from "@/contexts/MainPage.context";
-import { SidebarsProvider } from "@/contexts/Sidebars.context";
+import { UtilityProvider } from "@/contexts/Utility.context";
 
 export default function ContextProvider({children}) {
     return(
-        <SidebarsProvider>
+        <UtilityProvider>
             <CategoryFilterProvider>
                 <MainPageProvider>
                     {children}
                 </MainPageProvider>
             </CategoryFilterProvider>
-        </SidebarsProvider>
+        </UtilityProvider>
     );
 };

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function testFunction () {
+export default function TestFunction () {
   // Estado para controlar la apertura/cierre del panel
   const [isOpen, setIsOpen] = useState(false);
 

@@ -1,20 +1,15 @@
-import Link from "next/link";
-
 import { useContext } from "react";
 
-import { SidebarsContext } from "@/contexts/Sidebars.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 export default function NavSession() {
 
-    const { toggleSessionSidebar } = useContext(SidebarsContext);
+    const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex);
 
     return(
-        <div className="flex space-x-4 text-right">
-            {/*<Link href="/login" className="text-white px-4 py-2">Iniciar Sesión</Link>*
-            <Link href="/signin" className="bg-[#0FAB9F] text-white px-4 py-2 rounded-lg hover:bg-[#0B8D83]">Registrarse</Link>*/}   
-
+        <div className="right-0 space-x-4 text-right">
             <button onClick={toggleSessionSidebar}>
-                <i class="ri-account-circle-fill text-6xl mr-2 text-white"></i>
+                <i class={`ri-account-circle-fill text-6xl mr-2 text-white transition-all ${sessionSidebar? "text-[#13d6c3]" : ""}`}></i>
             </button>
         </div>
     );

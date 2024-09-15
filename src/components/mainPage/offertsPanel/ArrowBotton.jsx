@@ -4,13 +4,14 @@ export default function ArrowBotton({action, onClickHandler, currentPage, totalP
     const disabledHandler = () => {
         if(currentPage === 1 && direction === 'left'){return true};
         if(currentPage === totalPages && direction === 'right'){return true};
+        if(totalPages === 0){return true}
         return false
     };
 
     return(
         <button
                 onClick = {() => {onClickHandler(action)}}
-                disabled = {direction === 'left' ? currentPage === 1 : currentPage === totalPages}   
+                disabled = {disabledHandler()}   
                 className={`${
                 disabledHandler() ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"
                 } text-xl`}

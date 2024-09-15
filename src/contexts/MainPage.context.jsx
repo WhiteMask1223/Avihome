@@ -16,14 +16,13 @@ export const MainPageProvider = ({children}) => {
     const {filterObj} = useContext(CategoryFilterContext);
  
 
-    const [currentPage, setCurrentPage] = useState(1);
     const [filtredDataForCards, setFiltredDataForCards] = useState(offertsData);
     const [renderedCards, setRenderedCards] = useState(filtredDataForCards.slice(0, MAX_ITEMS_PER_PAGE));
     const [searchTerm, setSearchTerm] = useState('');
-
     
     const totalPages = Math.ceil(filtredDataForCards.length / MAX_ITEMS_PER_PAGE);
 
+    const [currentPage, setCurrentPage] = useState(totalPages - (totalPages - 1));
 
 
     /**************************{ UseEfects }**************************/
@@ -60,7 +59,7 @@ export const MainPageProvider = ({children}) => {
             setCurrentPage(currentPage + 1);
         };
 
-        if(action == 'last' && currentPage !== totalPages) {
+        if(action == 'last' && currentPage !== totalPages && totalPages !== 0) {
             setCurrentPage(totalPages);
         };  
     };

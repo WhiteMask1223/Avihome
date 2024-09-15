@@ -60,3 +60,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.link {
+  width: 100%;
+}

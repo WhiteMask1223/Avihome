@@ -2,12 +2,12 @@ import { useContext } from "react"
 
 import { MainPageContext } from "@/contexts/MainPage.context"
 
-export default function SearchBar() {
+export default function SearchBar({filterSidebar}) {
 
     const { handleSearchChange, clearSearchInput, searchTerm } = useContext(MainPageContext)
 
     return(
-        <div className="hidden sm:inline">
+        <div className={`${filterSidebar ? "inline sm:hidden" : "hidden sm:inline"}`}>
             <div className="flex items-center">
                 <input 
                     type="text"

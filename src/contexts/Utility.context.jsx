@@ -8,10 +8,12 @@ export const UtilityProvider = ({children}) => {
 
     const toggleSessionSidebar = () => {
         setSessionSidebar(!sessionSidebar);
+        setFilterSidebar(false);
     };
 
     const toggleFilterSidebar = () => {
-        setFilterSidebar(!filterSidebar)
+        setFilterSidebar(!filterSidebar);
+        setSessionSidebar(false);
     };
 
     return (

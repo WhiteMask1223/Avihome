@@ -16,7 +16,7 @@ export default function OffertsMain() {
         <div>
             <PagingCounter pageChangeHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages}/>
 
-            <div className="grid grid-cols-3 gap-3 px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3 px-4">
                 {renderedCards.map((card) => (
                     <OffertCard
                     key={card.id}

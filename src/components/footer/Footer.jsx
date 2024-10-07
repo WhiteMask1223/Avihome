@@ -1,6 +1,6 @@
 export default function Footer() {
     return(
-        <footer className="bg-[#1d2626] text-white py-4 mt-2">
+        <footer className="bg-[#1d2626] text-white py-6 mt-2">
             <div className="container mx-auto text-center">
             <p>2024 Avihome.</p>
             <div className="mt-2 flex justify-center space-x-4">

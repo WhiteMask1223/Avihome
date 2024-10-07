@@ -1,35 +1,34 @@
 "use client"
 
 import { useContext } from "react"
-
 import Link from "next/link";
 
 import { UtilityContex } from "@/contexts/Utility.context"
+
+import { NAVBAR_STYLES } from "./navBarStyles";
 
 export default function NavSessionSidebar() {
 
     const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex)
 
     return (
-        <div>
+        <menu>
             <div
-            className={`fixed right-0 h-full w-screen sm:w-64 bg-sectionThemeBackground p-6 transform ${
-            sessionSidebar ? 'translate-x-0' : 'translate-x-full'
-            } transition-transform duration-300 ease-in-out z-40`}>
+            className={NAVBAR_STYLES.SIDEBAR(sessionSidebar)}>
                 <h2 className="text-2xl font-semibold mb-4">Menú de Sesión</h2>
                 <ul>
-                    <li className="w-full items-center py-2 border border-transparent border-b-sectionThemeShadow">
-                        <Link href="/login" className="py-2" onClick={toggleSessionSidebar}>
+                    <li className={NAVBAR_STYLES.SIDEBAR_LI}>
+                        <Link href="/login" className="text-lg sm:text-base" onClick={toggleSessionSidebar}>
                             Iniciar Sesión
                         </Link>
                     </li>
-                    <li className="w-full items-center py-2 border border-transparent border-b-sectionThemeShadow">
-                        <Link href="/signin" className="py-2" onClick={toggleSessionSidebar}>
+                    <li className={NAVBAR_STYLES.SIDEBAR_LI}>
+                        <Link href="/signup" className="text-lg sm:text-base" onClick={toggleSessionSidebar}>
                             Registrarse
                         </Link>  
                     </li>
                 </ul>
             </div>
-        </div>
+        </menu>
     )
 }

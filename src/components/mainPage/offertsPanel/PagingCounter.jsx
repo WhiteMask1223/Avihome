@@ -1,18 +1,18 @@
-import ArrowBotton from "./ArrowBotton";
+import ArrowBotton from "../../UI/ArrowBotton";
 
 export default function PagingCounter({pageChangeHandler, currentPage, totalPages}) {
     return(
         <div className="flex items-center justify-center space-x-2 my-3">
             
-            <ArrowBotton action={'first'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'left'} double={true}/>
+            <ArrowBotton acction={'first'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'left'} double={true}/>
 
-            <ArrowBotton action={'previous'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'left'} double={false}/>
+            <ArrowBotton acction={'previous'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'left'} double={false}/>
 
-            <span className="font-bold">{currentPage}</span>
+            <span className="font-bold text-xl sm:text-base">{currentPage}</span>
 
-            <ArrowBotton action={'next'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'right'} double={false}/>
+            <ArrowBotton acction={'next'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'right'} double={false}/>
 
-            <ArrowBotton action={'last'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'right'} double={true}/>
+            <ArrowBotton acction={'last'} onClickHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages} direction={'right'} double={true}/>
 
         </div>
     )

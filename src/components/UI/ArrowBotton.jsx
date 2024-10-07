@@ -1,4 +1,4 @@
-export default function ArrowBotton({action, onClickHandler, currentPage, totalPages, direction, double}) {
+export default function ArrowBotton({acction, onClickHandler, currentPage, totalPages, direction, double}) {
 
 
     const disabledHandler = () => {
@@ -10,11 +10,11 @@ export default function ArrowBotton({action, onClickHandler, currentPage, totalP
 
     return(
         <button
-                onClick = {() => {onClickHandler(action)}}
+                onClick = {() => {onClickHandler(acction)}}
                 disabled = {disabledHandler()}   
                 className={`${
                 disabledHandler() ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"
-                } text-xl`}
+                } text-3xl sm:text-xl`}
             >
             {double === true ? <i className={`ri-arrow-${direction}-double-line`}></i> : <i className={`ri-arrow-${direction}-s-line`}></i>}
         </button>

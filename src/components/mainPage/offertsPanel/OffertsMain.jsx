@@ -7,16 +7,18 @@ import { MainPageContext } from "@/contexts/MainPage.context";
 import PagingCounter from "./PagingCounter";
 import OffertCard from "./OffertCard";
 
+import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
+
 export default function OffertsMain() {
 
     const {currentPage, totalPages, renderedCards, pageChangeHandler} = useContext(MainPageContext);
 
 
     return (
-        <div>
+        <section className="mt-24">
             <PagingCounter pageChangeHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages}/>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-3 px-4">
+            <div className = {OFFERTS_PANEL_STYLES.MAIN_GRID}>
                 {renderedCards.map((card) => (
                     <OffertCard
                     key={card.id}
@@ -30,6 +32,6 @@ export default function OffertsMain() {
             </div>
             
             <PagingCounter pageChangeHandler={pageChangeHandler} currentPage={currentPage} totalPages={totalPages}/>
-        </div>
+        </section>
     );
 }

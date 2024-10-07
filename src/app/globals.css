@@ -23,6 +23,11 @@
   /*Estilos de paginacion*/
   --theme-arrow-color: 0, 0, 0;
   --theme-arrow-disable-color: 175, 175, 175;
+
+  /*Estilos para botones Danger*/
+  --theme-dangerButton-color: 219, 167, 167;
+  --theme-dangerButton-disable-color: 200, 200, 200;
+  --theme-dangerButton-icons: 161, 3, 3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +52,11 @@
     /*Estilos de paginacion*/
     --theme-arrow-color: 255, 255, 255;
     --theme-arrow-disable-color: 50, 50, 50;
+
+    /*Estilos para botones Danger*/
+    --theme-dangerButton-color: 115, 11, 11;
+    --theme-dangerButton-disable-color: 50, 50, 50;
+    --theme-dangerButton-icons: 255, 117, 117;
   }
 }
 

@@ -50,7 +50,7 @@ const filterObjConstructor = {
 
     'Disponibilidad': {
         'Una Habitación': false,
-        'Dos a Cinco Hablitaciones': false,
+        'Dos a Cinco Habitaciones': false,
         'Cinco a Diez Habitaciones': false,
         'Más de Diez Habitaciones': false
     },

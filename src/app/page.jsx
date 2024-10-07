@@ -1,8 +1,7 @@
 import SidebarSection from "@/components/mainPage/aside/SidebarSection";
 import OffertsMain from "@/components/mainPage/offertsPanel/OffertsMain";
-import SidebarDarkBg from "@/components/utility/SidebarDarkBg";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main>
       <div className="flex">
@@ -10,7 +9,6 @@ export default function Home() {
         <div className="h-full w-fit mx-auto text-center">
           <OffertsMain></OffertsMain>
         </div>
-        <SidebarDarkBg></SidebarDarkBg>
       </div>
     </main>
   );

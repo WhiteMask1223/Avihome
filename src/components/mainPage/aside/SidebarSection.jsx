@@ -17,7 +17,7 @@ export default function SidebarSection() {
     const { filterSidebar } = useContext(UtilityContex)
 
     return (
-        <section className={`fixed sm:static text-left left-0 h-full w-screen sm:w-64 bg-sectionThemeBackground sm:bg-transparent p-6 transform overflow-scroll ${ filterSidebar ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} transition-transform duration-300 ease-in-out z-40 sm:z-10`}>
+        <section className={ASIDE_STYLES.MAIN_SECTION(filterSidebar)}>
             <aside>
                 <div>
 

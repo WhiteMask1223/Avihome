@@ -25,7 +25,12 @@ module.exports = {
 
         //Estilos de paginación
         arrowThemeColor: 'rgb(var(--theme-arrow-color))',
-        arrowDisableThemeColor: 'rgb(var(--theme-arrow-disable-color))'
+        arrowDisableThemeColor: 'rgb(var(--theme-arrow-disable-color))',
+
+        //Estilos para Danger Buttons
+        dangerButtonThemeColor: 'rgb(var(--theme-dangerButton-color))',
+        dangerButtonDisableThemeColor: 'rgb(var(--theme-dangerButton-disable-color))',
+        dangerButtonIconsThemeColor: 'rgb(var(--theme-dangerButton-icons))'
       },
 
       backgroundImage: {

@@ -2,6 +2,7 @@
 
 import { useContext } from "react"
 import Link from "next/link";
+import { signIn, signOut } from "next-auth/react";
 
 import { UtilityContex } from "@/contexts/Utility.context"
 
@@ -18,7 +19,7 @@ export default function NavSessionSidebar() {
                 <h2 className="text-2xl font-semibold mb-4">Menú de Sesión</h2>
                 <ul>
                     <li className={NAVBAR_STYLES.SIDEBAR_LI}>
-                        <Link href="/login" className="text-lg sm:text-base" onClick={toggleSessionSidebar}>
+                        <Link href="/login" className="text-lg sm:text-base" onClick={() => signIn()}>
                             Iniciar Sesión
                         </Link>
                     </li>
@@ -26,6 +27,9 @@ export default function NavSessionSidebar() {
                         <Link href="/signup" className="text-lg sm:text-base" onClick={toggleSessionSidebar}>
                             Registrarse
                         </Link>  
+                    </li>
+                    <li>
+                        <button onClick={() => signOut()}>Logout</button>
                     </li>
                 </ul>
             </div>

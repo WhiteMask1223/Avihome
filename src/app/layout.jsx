@@ -3,6 +3,7 @@ import 'remixicon/fonts/remixicon.css';
 
 
 import ContextProvider from "@/components/ContextProvider";
+import SessionWrapper from "@/components/SessionWrapper";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer/Footer";
 import SidebarDarkBg from "@/components/UI/SidebarDarkBg";
@@ -14,14 +15,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
+    <html lang="es"> 
       <body>
-        <ContextProvider>
-          <NavBar></NavBar>
-            {children}
-          <Footer></Footer>
-          <SidebarDarkBg></SidebarDarkBg>
-        </ContextProvider>
+        <SessionWrapper>
+          <ContextProvider>
+            <NavBar></NavBar>
+              {children}
+            <Footer></Footer>
+            <SidebarDarkBg></SidebarDarkBg>
+          </ContextProvider>
+        </SessionWrapper>
       </body>
     </html>
   );

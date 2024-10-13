@@ -11,20 +11,20 @@ export default function OffertCard({ imageSrc, title, location, rating, availabi
           <span className="text-gray-400">IMG</span>
         )}
       </div>
-      
+
       {/* Título */}
       <h2 className={OFFERTS_PANEL_STYLES.TITTLE}>{title}</h2>
-      
+
       {/* Ubicación */}
       <p className={OFFERTS_PANEL_STYLES.LOCATION}>{location}</p>
-      
+
       <div className="flex items-center justify-between mt-2">
 
         {/* Calificación */}
         <div className="mx-2">
           {Array(5).fill().map((_, index) => (
             <span key={index}>
-              { index < rating ? <i className="ri-star-fill text-checkboxThemeSelected text-lg"></i> : <i className="ri-star-line text-checkboxThemeSelected text-lg"></i> }
+              {index < rating ? <i className="ri-star-fill text-checkboxThemeSelected text-lg"></i> : <i className="ri-star-line text-checkboxThemeSelected text-lg"></i>}
             </span>
           ))}
         </div>

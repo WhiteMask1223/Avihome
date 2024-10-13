@@ -1,10 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 import AuthSecction from "@/components/Auth/AuthSection";
-import VariableInput from "@/components/UI/VariableInput"
+import VariableInput from "@/components/UI/VariableInput";
 
 export default function LoginPage() {
 
@@ -12,6 +15,10 @@ export default function LoginPage() {
         email: '',
         password: ''
     }
+
+    const router = useRouter();
+
+    const { data: session, status } = useSession()
 
     const [loginData, setLoginData] = useState(loginDataObjTemplate);
     const [showPassword, setShowPassword] = useState(false);
@@ -24,11 +31,26 @@ export default function LoginPage() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(loginData)
+        const email = loginData.email
+        const password = loginData.password
 
+        console.log( session )
+        const authResult = await signIn("credentials", {
+            redirect: false,
+            email,
+            password
+        });
+        console.log(authResult)
+        if (authResult.error) {
+            console.log('login Error')  
+        } else {
+            console.log('login')  
+            //router.push("/")
+        }
+        
         setLoginData(loginDataObjTemplate)
     };
 
@@ -36,7 +58,7 @@ export default function LoginPage() {
         <AuthSecction>
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Iniciar Sesión</h1>
             <form onSubmit={handleSubmit} className="mt-2">
-
+                {status}
                 {/* Email Input */}
                 <div className="mt-6">
                     <label htmlFor="email">

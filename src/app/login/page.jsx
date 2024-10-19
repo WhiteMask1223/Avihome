@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
-import AuthSecction from "@/components/Auth/AuthSection";
+import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
+
+import { validateEmail } from "@/validations/user.validation";
 
 export default function LoginPage() {
 
@@ -18,9 +19,8 @@ export default function LoginPage() {
 
     const router = useRouter();
 
-    const { data: session, status } = useSession()
-
     const [loginData, setLoginData] = useState(loginDataObjTemplate);
+    const [credentialsError, setCredentialsError] = useState([false, ''])
     const [showPassword, setShowPassword] = useState(false);
 
 
@@ -32,39 +32,44 @@ export default function LoginPage() {
     };
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         const email = loginData.email
         const password = loginData.password
 
-        console.log( session )
+        if (!validateEmail(email)) {
+            setCredentialsError([true, 'Introduzca un Correo Válido']);
+            return
+        };
+        
         const authResult = await signIn("credentials", {
             redirect: false,
             email,
             password
         });
-        console.log(authResult)
+
         if (authResult.error) {
-            console.log('login Error')  
+            setCredentialsError([true, 'Credenciales Incorrectas o Usuario Inexistente']);
         } else {
-            console.log('login')  
-            //router.push("/")
+            console.log(authResult)
+            router.push("/");
         }
-        
-        setLoginData(loginDataObjTemplate)
     };
 
     return (
         <AuthSecction>
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Iniciar Sesión</h1>
             <form onSubmit={handleSubmit} className="mt-2">
-                {status}
+
+                <h2 className="text-center font-bold text-red-500">{credentialsError[1]}</h2>
+
                 {/* Email Input */}
                 <div className="mt-6">
                     <label htmlFor="email">
                         Correo Electrónico
                     </label>
-                    <VariableInput type={"email"} id={"email"} value={loginData.email} setStateFunction={updateLoginData} autoComplete={"off"} />
+                    <VariableInput type={"email"} id={"email"} value={loginData.email} setStateFunction={updateLoginData} error={credentialsError[0]} autoComplete={"off"} />
                 </div>
 
                 {/* Password Input */}
@@ -72,7 +77,7 @@ export default function LoginPage() {
                     <label htmlFor="password">
                         Contraseña
                     </label>
-                    <VariableInput type={`${showPassword ? "text" : "password"}`} id={"password"} value={loginData.password} setStateFunction={updateLoginData} autoComplete={"off"} />
+                    <VariableInput type={`${showPassword ? "text" : "password"}`} id={"password"} value={loginData.password} setStateFunction={updateLoginData} error={credentialsError[0]} autoComplete={"off"} />
 
                     <button type="button" onClick={() => {setShowPassword(!showPassword)}} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>

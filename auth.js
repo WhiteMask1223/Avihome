@@ -1,10 +1,12 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials"
 
+import { NEXTAUTH_SECRET } from "@/config";
+
 import { users } from "@/utils/provisionalDB";
 
 const authOptions = {
-    secret: process.env.AUTH_SECRET,
+    secret: NEXTAUTH_SECRET,
     providers: [
         Credentials({
             credentials: {
@@ -15,10 +17,10 @@ const authOptions = {
             authorize: async (credentials) => {
                 let user = null
 
-                console.log(credentials)
+                console.log(credentials) //TODO: DELETE ME
 
                 user = users.find(user => user.email === credentials.email)
-                console.log(user)
+                console.log(user) //TODO: DELETE ME
                 
                 try {
                     if (!user) {
@@ -31,14 +33,14 @@ const authOptions = {
                 } catch (error) {
                     console.log(error)
                 }
-                console.log('login')
+                console.log('login') //TODO: DELETE ME
                 return user
             }
         })
     ],
     pages: {
         signIn: '/login',
-
+        error: '/'
     },
     session: {
         strategy: 'jwt'
@@ -58,4 +60,4 @@ const authOptions = {
 }
 
 
-export const { handlers } = NextAuth(authOptions);
+export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);

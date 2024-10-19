@@ -5,6 +5,7 @@ export const users = [
         email: 'renielfernandez13@gmail.com',
         password: 'White2312',
         contactEmail: '',
-        contactPhone: '04240000000'
+        contactPhone: '04240000000',
+        role: 'admin'
     }
 ]

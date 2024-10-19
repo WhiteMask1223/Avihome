@@ -3,8 +3,10 @@
 import { useState } from "react"
 import Link from "next/link";
 
-import AuthSecction from "@/components/Auth/AuthSection";
+import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput"
+
+import { validateEmail } from "@/validations/user.validation";
 
 export default function SingInPage() {
 
@@ -27,14 +29,6 @@ export default function SingInPage() {
         }));
     }
 
-    const validateEmail = (email) => {
-        return String(email)
-            .toLowerCase()
-            .match(
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-    };
-
     const handleShowPassword = (pswRepeat) => {
         if (pswRepeat) {
             setShowPassword((prevObj) => ({ ...prevObj, pswR: !showPassword.pswR }));
@@ -46,15 +40,15 @@ export default function SingInPage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log('login attempt')
         if (!validateEmail(registrationData.email)) {
-            setEmail('');
+            updateRegistrationData("email", '');
             return
         }
 
         if (registrationData.password !== registrationData.passwordRepeat) {
-            setPassword('');
-            setPasswordRepeat('');
+            updateRegistrationData("password", '');
+            updateRegistrationData("passwordRepeat", '');
             return
         }
 
@@ -111,7 +105,7 @@ export default function SingInPage() {
                     <label htmlFor="altEmail">
                         Correo Electrónico Alternativo
                     </label>
-                    <VariableInput type={"email"} id={"altEmail"} value={registrationData.altEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
+                    <VariableInput type={"text"} id={"altEmail"} value={registrationData.altEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
                 </div>
 
                 {/* phoneNumber Input */}
@@ -119,7 +113,7 @@ export default function SingInPage() {
                     <label htmlFor="phpneNumber">
                         Teléfono de Contacto
                     </label>
-                    <VariableInput type={"text"} id={"phoneNumber"} value={registrationData.altEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
+                    <VariableInput type={"text"} id={"phoneNumber"} value={registrationData.phoneNumber} setStateFunction={updateRegistrationData} autoComplete={"off"} />
                 </div>
 
                 {/* SingIn Button */}

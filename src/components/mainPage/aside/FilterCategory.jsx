@@ -6,7 +6,7 @@ export default function FilterCategory({ category, filterObj, handleClick}) {
     return(
         <details className="group">
             <summary className={ASIDE_STYLES.CATEGORY_STYLE}>
-                <i class={`${filterObj.icons[category]} ${ASIDE_STYLES.CATEGORY_ICON_STYLE}`}></i> 
+                <i className={`${filterObj.icons[category]} ${ASIDE_STYLES.CATEGORY_ICON_STYLE}`}></i> 
                 {category}
             </summary>
             

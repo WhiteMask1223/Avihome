@@ -24,14 +24,14 @@ const authOptions = {
                 
                 try {
                     if (!user) {
-                        throw new Error("User Not Found.")
+                        return
                     }
 
                     if (user.password !== credentials.password) {
-                        throw new Error("Passoword Wrong")
+                        return
                     }
                 } catch (error) {
-                    console.log(error)
+                    console.log('login Error')
                 }
                 console.log('login') //TODO: DELETE ME
                 return user

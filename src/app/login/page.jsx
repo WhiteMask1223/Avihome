@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import { UserContext } from "@/contexts/User.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
@@ -18,6 +20,8 @@ export default function LoginPage() {
     }
 
     const router = useRouter();
+
+    const { setAuth } = useContext(UserContext);
 
     const [loginData, setLoginData] = useState(loginDataObjTemplate);
     const [credentialsError, setCredentialsError] = useState([false, ''])
@@ -52,7 +56,8 @@ export default function LoginPage() {
         if (authResult.error) {
             setCredentialsError([true, 'Credenciales Incorrectas o Usuario Inexistente']);
         } else {
-            console.log(authResult)
+            console.log(authResult);
+            setAuth(true);
             router.push("/");
         }
     };

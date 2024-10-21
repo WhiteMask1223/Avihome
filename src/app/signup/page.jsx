@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState } from "react";
 import Link from "next/link";
 
 import AuthSecction from "@/components/auth/AuthSection";
-import VariableInput from "@/components/UI/VariableInput"
+import VariableInput from "@/components/UI/VariableInput";
+
+import { registerUser } from "@/api/auth.api";
 
 import { validateEmail } from "@/validations/user.validation";
 
@@ -29,36 +31,35 @@ export default function SingInPage() {
         }));
     }
 
-    const handleShowPassword = (pswRepeat) => {
-        if (pswRepeat) {
-            setShowPassword((prevObj) => ({ ...prevObj, pswR: !showPassword.pswR }));
-            return
-        };
-
-        setShowPassword((prevObj) => ({ ...prevObj, psw: !showPassword.psw }));
+    const handleShowPassword = (key, newValue) => {
+        setShowPassword((prevValue) => ({
+            ...prevValue,
+            [key]: newValue
+        }));
     };
 
     const handleSubmit = (e) => {
+
         e.preventDefault();
-        console.log('login attempt')
+        
+        console.log('login attempt');
+
         if (!validateEmail(registrationData.email)) {
             updateRegistrationData("email", '');
             return
-        }
+        };
 
-        if (registrationData.password !== registrationData.passwordRepeat) {
+        if (registrationData.password !== registrationData.passwordRepeat || registrationData.password < 6) {
             updateRegistrationData("password", '');
             updateRegistrationData("passwordRepeat", '');
             return
-        }
+        };
 
-        if (registrationData.password < 6) {
-            return
-        }
-
+        registerUser(registrationData)
         console.log(registrationData)
         setRegistrationData(registrationDataObjTemplate)
     };
+
 
     return (
         <AuthSecction>
@@ -88,7 +89,7 @@ export default function SingInPage() {
                     </label>
                     <VariableInput type={`${showPassword.psw ? "text" : "password"}`} id={"password"} value={registrationData.password} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
 
-                    <button type="button" onClick={() => { handleShowPassword(false) }} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { handleShowPassword('psw', !showPassword.psw) }} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>
 
                 <div>
@@ -97,13 +98,13 @@ export default function SingInPage() {
                     </label>
                     <VariableInput type={`${showPassword.pswR ? "text" : "password"}`} id={"passwordRepeat"} value={registrationData.passwordRepeat} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
 
-                    <button type="button" onClick={() => { handleShowPassword(true) }} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { handleShowPassword('pswR', !showPassword.pswR) }} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>
 
                 {/* altEmail Input */}
                 <div className="mt-6">
                     <label htmlFor="altEmail">
-                        Correo Electrónico Alternativo
+                        Correo Electrónico de Contacto
                     </label>
                     <VariableInput type={"text"} id={"altEmail"} value={registrationData.altEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
                 </div>

@@ -1,10 +1,12 @@
-import { registerUser_Controller } from "@/controllers/auth.controller";
+import { registerUser_Controller } from "@/controllers/user.controller";
 
 export async function POST(request) {
-    const requestData = await request.json();
-    const response = await registerUser_Controller(requestData);
+    try {
+        const requestData = await request.json();
+        const response = await registerUser_Controller(requestData);
 
-    console.log(response);
-    
-    return Response.json({message: 'hola'});
-}
+        return Response.json(response);
+    } catch (error) {
+        console.log(error);
+    };
+};

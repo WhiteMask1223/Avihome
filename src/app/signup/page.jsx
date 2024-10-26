@@ -6,7 +6,7 @@ import Link from "next/link";
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
 
-import { registerUser } from "@/api/auth.api";
+import { registerUser } from "@/api/user.api";
 
 import { validateEmail } from "@/validations/user.validation";
 
@@ -38,7 +38,7 @@ export default function SingInPage() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
         
@@ -55,9 +55,10 @@ export default function SingInPage() {
             return
         };
 
-        registerUser(registrationData)
-        console.log(registrationData)
-        setRegistrationData(registrationDataObjTemplate)
+        const registerResponse = await registerUser(registrationData);
+        
+        console.log(registerResponse.data);
+        setRegistrationData(registrationDataObjTemplate);
     };
 
 

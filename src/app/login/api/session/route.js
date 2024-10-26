@@ -4,8 +4,8 @@ export async function GET() {
     try {
         const userSession = await getSession_Controller();
         
-        return Response.json(userSession)
+        return Response.json(userSession);
     } catch (error) {
-        console.log(error)
-    }
-}
+        console.log(error);
+    };
+};

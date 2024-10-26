@@ -3,6 +3,8 @@ import Credentials from "next-auth/providers/credentials"
 
 import { NEXTAUTH_SECRET } from "@/config";
 
+const bcrypt = require('bcrypt');
+import { getUserByEmail_Controller } from "@/controllers/user.controller";
 import { users } from "@/utils/provisionalDB";
 
 const authOptions = {
@@ -10,30 +12,33 @@ const authOptions = {
     providers: [
         Credentials({
             credentials: {
-                email: {label:"username", type:"text"},
-                password: {label:"password", type:"password"},
+                email: { label: "username", type: "text" },
+                password: { label: "password", type: "password" },
             },
 
             authorize: async (credentials) => {
                 let user = null
 
-                console.log(credentials) //TODO: DELETE ME
+                console.log('crdenciales desde auth.js: ', credentials); //TODO: DELETE ME
+                
+                const apiUser = await getUserByEmail_Controller(credentials.email)
+
+                console.log(apiUser)
 
                 user = users.find(user => user.email === credentials.email)
-                console.log(user) //TODO: DELETE ME
                 
-                try {
-                    if (!user) {
-                        return
-                    }
+                console.log(user); //TODO: DELETE ME
 
-                    if (user.password !== credentials.password) {
-                        return
-                    }
+                try {
+                    if (!user) return
+
+                    if (
+                        await bcrypt.compare(credentials.password, user.password) === false
+                    ) return
+
                 } catch (error) {
                     console.log('login Error')
                 }
-                console.log('login') //TODO: DELETE ME
                 return user
             }
         })
@@ -46,13 +51,13 @@ const authOptions = {
         strategy: 'jwt'
     },
     callbacks: {
-        async jwt({ token, user}) {
-            if(user) {
+        async jwt({ token, user }) {
+            if (user) {
                 token.id = user.id;
             }
             return token;
         },
-        async session({ session, token}) {
+        async session({ session, token }) {
             session.user.id = token.id;
             return session
         }

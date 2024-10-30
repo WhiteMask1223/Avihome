@@ -5,7 +5,6 @@ import { NEXTAUTH_SECRET } from "@/config";
 
 const bcrypt = require('bcrypt');
 import { getUserByEmail_Controller } from "@/controllers/user.controller";
-import { users } from "@/utils/provisionalDB";
 
 const authOptions = {
     secret: NEXTAUTH_SECRET,
@@ -21,13 +20,9 @@ const authOptions = {
 
                 console.log('crdenciales desde auth.js: ', credentials); //TODO: DELETE ME
                 
-                const apiUser = await getUserByEmail_Controller(credentials.email)
+                user = await getUserByEmail_Controller(credentials.email)
 
-                console.log(apiUser)
-
-                user = users.find(user => user.email === credentials.email)
-                
-                console.log(user); //TODO: DELETE ME
+                console.log('user desde la db: ', user); //TODO: DELETE ME
 
                 try {
                     if (!user) return

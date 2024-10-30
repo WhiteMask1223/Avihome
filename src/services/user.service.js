@@ -28,5 +28,7 @@ export const registerUser_Service = async (data) => {
 };
 
 export const getUserByEmail_Service = async (email) => {
+    const user = users.find(user => user.email === email);
+    return user
     console.log('get user by this email: ', email)
 };

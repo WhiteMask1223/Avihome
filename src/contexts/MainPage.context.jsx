@@ -17,7 +17,6 @@ export const MainPageProvider = ({ children }) => {
 
     const { filterObj } = useContext(CategoryFilterContext);
 
-
     const [ offertsData, setOfertsData ] = useState(null)
     const [ offertsFetched, setOffertsFetched ] = useState(false)
 
@@ -37,7 +36,6 @@ export const MainPageProvider = ({ children }) => {
 
     useEffect(() => {
         if (!offertsData && offertsFetched === false) {
-            console.log('Fetching')
             setOffertsFetched(true);
             fetchOfferts(); 
         };
@@ -220,6 +218,8 @@ export const MainPageProvider = ({ children }) => {
                 totalPages,
                 renderedCards,
                 searchTerm,
+
+                offertsData,
 
                 pageChangeHandler,
                 handleSearchChange,

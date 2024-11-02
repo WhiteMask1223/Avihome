@@ -9,10 +9,12 @@ import { UserContext } from "@/contexts/User.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
+import SubmitButton from "@/components/UI/SubmitButton";
+import Asterisk from "@/components/UI/Asterisk";
 
 import { registerUser } from "@/api/user.api";
 
-import { validateEmail } from "@/validations/user.validation";
+import { validateEmail, phoneNumberValidator } from "@/validations/user.validation";
 
 export default function SingInPage() {
 
@@ -31,8 +33,9 @@ export default function SingInPage() {
 
     const [registrationData, setRegistrationData] = useState(registrationDataObjTemplate);
     const [showPassword, setShowPassword] = useState({ psw: false, pswR: false });
+    const [credentialsError, setCredentialsError] = useState([false, '']);
 
-    const { setAuth } = useContext(UserContext);
+    const { setUserData, setAuth } = useContext(UserContext);
 
     const router = useRouter();
 
@@ -62,19 +65,29 @@ export default function SingInPage() {
         const password = registrationData.password
 
         if (!validateEmail(registrationData.email)) {
+            setCredentialsError([true, 'Ingrese un correo válido.']);
             updateRegistrationData("email", '');
             return
         };
 
         if (registrationData.password !== registrationData.passwordRepeat || registrationData.password < 6) {
+            setCredentialsError([true, 'Las Contraseñas no coinciden.']);
             updateRegistrationData("password", '');
             updateRegistrationData("passwordRepeat", '');
             return
         };
 
+        if (!phoneNumberValidator(registrationData.phone)) {
+            setCredentialsError([true, 'Ingrese un número de teléfono valido']);
+            updateRegistrationData("phone", '');
+            return
+        }
+
         const registerResponse = await registerUser(registrationData);
 
-        if (registerResponse.data === true) {
+        console.log(registerResponse);
+
+        if (!registerResponse.data.error) {
             const authResult = await signIn("credentials", {
                 redirect: false,
                 email,
@@ -82,15 +95,18 @@ export default function SingInPage() {
             });
 
             if (authResult.error) {
+                setCredentialsError([true, 'Error al Iniciar Sesión']);
                 setRegistrationData(registrationDataObjTemplate);
             } else {
-                console.log("Registro exitoso");
                 setAuth(true);
+                setUserData(registerResponse.data);
                 router.push("/");
             };
-        };
 
-        setRegistrationData(registrationDataObjTemplate);
+        } else {
+            setCredentialsError([true, registerResponse.data.message]);
+            setRegistrationData(registrationDataObjTemplate);
+        };
     };
 
 
@@ -102,37 +118,70 @@ export default function SingInPage() {
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Registro</h1>
             <form onSubmit={handleSubmit} className="mt-2">
 
+                <h2 className="text-center font-bold text-red-500">{credentialsError[1]}</h2>
+
                 {/* Name Input */}
                 <div className="mt-3">
-                    <label htmlFor="name">
-                        Nombre
+                    <label htmlFor="name" className="flex">
+                        Nombre <Asterisk />
                     </label>
-                    <VariableInput type={"text"} id={"name"} value={registrationData.name} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
+                    <VariableInput
+                        type={"text"}
+                        id={"name"}
+                        value={registrationData.name}
+                        setStateFunction={updateRegistrationData}
+                        required
+                        autoComplete={"off"}
+                        error={credentialsError[0]}
+                    />
                 </div>
 
                 {/* Email Input */}
                 <div className="mt-1">
-                    <label htmlFor="email">
-                        Correo Electrónico
+                    <label htmlFor="email" className="flex">
+                        Correo Electrónico <Asterisk />
                     </label>
-                    <VariableInput type={"email"} id={"email"} value={registrationData.email} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
+                    <VariableInput
+                        type={"email"}
+                        id={"email"}
+                        value={registrationData.email}
+                        setStateFunction={updateRegistrationData}
+                        required
+                        autoComplete={"off"}
+                        error={credentialsError[0]}
+                    />
                 </div>
 
                 {/* Password Input */}
                 <div className="mt-6">
-                    <label htmlFor="password">
-                        Contraseña
+                    <label htmlFor="password" className="flex">
+                        Contraseña <Asterisk />
                     </label>
-                    <VariableInput type={`${showPassword.psw ? "text" : "password"}`} id={"password"} value={registrationData.password} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
+                    <VariableInput
+                        type={`${showPassword.psw ? "text" : "password"}`}
+                        id={"password"}
+                        value={registrationData.password}
+                        setStateFunction={updateRegistrationData}
+                        required
+                        autoComplete={"off"}
+                        error={credentialsError[0]}
+                    />
 
                     <button type="button" onClick={() => { handleShowPassword('psw', !showPassword.psw) }} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>
 
                 <div>
-                    <label htmlFor="password">
-                        Repita su Contraseña
+                    <label htmlFor="repPassword" className="flex">
+                        Repita su Contraseña <Asterisk />
                     </label>
-                    <VariableInput type={`${showPassword.pswR ? "text" : "password"}`} id={"passwordRepeat"} value={registrationData.passwordRepeat} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
+                    <VariableInput
+                        type={`${showPassword.pswR ? "text" : "password"}`}
+                        id={"passwordRepeat"}
+                        value={registrationData.passwordRepeat} setStateFunction={updateRegistrationData}
+                        required
+                        autoComplete={"off"}
+                        error={credentialsError[0]}
+                    />
 
                     <button type="button" onClick={() => { handleShowPassword('pswR', !showPassword.pswR) }} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>
@@ -142,25 +191,38 @@ export default function SingInPage() {
                     <label htmlFor="altEmail">
                         Correo Electrónico de Contacto
                     </label>
-                    <VariableInput type={"text"} id={"contEmail"} value={registrationData.contEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
+                    <VariableInput
+                        type={"text"}
+                        id={"contEmail"}
+                        value={registrationData.contEmail}
+                        setStateFunction={updateRegistrationData}
+                        autoComplete={"off"}
+                        error={credentialsError[0]}
+                    />
                 </div>
 
                 {/* phoneNumber Input */}
                 <div className="mt-1">
-                    <label htmlFor="phpne">
-                        Teléfono de Contacto
+                    <label htmlFor="phpne" className="flex">
+                        Teléfono de Contacto <Asterisk />
                     </label>
-                    <VariableInput type={"text"} id={"phone"} value={registrationData.phone} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
+                    <VariableInput
+                        type={"text"}
+                        id={"phone"}
+                        value={registrationData.phone}
+                        setStateFunction={updateRegistrationData}
+                        error={credentialsError[0]}
+                        required
+                        autoComplete={"off"}
+                        placeholder={"0424-0000000"}
+                    />
                 </div>
+
+                <h2 className="text-center text-gray-500 mt-2">* Indica que el Campo es Obligatorio</h2>
 
                 {/* SingIn Button */}
                 <div className="mt-6">
-                    <button
-                        type="submit"
-                        className="w-full mt-5 bg-[#0B8D83] text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"
-                    >
-                        Registrarse
-                    </button>
+                    <SubmitButton text={'Registrarse'} />
                 </div>
             </form>
 

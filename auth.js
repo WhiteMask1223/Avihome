@@ -17,12 +17,8 @@ const authOptions = {
 
             authorize: async (credentials) => {
                 let user = null
-
-                console.log('crdenciales desde auth.js: ', credentials); //TODO: DELETE ME
                 
                 user = await getUserByEmail_Controller(credentials.email)
-
-                console.log('user desde la db: ', user); //TODO: DELETE ME
 
                 try {
                     if (!user) return
@@ -32,7 +28,7 @@ const authOptions = {
                     ) return
 
                 } catch (error) {
-                    console.log('login Error')
+                    console.log('login Error: ', error)
                 }
                 return user
             }

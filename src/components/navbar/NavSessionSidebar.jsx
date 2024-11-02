@@ -32,8 +32,8 @@ export default function NavSessionSidebar() {
                             <SidebarMenuLi text={"Perfil de Usuario"} href={"/profile"} onClick={toggleSessionSidebar}/>
                             
                             <li className={NAVBAR_STYLES.SIDEBAR_LI}>
-                                <button className="text-lg sm:text-base" onClick={() => {
-                                    signOut();
+                                <button className="text-lg sm:text-base" onClick={ async () => {
+                                    await signOut();
                                     logout();
                                 }}>Cerrar Sesión</button>
                             </li>

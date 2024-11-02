@@ -13,23 +13,21 @@ export const registerUser_Service = async (data) => {
 
     const registeredUser = await getUserByEmail_Service(data.email)
 
-    if (registeredUser) return { error: true, message: "Correo ya registrado"}
+    if (registeredUser) return { error: true, message: "Correo electrónico ya registrado." }
 
     try {
-        bcrypt.hash(data.password, saltRounds, async (err, hash) => {
-            if (err) throw err;
+        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
-            data.password = hash;
-            console.log(data);  
+        data.password = hashedPassword;
 
-            const user = new UserModel(data);
-            await user.save();
+        const user = new UserModel(data);
+        await user.save();
 
-            
-        });
+        console.log('User post db save', user);
 
-        return true
+        return user
     } catch (error) {
         console.log(error);
+        return { error: true, message: "Error interno" }
     };
 };

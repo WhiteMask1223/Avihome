@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { UserContext } from "@/contexts/User.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
+import SubmitButton from "@/components/UI/SubmitButton";
 
 import { validateEmail } from "@/validations/user.validation";
 
@@ -26,9 +28,10 @@ export default function LoginPage() {
     const router = useRouter();
 
     const { setAuth } = useContext(UserContext);
+    const { setLoading } = useContext(UtilityContex);
 
     const [loginData, setLoginData] = useState(loginDataObjTemplate);
-    const [credentialsError, setCredentialsError] = useState([false, ''])
+    const [credentialsError, setCredentialsError] = useState([false, '']);
     const [showPassword, setShowPassword] = useState(false);
 
 
@@ -54,6 +57,8 @@ export default function LoginPage() {
             return
         };
 
+        setLoading(true);
+
         const authResult = await signIn("credentials", {
             redirect: false,
             email,
@@ -62,6 +67,7 @@ export default function LoginPage() {
 
         if (authResult.error) {
             setCredentialsError([true, 'Credenciales Incorrectas o Usuario Inexistente']);
+            setLoading(false);
         } else {
             console.log(authResult);
             setAuth(true);
@@ -101,19 +107,14 @@ export default function LoginPage() {
 
                 {/* Login Button */}
                 <div className="mt-6">
-                    <button
-                        type="submit"
-                        className="w-full mt-5 bg-[#0B8D83] text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"
-                    >
-                        Iniciar Sesión
-                    </button>
+                    <SubmitButton text={'Iniciar Sesión'}/>
                 </div>
             </form>
 
             {/* Register Link */}
             <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
-                    ¿No tienes una cuenta?{' '}
+                    ¿No tienes una cuenta? {' '}
                     <Link href="/signup" className="text-indigo-600 hover:text-indigo-500">
                         Regístrate
                     </Link>

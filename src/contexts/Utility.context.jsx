@@ -5,8 +5,9 @@ import { createContext, useState } from "react";
 export const UtilityContex = createContext();
 
 export const UtilityProvider = ({children}) => {
-    const [sessionSidebar, setSessionSidebar] = useState(false);
-    const [filterSidebar, setFilterSidebar] = useState(false);
+    const [ sessionSidebar, setSessionSidebar ] = useState(false);
+    const [ filterSidebar, setFilterSidebar ] = useState(false);
+    const [ loading, setLoading ] = useState(true);
 
     const toggleSessionSidebar = () => {
         setSessionSidebar(!sessionSidebar);
@@ -22,9 +23,11 @@ export const UtilityProvider = ({children}) => {
         <UtilityContex.Provider value={{
             sessionSidebar, 
             filterSidebar,
+            loading,
 
             toggleSessionSidebar,
-            toggleFilterSidebar
+            toggleFilterSidebar,
+            setLoading
         }}>
             {children}
         </UtilityContex.Provider>

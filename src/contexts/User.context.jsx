@@ -8,8 +8,9 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
-    const [userSession, setUserSession] = useState(null)
-    const [auth, setAuth] = useState(false)
+    const [ userSession, setUserSession ] = useState(null);
+    const [ userData, setUserData ] = useState(null);
+    const [ auth, setAuth ] = useState(false);
 
     useEffect(() => {
         if (!userSession) {
@@ -31,15 +32,18 @@ export const UserProvider = ({ children }) => {
     };
 
     const logout = () => {
-        setAuth(false)
+        setAuth(false);
+        setUserData(null);
     }
 
     return (
         <UserContext.Provider value={{
             userSession,
+            userData,
             auth,
 
             setAuth,
+            setUserData,
             logout
         }}>
             {children}

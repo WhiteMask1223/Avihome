@@ -7,6 +7,7 @@ import SessionWrapper from "@/components/SessionWrapper";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer/Footer";
 import SidebarDarkBg from "@/components/UI/SidebarDarkBg";
+import LoadingBg from "@/components/UI/LoadingBg";
 
 export const metadata = {
   title: "AviHome",
@@ -21,8 +22,9 @@ export default function RootLayout({ children }) {
           <ContextProvider>
             <NavBar></NavBar>
               {children}
-            <Footer></Footer>
-            <SidebarDarkBg></SidebarDarkBg>
+            <Footer/>
+            <SidebarDarkBg/>
+            <LoadingBg/>
           </ContextProvider>
         </SessionWrapper>
       </body>

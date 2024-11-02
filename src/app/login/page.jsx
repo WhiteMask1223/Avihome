@@ -14,6 +14,10 @@ import { validateEmail } from "@/validations/user.validation";
 
 export default function LoginPage() {
 
+
+    /**************************{ Declaraciones }**************************/
+
+
     const loginDataObjTemplate = {
         email: '',
         password: ''
@@ -26,6 +30,9 @@ export default function LoginPage() {
     const [loginData, setLoginData] = useState(loginDataObjTemplate);
     const [credentialsError, setCredentialsError] = useState([false, ''])
     const [showPassword, setShowPassword] = useState(false);
+
+
+    /**************************{ Funciones }**************************/
 
 
     const updateLoginData = (key, newValue) => {
@@ -46,7 +53,7 @@ export default function LoginPage() {
             setCredentialsError([true, 'Introduzca un Correo Válido']);
             return
         };
-        
+
         const authResult = await signIn("credentials", {
             redirect: false,
             email,
@@ -61,6 +68,10 @@ export default function LoginPage() {
             router.push("/");
         }
     };
+
+
+    /**************************{ Return }**************************/
+
 
     return (
         <AuthSecction>
@@ -84,7 +95,7 @@ export default function LoginPage() {
                     </label>
                     <VariableInput type={`${showPassword ? "text" : "password"}`} id={"password"} value={loginData.password} setStateFunction={updateLoginData} error={credentialsError[0]} autoComplete={"off"} />
 
-                    <button type="button" onClick={() => {setShowPassword(!showPassword)}} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { setShowPassword(!showPassword) }} className="block ml-auto text-sm">Mostar Contraseña</button>
                 </div>
 
 

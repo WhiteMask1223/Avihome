@@ -1,34 +1,35 @@
-import { users } from '@/utils/provisionalDB';
+import UserModel from '@/models/User.model';
 
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
+export const getUserByEmail_Service = async (email) => {
+    const user = await UserModel.findOne({ email });
+    return user ? user : null
+};
+
 export const registerUser_Service = async (data) => {
-    console.log("datos desde service: ", data, data.password);
+
+    const registeredUser = await getUserByEmail_Service(data.email)
+
+    if (registeredUser) return { error: true, message: "Correo ya registrado"}
 
     try {
-        bcrypt.hash(data.password, saltRounds, (err, hash) => {
+        bcrypt.hash(data.password, saltRounds, async (err, hash) => {
             if (err) throw err;
-            console.log(`hash: ${hash}`)
 
-            bcrypt.compare(data.password, hash, (err, result) => {
-                if (result) {
-                    console.log("Contraseña correcta");
-                } else {
-                    console.log("contraseña incorrecta")
-                }
-            })
+            data.password = hash;
+            console.log(data);  
+
+            const user = new UserModel(data);
+            await user.save();
+
+            
         });
 
         return true
     } catch (error) {
         console.log(error);
     };
-};
-
-export const getUserByEmail_Service = async (email) => {
-    const user = users.find(user => user.email === email);
-    return user
-    console.log('get user by this email: ', email)
 };

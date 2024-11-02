@@ -1,7 +1,11 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+
+import { UserContext } from "@/contexts/User.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
@@ -12,17 +16,29 @@ import { validateEmail } from "@/validations/user.validation";
 
 export default function SingInPage() {
 
+
+    /**************************{ Declaraciones }**************************/
+
+
     const registrationDataObjTemplate = {
         name: '',
         email: '',
         password: '',
         passwordRepeat: '',
-        altEmail: '',
-        phoneNumber: ''
+        contEmail: '',
+        phone: ''
     };
 
     const [registrationData, setRegistrationData] = useState(registrationDataObjTemplate);
     const [showPassword, setShowPassword] = useState({ psw: false, pswR: false });
+
+    const { setAuth } = useContext(UserContext);
+
+    const router = useRouter();
+
+
+    /**************************{ Funciones }**************************/
+
 
     const updateRegistrationData = (key, newValue) => {
         setRegistrationData((prevRegistrationData) => ({
@@ -41,8 +57,9 @@ export default function SingInPage() {
     const handleSubmit = async (e) => {
 
         e.preventDefault();
-        
-        console.log('login attempt');
+
+        const email = registrationData.email
+        const password = registrationData.password
 
         if (!validateEmail(registrationData.email)) {
             updateRegistrationData("email", '');
@@ -56,10 +73,28 @@ export default function SingInPage() {
         };
 
         const registerResponse = await registerUser(registrationData);
-        
-        console.log(registerResponse.data);
+
+        if (registerResponse.data === true) {
+            const authResult = await signIn("credentials", {
+                redirect: false,
+                email,
+                password
+            });
+
+            if (authResult.error) {
+                setRegistrationData(registrationDataObjTemplate);
+            } else {
+                console.log("Registro exitoso");
+                setAuth(true);
+                router.push("/");
+            };
+        };
+
         setRegistrationData(registrationDataObjTemplate);
     };
+
+
+    /**************************{ Return }**************************/
 
 
     return (
@@ -107,15 +142,15 @@ export default function SingInPage() {
                     <label htmlFor="altEmail">
                         Correo Electrónico de Contacto
                     </label>
-                    <VariableInput type={"text"} id={"altEmail"} value={registrationData.altEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
+                    <VariableInput type={"text"} id={"contEmail"} value={registrationData.contEmail} setStateFunction={updateRegistrationData} autoComplete={"off"} />
                 </div>
 
                 {/* phoneNumber Input */}
                 <div className="mt-1">
-                    <label htmlFor="phpneNumber">
+                    <label htmlFor="phpne">
                         Teléfono de Contacto
                     </label>
-                    <VariableInput type={"text"} id={"phoneNumber"} value={registrationData.phoneNumber} setStateFunction={updateRegistrationData} autoComplete={"off"} />
+                    <VariableInput type={"text"} id={"phone"} value={registrationData.phone} setStateFunction={updateRegistrationData} required autoComplete={"off"} />
                 </div>
 
                 {/* SingIn Button */}
@@ -139,5 +174,5 @@ export default function SingInPage() {
                 </p>
             </div>
         </AuthSecction>
-    )
-}
+    );
+};

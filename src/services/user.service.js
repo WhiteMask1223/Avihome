@@ -4,6 +4,11 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
+export const getUserById_Service = async (_id) => {
+    const user = await UserModel.findOne({ _id });
+    return user ? user : null
+};
+
 export const getUserByEmail_Service = async (email) => {
     const user = await UserModel.findOne({ email });
     return user ? user : null

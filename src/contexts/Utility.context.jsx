@@ -1,13 +1,31 @@
 'use client'
 
-import { createContext, useState } from "react";
+import { 
+    createContext, 
+    useContext, 
+    useState, 
+    useEffect 
+} from "react";
+
+import { MainPageContext } from "./MainPage.context";
+import { UserContext } from "./User.context";
 
 export const UtilityContex = createContext();
 
-export const UtilityProvider = ({children}) => {
-    const [ sessionSidebar, setSessionSidebar ] = useState(false);
-    const [ filterSidebar, setFilterSidebar ] = useState(false);
-    const [ loading, setLoading ] = useState(true);
+export const UtilityProvider = ({ children }) => {
+
+    const { userSession } = useContext(UserContext);
+    const { offertsData } = useContext(MainPageContext);
+
+    const [sessionSidebar, setSessionSidebar] = useState(false);
+    const [filterSidebar, setFilterSidebar] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (offertsData && loading === true) {
+            setLoading(false);
+        }
+    });
 
     const toggleSessionSidebar = () => {
         setSessionSidebar(!sessionSidebar);
@@ -21,7 +39,7 @@ export const UtilityProvider = ({children}) => {
 
     return (
         <UtilityContex.Provider value={{
-            sessionSidebar, 
+            sessionSidebar,
             filterSidebar,
             loading,
 

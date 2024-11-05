@@ -1,5 +1,6 @@
 import {
     registerUser_Service,
+    getUserById_Service,
     getUserByEmail_Service
 } from "@/services/user.service";
 
@@ -18,6 +19,12 @@ export const registerUser_Controller = async (userData) => {
     };
       
     return data
+};
+
+export const getUserById_Controller = async (id) => {
+    const res = await getUserById_Service(id);
+
+    return res
 };
 
 export const getUserByEmail_Controller = async (email) => {

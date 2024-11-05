@@ -4,19 +4,21 @@ export default function ProfileUserSecction({ user, sameUser }) {
 
 
     return (
-        <section>
+        <section className="w-full">
 
             {/* Sección de Perfil de Usuario */}
 
-            < div className="bg-white p-6 rounded-lg shadow-md w-full max-w-lg mb-8" >
+            < div className="bg-sectionThemeBackground p-6 rounded-lg shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
 
-                <h2 className="text-xl font-bold mb-4">Perfil de usuario</h2>
-                
+                <h2 className="text-xl font-bold mb-4">Perfil de Usuario</h2>
+
                 <div className="flex items-center justify-between">
-                    <div>
-                        <div className="w-16 h-16 rounded-full bg-gray-300 mb-4"></div>
-                        <h3 className="text-lg font-semibold">{user.name}</h3>
-                        <p>{user.email}</p>
+                    <div className="flex">
+                        <i className="ri-account-circle-line text-6xl"></i>
+                        <div className="my-auto">
+                            <h3 className="text-lg font-semibold">{user.name}</h3>
+                            <p>{user.email}</p>
+                        </div>
                     </div>
                     <div className="text-right">
                         <p className="font-bold">Medios de Contacto:</p>
@@ -25,9 +27,11 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         <p></p>
                     </div>
                 </div>
-                <div className="mt-4 flex space-x-4">
-                    <button className="bg-gray-200 px-4 py-2 rounded">Cambiar contraseña</button>
-                    <button className="bg-gray-200 px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                <div className="mt-4 flex items-center justify-between space-x-4">
+                    <div className="flex flex-col">
+                        <button className="bg-gray-200 px-4 py-2 rounded mb-2">Cambiar contraseña</button>
+                        <button className="bg-gray-200 px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                    </div>
                     <button className="bg-red-500 text-white px-4 py-2 rounded">Eliminar Cuenta</button>
                 </div>
             </div >

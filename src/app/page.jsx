@@ -1,23 +1,7 @@
-"use client"
-
-import { useEffect, useContext } from "react";
-
 import SidebarSection from "@/components/mainPage/aside/SidebarSection";
 import OffertsMain from "@/components/mainPage/offertsPanel/OffertsMain";
 
-import { MainPageContext } from "@/contexts/MainPage.context";
-import { UtilityContex } from "@/contexts/Utility.context";
-
 export default function HomePage() {
-
-  const { loading, setLoading } = useContext(UtilityContex);
-  const { offertsData } = useContext(MainPageContext)
-
-  useEffect(() => {
-    if (offertsData && loading === true) {
-      setLoading(false);
-    }
-  })
 
   return (
     <main>

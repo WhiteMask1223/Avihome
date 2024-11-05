@@ -13,7 +13,7 @@ export default function LoadingBg () {
             { loading && (
                 <div
                 className="fixed flex items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50">
-                    <p>Loading...</p>
+                    <p>Cargando...</p>
                 </div>
             )}
         </div>

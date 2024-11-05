@@ -2,6 +2,7 @@
 
 import { useContext } from "react"
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { UtilityContex } from "@/contexts/Utility.context"
 import { UserContext } from "@/contexts/User.context";
@@ -11,6 +12,8 @@ import SidebarMenuLi from "./SidebarMenuLi";
 import { NAVBAR_STYLES } from "./navBarStyles";
 
 export default function NavSessionSidebar() {
+
+    const router = useRouter();
 
     const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex);
     const { userSession, userData, logout } = useContext(UserContext);
@@ -23,17 +26,21 @@ export default function NavSessionSidebar() {
                 <ul>
                     {userSession === null ?
                         <div>
-                            <SidebarMenuLi text={"Iniciar Sesión"} href={"/login"} onClick={toggleSessionSidebar}/>
+                            <SidebarMenuLi text={"Iniciar Sesión"} href={"/login"} onClick={toggleSessionSidebar} />
 
-                            <SidebarMenuLi text={"Registrarse"} href={"/signup"} onClick={toggleSessionSidebar}/>
+                            <SidebarMenuLi text={"Registrarse"} href={"/signup"} onClick={toggleSessionSidebar} />
                         </div>
                         :
                         <div>
-                            <SidebarMenuLi text={"Perfil de Usuario"} href={`/profile/${userData?._id}`} onClick={toggleSessionSidebar}/>
-                            
+                            <SidebarMenuLi text={"Perfil de Usuario"} href={`/profile/${userData?._id}`} onClick={toggleSessionSidebar} />
+
                             <li className={NAVBAR_STYLES.SIDEBAR_LI}>
-                                <button className="text-lg sm:text-base" onClick={ async () => {
-                                    await signOut();
+                                <button className="text-lg sm:text-base" onClick={async () => {
+                                    await signOut({
+                                        redirect: false
+                                    });
+                                    router.push("/");
+                                    toggleSessionSidebar()
                                     logout();
                                 }}>Cerrar Sesión</button>
                             </li>

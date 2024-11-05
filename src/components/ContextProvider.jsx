@@ -7,13 +7,13 @@ export default function ContextProvider({ children }) {
 
     return (
         <UserProvider>
-            <UtilityProvider>
-                <CategoryFilterProvider>
-                    <MainPageProvider>
+            <CategoryFilterProvider>
+                <MainPageProvider>
+                    <UtilityProvider>
                         {children}
-                    </MainPageProvider>
-                </CategoryFilterProvider>
-            </UtilityProvider>
+                    </UtilityProvider>
+                </MainPageProvider>
+            </CategoryFilterProvider>
         </UserProvider>
     );
 };

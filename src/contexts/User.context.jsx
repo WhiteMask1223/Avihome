@@ -1,7 +1,6 @@
 "use client"
 
 import { createContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 import { get_Session } from "@/api/auth.api";
 import { get_UserByEmail } from "@/api/user.api";
@@ -9,8 +8,6 @@ import { get_UserByEmail } from "@/api/user.api";
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-
-    const router = useRouter();
 
     const [userSession, setUserSession] = useState(null);
     const [userData, setUserData] = useState(null);
@@ -50,14 +47,13 @@ export const UserProvider = ({ children }) => {
         const user = await get_UserByEmail(JSON.stringify(email));
 
         return user.data
-    }
+    };
 
     const logout = () => {
         setAuth(false);
         setUserData(null);
-
-        router.push("/");
-    }
+        setUserSession(null)     
+    };
 
     return (
         <UserContext.Provider value={{

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { UserContext } from "@/contexts/User.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/VariableInput";
@@ -36,6 +37,7 @@ export default function SingInPage() {
     const [credentialsError, setCredentialsError] = useState([false, '']);
 
     const { setUserData, setAuth } = useContext(UserContext);
+    const { setLoading } = useContext(UtilityContex);
 
     const router = useRouter();
 
@@ -83,9 +85,9 @@ export default function SingInPage() {
             return
         }
 
-        const registerResponse = await registerUser(registrationData);
+        setLoading(true);
 
-        console.log(registerResponse);
+        const registerResponse = await registerUser(registrationData);
 
         if (!registerResponse.data.error) {
             const authResult = await signIn("credentials", {

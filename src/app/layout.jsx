@@ -1,7 +1,6 @@
 import "./globals.css";
 import 'remixicon/fonts/remixicon.css';
 
-
 import ContextProvider from "@/components/ContextProvider";
 import SessionWrapper from "@/components/SessionWrapper";
 import NavBar from "@/components/navbar/NavBar";

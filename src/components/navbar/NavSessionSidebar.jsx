@@ -13,7 +13,7 @@ import { NAVBAR_STYLES } from "./navBarStyles";
 export default function NavSessionSidebar() {
 
     const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex);
-    const { userSession, logout } = useContext(UserContext);
+    const { userSession, userData, logout } = useContext(UserContext);
 
     return (
         <menu>
@@ -29,7 +29,7 @@ export default function NavSessionSidebar() {
                         </div>
                         :
                         <div>
-                            <SidebarMenuLi text={"Perfil de Usuario"} href={"/profile"} onClick={toggleSessionSidebar}/>
+                            <SidebarMenuLi text={"Perfil de Usuario"} href={`/profile/${userData?._id}`} onClick={toggleSessionSidebar}/>
                             
                             <li className={NAVBAR_STYLES.SIDEBAR_LI}>
                                 <button className="text-lg sm:text-base" onClick={ async () => {

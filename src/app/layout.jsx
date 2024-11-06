@@ -5,8 +5,8 @@ import ContextProvider from "@/components/ContextProvider";
 import SessionWrapper from "@/components/SessionWrapper";
 import NavBar from "@/components/navbar/NavBar";
 import Footer from "@/components/footer/Footer";
-import SidebarDarkBg from "@/components/UI/SidebarDarkBg";
-import LoadingBg from "@/components/UI/LoadingBg";
+import SidebarDarkBg from "@/components/UI/utility/SidebarDarkBg";
+import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export const metadata = {
   title: "AviHome",

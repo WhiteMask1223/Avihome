@@ -1,4 +1,4 @@
-import ArrowBotton from "../../UI/ArrowBotton";
+import ArrowBotton from "../../UI/utility/ArrowBotton";
 
 export default function PagingCounter({pageChangeHandler, currentPage, totalPages}) {
     return(

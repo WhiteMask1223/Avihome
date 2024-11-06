@@ -5,13 +5,23 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 export const getUserById_Service = async (_id) => {
-    const user = await UserModel.findOne({ _id });
-    return user ? user : null
+    try {
+        const user = await UserModel.findOne({ _id });
+        return user ? user : null
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "Error interno" };
+    }
 };
 
 export const getUserByEmail_Service = async (email) => {
-    const user = await UserModel.findOne({ email });
-    return user ? user : null
+    try {
+        const user = await UserModel.findOne({ email });
+        return user ? user : null
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "Error interno" };
+    }
 };
 
 export const registerUser_Service = async (data) => {
@@ -33,6 +43,6 @@ export const registerUser_Service = async (data) => {
         return user
     } catch (error) {
         console.log(error);
-        return { error: true, message: "Error interno" }
+        return { error: true, message: "Error interno" };
     };
 };

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -99,6 +99,7 @@ export default function SingInPage() {
             if (authResult.error) {
                 setCredentialsError([true, 'Error al Iniciar Sesión']);
                 setRegistrationData(registrationDataObjTemplate);
+                setLoading(false);
             } else {
                 setAuth(true);
                 setUserData(registerResponse.data);
@@ -108,9 +109,13 @@ export default function SingInPage() {
         } else {
             setCredentialsError([true, registerResponse.data.message]);
             setRegistrationData(registrationDataObjTemplate);
+            setLoading(false);
         };
     };
 
+    /*useEffect(() => {
+        setLoading(false);
+    });*/
 
     /**************************{ Return }**************************/
 

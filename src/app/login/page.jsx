@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -76,6 +76,11 @@ export default function LoginPage() {
     };
 
 
+    /*useEffect(() => {
+        setLoading(false);
+    });*/
+
+
     /**************************{ Return }**************************/
 
 
@@ -112,7 +117,7 @@ export default function LoginPage() {
             </form>
 
             {/* Register Link */}
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center mb-20">
                 <p className="text-sm text-gray-600">
                     ¿No tienes una cuenta? {' '}
                     <Link href="/signup" className="text-indigo-600 hover:text-indigo-500">

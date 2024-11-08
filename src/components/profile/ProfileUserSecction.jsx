@@ -12,15 +12,15 @@ export default function ProfileUserSecction({ user, sameUser }) {
 
                 <h2 className="text-xl font-bold mb-4">Perfil de Usuario</h2>
 
-                <div className="flex items-center justify-between">
-                    <div className="flex">
+                <div className="sm:flex items-center justify-between">
+                    <div className="sm:flex">
                         <i className="ri-account-circle-line text-6xl"></i>
                         <div className="my-auto">
                             <h3 className="text-lg font-semibold">{user.name}</h3>
                             <p>{user.email}</p>
                         </div>
                     </div>
-                    <div className="text-right">
+                    <div className="sm:text-right">
                         <p className="font-bold">Medios de Contacto:</p>
                         <p>{user.contEmail}</p>
                         <p>{user.phone}</p>

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
 
-import { UserContext } from "@/contexts/User.context"
+import { UserContext } from "@/contexts/User.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import { get_UserById } from "@/api/user.api";
 
@@ -16,7 +17,9 @@ export default function UserProfile() {
 
     const [user, setUser] = useState({});
     const [sameUser, setSameUser] = useState(false);
+
     const { userData } = useContext(UserContext);
+    const { setLoading } = useContext(UtilityContex);
 
     const setUserData = async () => {
         if(!userData) {
@@ -46,6 +49,7 @@ export default function UserProfile() {
             return
         };
         setUserData();
+        //setLoading(false)
     });
 
     return (

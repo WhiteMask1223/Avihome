@@ -25,7 +25,7 @@ export const UtilityProvider = ({ children }) => {
         if (offertsData && loading === true) {
             setLoading(false);
         }
-    });
+    }, [offertsData, userSession]);
 
     const toggleSessionSidebar = () => {
         setSessionSidebar(!sessionSidebar);

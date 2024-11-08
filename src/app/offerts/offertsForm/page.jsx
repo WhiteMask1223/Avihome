@@ -38,7 +38,7 @@ export default function OffertsForm() {
     return (
         <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
             <div className="bg-white p-6 rounded-lg shadow-md w-11/12 m-auto">
-
+            <h1 className="m-auto w-fit p-2 text-2xl font-bold">Crear Oferta</h1>
                 <div>
                     <label htmlFor="repPassword" className="flex">
                         Nombre de la Oferta <Asterisk />
@@ -58,9 +58,9 @@ export default function OffertsForm() {
                     <label htmlFor="repPassword" className="flex">
                         Localidad y Dirección <Asterisk />
                     </label>
-                    <div className="flex justify-between">
+                    <div className="sm:flex justify-between">
                         <select>
-                            <option value="bestRated">Mejor Puntuados</option>
+                            <option value="bestRated">-</option>
                             <option value="worstRated">Peor Puntuados</option>
                             <option value="higherAvailability">Mayor Disponibilidad</option>
                             <option value="lowerAvailability">Menor Disponibilidad</option>

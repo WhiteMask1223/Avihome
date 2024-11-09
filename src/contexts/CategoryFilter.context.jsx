@@ -1,100 +1,57 @@
 'use client'
 
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
-const locationData = {
-    'Urb. Rómulo Gallegos': false,
-    'Barrio Texto que excede los limites': false,
-    'Centro': false,
-    'Las Palmas': false,
-    'Terminal': false,
-    'Las Abejitas': false,
-    'Zona Industrial': false,
-    'Urb. Los Jardines': false,
-    'Urb. Los Morros': false,
-    'Bario Las Mercedes': false,
-    'Urb. Santa Isabel': false,
-    'Urb. Los Laureles': false,
-    'Barrio La Ceiba': false,
-    'Barrio Puerta Negra': false,
-    'Barrio Bicentenerio': false,
-    'Barrio La Morera': false,
-    'Barrio Pueblo Nuevo': false,
-    'Urb. Los Naranjos': false
-};
+import { get_OffertsLocationAndType } from '@/api/offerts.api';
 
-
-const sortedEntries = Object.entries(locationData).sort(([keyA], [keyB]) => {
-    return keyA.localeCompare(keyB); 
-});
-  
-const sortedLocationData = Object.fromEntries(sortedEntries);
-
-
-const filterObjConstructor = {
-    'Tipo': {
-      'Anexo': false,
-      'Casa': false,
-      'Complejo Residencial': false,
-      'Departamento': false,
-      'Habitación': false
-    },
-
-    'Ubicación': sortedLocationData,
-
-    'Servicios': {
-        'Agua': false,
-        'Aire Acondicionado': false,
-        'Electricidad': false,
-        'Gas': false,
-        'Internet': false
-    },
-
-    'Disponibilidad': {
-        'Una Habitación': false,
-        'Dos a Cinco Habitaciones': false,
-        'Cinco a Diez Habitaciones': false,
-        'Más de Diez Habitaciones': false
-    },
-
-    'Admite': {
-        'Solo Hombres': false,
-        'Solo Mujeres': false,
-        'Cualquiera': false
-    },
-
-    sortBy: "bestRated",
-
-    showHidden: false,
-
-    icons: {
-        'Tipo': "ri-community-line", 
-        'Ubicación': "ri-road-map-line",
-        'Servicios': "ri-flashlight-line",
-        'Disponibilidad': "ri-home-2-line",
-        'Admite': "ri-group-line"
-    }
-};
+import { filterObjTemplate } from '@/utils/offertsUtils';
 
 
 export const CategoryFilterContext = createContext();
 
-export const CategoryFilterProvider = ({children}) => {
+export const CategoryFilterProvider = ({ children }) => {
 
 
     /**************************{ Declaraciones }**************************/
 
+    const [offertsType, setOffertsType] = useState({});
+    const [offertsLocation, setOffertsLocation] = useState({});
 
-    const [filterObj, setFilterObj] = useState(filterObjConstructor);
+    const [filterObj, setFilterObj] = useState(filterObjTemplate(offertsType, offertsLocation));
+
+    const locationAndTypeFetch = async () => {
+        const data = await get_OffertsLocationAndType();
+
+        setOffertsType(data.offertType);
+        setOffertsLocation(data.sortedLocationData);
+
+        setFilterObj(filterObjTemplate(data.offertType, data.sortedLocationData));
+    };
+
+
+    /**************************{ useEffects }**************************/
+
+    useEffect(() => {
+        if (
+            Object.keys(offertsType).length === 0 ||
+            Object.keys(offertsLocation).length === 0
+        ) {
+            try {
+                locationAndTypeFetch()
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    });
+
     
-
     /**************************{ Funciones }**************************/
 
 
     const handleCheckboxChange = (category, categoryItem, newValue) => {
         setFilterObj((prevFilterObj) => ({
             ...prevFilterObj,
-            [category]:{
+            [category]: {
                 ...prevFilterObj[category],
                 [categoryItem]: newValue
             }
@@ -125,7 +82,7 @@ export const CategoryFilterProvider = ({children}) => {
     }
 
     const resetFilters = () => {
-        setFilterObj(filterObjConstructor);
+        setFilterObj(filterObjTemplate(offertsType, offertsLocation));
     };
 
 
@@ -136,10 +93,12 @@ export const CategoryFilterProvider = ({children}) => {
         <CategoryFilterContext.Provider
             value={{
                 filterObj,
+                offertsType,
+                offertsLocation,
 
                 handleCheckboxChange,
                 sortAndHiddenHandler,
-                resetFilters   
+                resetFilters
             }}
         >
             {children}

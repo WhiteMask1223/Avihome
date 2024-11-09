@@ -1,4 +1,89 @@
+export const offertType = {
+    'Anexo': false,
+    'Casa': false,
+    'Complejo Residencial': false,
+    'Departamento': false,
+    'Habitación': false
+};
+
+
+const locationData = {
+    'Urb. Rómulo Gallegos': false,
+    'Barrio Texto que excede los limites': false,
+    'Centro': false,
+    'Las Palmas': false,
+    'Terminal': false,
+    'Las Abejitas': false,
+    'Zona Industrial': false,
+    'Urb. Los Jardines': false,
+    'Urb. Los Morros': false,
+    'Bario Las Mercedes': false,
+    'Urb. Santa Isabel': false,
+    'Urb. Los Laureles': false,
+    'Barrio La Ceiba': false,
+    'Barrio Puerta Negra': false,
+    'Barrio Bicentenerio': false,
+    'Barrio La Morera': false,
+    'Barrio Pueblo Nuevo': false,
+    'Urb. Los Naranjos': false
+};
+
+const sortedEntries = Object.entries(locationData).sort(([keyA], [keyB]) => {
+    return keyA.localeCompare(keyB);
+});
+
+export const sortedLocationData = Object.fromEntries(sortedEntries);
+
+
+export const filterObjTemplate = ( offertType, locationData ) => {
+    return {
+        'Tipo': offertType,
+
+        'Ubicación': locationData,
+
+        'Servicios': {
+            'Agua': false,
+            'Aire Acondicionado': false,
+            'Electricidad': false,
+            'Gas': false,
+            'Internet': false
+        },
+
+        'Disponibilidad': {
+            'Una Habitación': false,
+            'Dos a Cinco Habitaciones': false,
+            'Cinco a Diez Habitaciones': false,
+            'Más de Diez Habitaciones': false
+        },
+
+        'Admite': {
+            'Solo Hombres': false,
+            'Solo Mujeres': false,
+            'Cualquiera': false
+        },
+
+        sortBy: "bestRated",
+
+        showHidden: false,
+
+        icons: {
+            'Tipo': "ri-community-line",
+            'Ubicación': "ri-road-map-line",
+            'Servicios': "ri-flashlight-line",
+            'Disponibilidad': "ri-home-2-line",
+            'Admite': "ri-group-line"
+        }
+    }
+};
+
+
+
+
+/**************************{ Creador de Ofertas }**************************/
+
+
 // Objeto con la información que puede variar
+
 const filterOptions = {
     'Tipo': {
         'Anexo': false,
@@ -46,6 +131,8 @@ const filterOptions = {
         'Cualquiera': false
     }
 };
+
+
 
 // Función para generar cartas
 function createOfferCard(id) {

@@ -10,5 +10,7 @@ export async function GET() {
         return Response.json(offerts);
     } catch (error) {
         console.log(error);
+
+        return Response.json({ error: true, message: 'status 500: Error Interno'});
     };
 };

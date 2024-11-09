@@ -21,7 +21,7 @@ export default function UserProfile() {
     const { userData } = useContext(UserContext);
     const { setLoading } = useContext(UtilityContex);
 
-    const setUserData = async () => {
+    const fetchUserData = async () => {
         if(!userData) {
             return
         };
@@ -45,11 +45,10 @@ export default function UserProfile() {
     }
 
     useEffect(() => {
-        if (user == {}) {
-            return
-        };
-        setUserData();
-        //setLoading(false)
+        if (Object.keys(user).length === 0) {
+            fetchUserData();
+            //setLoading(false)
+        }; 
     });
 
     return (

@@ -12,5 +12,7 @@ export async function POST(request) {
         return Response.json(user);
     } catch (error) {
         console.log(error);
+
+        return Response.json({ error: true, message: 'status 500: Error Interno'});
     };
 };

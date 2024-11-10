@@ -38,11 +38,9 @@ export default function UserProfile() {
     };
 
     const fetchUser = async (id) => {
-        console.log(id)
         const user = await get_UserById(id)
-        console.log(user);
         return user
-    }
+    };
 
     useEffect(() => {
         if (Object.keys(user).length === 0) {

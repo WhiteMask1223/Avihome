@@ -214,14 +214,14 @@ export default function SingInPage() {
                         Teléfono de Contacto <Asterisk />
                     </label>
                     <VariableInput
-                        type={"text"}
+                        type={"tel"}
                         id={"phone"}
                         value={registrationData.phone}
                         setStateFunction={updateRegistrationData}
                         error={credentialsError[0]}
                         required
                         autoComplete={"off"}
-                        placeholder={"0424-0000000"}
+                        placeholder={"04XX-0000000"}
                     />
                 </div>
 

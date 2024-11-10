@@ -117,7 +117,7 @@ export default function LoginPage() {
             </form>
 
             {/* Register Link */}
-            <div className="mt-6 text-center mb-20">
+            <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
                     ¿No tienes una cuenta? {' '}
                     <Link href="/signup" className="text-indigo-600 hover:text-indigo-500">

@@ -9,7 +9,6 @@ export const offertType = {
 
 const locationData = {
     'Urb. Rómulo Gallegos': false,
-    'Barrio Texto que excede los limites': false,
     'Centro': false,
     'Las Palmas': false,
     'Terminal': false,
@@ -17,7 +16,7 @@ const locationData = {
     'Zona Industrial': false,
     'Urb. Los Jardines': false,
     'Urb. Los Morros': false,
-    'Bario Las Mercedes': false,
+    'Barrio Las Mercedes': false,
     'Urb. Santa Isabel': false,
     'Urb. Los Laureles': false,
     'Barrio La Ceiba': false,

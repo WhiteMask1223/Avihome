@@ -21,10 +21,12 @@ export default function SidebarSection() {
             <aside>
                 <div>
 
+                    <h1 className="w-fit py-2 text-xl font-bold">Filtrar Ofertas</h1>
+
                     <SearchBar filterSidebar={true}></SearchBar>
 
                     {Object.entries(filterObj).slice(0, 5).map(([key]) => (
-                    <FilterCategory key={key} category={key} filterObj={filterObj} handleClick={handleCheckboxChange}/>
+                        <FilterCategory key={key} category={key} filterObj={filterObj} handleClick={handleCheckboxChange} />
                     ))}
 
                     <div className="mt-4">
@@ -41,12 +43,12 @@ export default function SidebarSection() {
 
                     <div className="mt-4">
                         <label className={ASIDE_STYLES.SHOW_HIDDEN_LABEL}>
-                            <input className="hidden peer" type="checkbox" onChange={() => sortAndHiddenHandler('showHidden', !filterObj.showHidden)} checked={filterObj.showHidden}/>
+                            <input className="hidden peer" type="checkbox" onChange={() => sortAndHiddenHandler('showHidden', !filterObj.showHidden)} checked={filterObj.showHidden} />
                             <span className={ASIDE_STYLES.CHECKBOX}></span>
-                            <span className={ASIDE_STYLES.SHOW_HIDDEN_TEXT}>Mostrar Ocultos</span> 
+                            <span className={ASIDE_STYLES.SHOW_HIDDEN_TEXT}>Mostrar Ocultos</span>
                         </label>
                     </div>
-                    
+
                     <div className="mt-4">
                         <button onClick={resetFilters} className={ASIDE_STYLES.RESET_FILTERS_BUTTON}>Limpiar Filtros</button>
                     </div>

@@ -1,5 +1,6 @@
 import Link from "next/link"
 
+import ProfileOffertsCard from "./ProfileOffertCard"
 import PagingCounter from "../mainPage/offertsPanel/PagingCounter"
 
 export default function ProfileOffertsSecction() {
@@ -23,7 +24,7 @@ export default function ProfileOffertsSecction() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
+                    <ProfileOffertsCard/>
                 </div>
             </div>
         </section>

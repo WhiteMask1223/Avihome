@@ -152,7 +152,11 @@ export const MainPageProvider = ({ children }) => {
                 return true
             });
 
-            const admitsFilter = filterReader('Admite', card.admits);
+            const admitsFilter = Object.entries(filterObj['Admite']).every(
+
+                //Excluye las cartas donde admits seleccionado sea false
+                ([key, isSelected]) => !isSelected || card.admits[key]
+            );
 
             const hiddenFilter = filterObj.showHidden ? true : !card.hidden;
 

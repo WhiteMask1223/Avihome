@@ -11,11 +11,11 @@ const OffertSchema = mongoose.Schema({
     description: { type: String, trim: true, required: true},
 
     services:{
-        agua: { type: Boolean, default: false, required: true },
-        aireAcondicionado: { type: Boolean, default: false, required: true },
-        electricidad: { type: Boolean, default: false, required: true },
-        gas: { type: Boolean, default: false, required: true },
-        intrnet: { type: Boolean, default: false, required: true }
+        "Agua": { type: Boolean, default: false, required: true },
+        "Aire Acondicionado": { type: Boolean, default: false, required: true },
+        "Electricidad": { type: Boolean, default: false, required: true },
+        "Gas": { type: Boolean, default: false, required: true },
+        "Internet": { type: Boolean, default: false, required: true }
     },
 
     otherServices: { type: String, trim: true, required: true},
@@ -26,9 +26,9 @@ const OffertSchema = mongoose.Schema({
     },
 
     admits: {
-        onlyMen: { type: Boolean, default: false, required: true },
-        onlyWoman: { type: Boolean, default: false, required: true },
-        any: { type: Boolean, default: false, required: true }
+        "Solo Hombres": { type: Boolean, default: false, required: true },
+        "Solo Mujeres": { type: Boolean, default: false, required: true },
+        "Cualquiera": { type: Boolean, default: false, required: true }
     },
 
     rating: { type: Number, min: 0, max: 5, default: 0},

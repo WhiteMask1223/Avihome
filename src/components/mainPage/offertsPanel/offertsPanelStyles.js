@@ -7,7 +7,7 @@ export const OFFERTS_PANEL_STYLES = {
     /*                         { OffertsCard }                         */
 
 
-    GENERAL_STYLES: "w-[80vw] sm:w-52 bg-sectionThemeBackground border border-sectionThemeBorder rounded-[20px] shadow-lg shadow-sectionThemeShadow p-2 my-2 mx-auto cursor-pointer",
+    GENERAL_STYLES: "w-[80vw] sm:w-52 bg-sectionThemeBackground border border-sectionThemeBorder rounded-[20px] shadow-lg shadow-sectionThemeShadow p-2 my-2 mx-auto",
 
     IMG_DIV: "bg-sectionThemeShadow h-40 rounded-xl flex items-center justify-center",
 

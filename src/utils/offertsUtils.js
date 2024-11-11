@@ -24,7 +24,8 @@ const locationData = {
     'Barrio Bicentenerio': false,
     'Barrio La Morera': false,
     'Barrio Pueblo Nuevo': false,
-    'Urb. Los Naranjos': false
+    'Urb. Los Naranjos': false,
+    'Urb. Altos de Fénix': false
 };
 
 const sortedEntries = Object.entries(locationData).sort(([keyA], [keyB]) => {

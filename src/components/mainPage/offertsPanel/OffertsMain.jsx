@@ -21,7 +21,8 @@ export default function OffertsMain() {
             <div className = {OFFERTS_PANEL_STYLES.MAIN_GRID}>
                 {renderedCards.map((card) => (
                     <OffertCard
-                    key={card.id}
+                    key={card._id}
+                    id={card._id}
                     imageSrc={card.imageSrc}
                     title={card.title}
                     location={card.location}

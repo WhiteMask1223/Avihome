@@ -12,6 +12,6 @@ export async function POST(request) {
     } catch (error) {
         console.log(error);
 
-        return new Response(JSON.stringify({ message: 'status 500: Error Interno' }), { status: 500 })
+        return new Response(JSON.stringify({ message: 'Error Interno' }), { status: 500 })
     };
 };

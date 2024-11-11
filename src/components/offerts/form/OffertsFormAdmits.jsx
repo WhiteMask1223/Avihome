@@ -1,5 +1,4 @@
-import { set } from "mongoose";
-import { ASIDE_STYLES } from "../mainPage/aside/asideStyles";
+import { ASIDE_STYLES } from "../../mainPage/aside/asideStyles";
 
 export default function OffertsFormAdmits({ offertsFormData, setOffertsFormData }) {
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const get_UserById = async (data) => {
     const response = await axios.post('/login/api/getUserById', data);
-    return response
+    return response.data
 };
 
 export const get_UserByEmail = async (data) => {

@@ -1,13 +1,14 @@
 'use client'
 
 import { useState, useContext } from "react";
+import { useRouter } from "next/navigation";
 
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
 import { UserContext } from "@/contexts/User.context";
 
 import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
-import OffertsFormCheckbox from "@/components/offerts/OffertsFormCheckbox";
-import OffertsFormAdmits from "@/components/offerts/OffertsFormAdmits";
+import OffertsFormCheckbox from "@/components/offerts/form/OffertsFormCheckbox";
+import OffertsFormAdmits from "@/components/offerts/form/OffertsFormAdmits";
 
 import VariableInput from "@/components/UI/formElements/VariableInput";
 import SelectOption from "@/components/UI/formElements/SelectOption";
@@ -22,6 +23,8 @@ export default function OffertsForm() {
 
     const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
+
+    const router = useRouter();
 
     const offertsFormDataTemplate = {
         title: '',
@@ -90,7 +93,10 @@ export default function OffertsForm() {
         e.preventDefault();
         
         const saveResponse = await save_Offert(offertsFormData);
-        console.log(saveResponse)
+
+        if (saveResponse) {
+            router.push(`/profile/${userData._id}`);
+        }
     };
 
 

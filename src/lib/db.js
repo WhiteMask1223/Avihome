@@ -22,7 +22,6 @@ async function dbConnect() {
 
     //Devuelve coneccion existente si la hay
     if (cached.conn) {
-        console.log("coneccion ya existente");
         return cached.conn;
     }
 

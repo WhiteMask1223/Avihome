@@ -1,14 +1,11 @@
 "use client"
 
 export default function ProfileUserSecction({ user, sameUser }) {
-
+    if(!user) return
 
     return (
         <section className="w-full">
-
-            {/* Sección de Perfil de Usuario */}
-
-            < div className="bg-sectionThemeBackground p-6 rounded-lg shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
+            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
 
                 <h2 className="text-xl font-bold mb-4">Perfil de Usuario</h2>
 
@@ -17,7 +14,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         <i className="ri-account-circle-line text-6xl"></i>
                         <div className="my-auto">
                             <h3 className="text-lg font-semibold">{user.name}</h3>
-                            <p>{user.email}</p>
+                            {sameUser && <p>{user.email}</p>}
                         </div>
                     </div>
                     <div className="sm:text-right">
@@ -27,13 +24,15 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         <p></p>
                     </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between space-x-4">
-                    <div className="flex flex-col">
-                        <button className="bg-gray-200 px-4 py-2 rounded mb-2">Cambiar contraseña</button>
-                        <button className="bg-gray-200 px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                { sameUser &&
+                    <div className="mt-4 flex items-center justify-between space-x-4">
+                        <div className="flex flex-col">
+                            <button className="bg-gray-200 px-4 py-2 rounded mb-2">Cambiar contraseña</button>
+                            <button className="bg-gray-200 px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                        </div>
+                        <button className="bg-red-500 text-white px-4 py-2 rounded">Eliminar Cuenta</button>
                     </div>
-                    <button className="bg-red-500 text-white px-4 py-2 rounded">Eliminar Cuenta</button>
-                </div>
+                }
             </div >
         </section>
     )

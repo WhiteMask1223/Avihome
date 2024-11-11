@@ -1,7 +1,26 @@
 import { offertsData, offertType, sortedLocationData } from '../utils/offertsUtils'; //TODO: DELETE ME
 import OffertModel from '@/models/Offert.model';
 
-/**************************{ Filter Data }**************************/
+
+/**************************{ Read }**************************/
+
+export const getOffertsByUserId_Service = async (userId) => {
+    try {
+
+        const offerts = await OffertModel.find({ user: userId });
+
+        if (!offerts.length) {
+            return { error: true, status: 404, message: "Este usuario no tiene Ofertas" }
+        };
+
+        return offerts
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+
+/*                         { Filter Data }                         */
 
 export const getOffertsLocationAndType_Service = async () => {
     const data = { offertType, sortedLocationData };
@@ -10,23 +29,19 @@ export const getOffertsLocationAndType_Service = async () => {
 };
 
 
-/**************************{ MainPage }**************************/
+/*                         { MainPage }                         */
 
 export const getMainPageOfferts_Service = async () => {
-    return offertsData;
-};
-
-
-/**************************{ Read }**************************/
-
-export const getOffertsByUserId_Service = async (userId) => {
     try {
-        const offerts = await OffertModel.find({ user: userId });
+        const offerts = await OffertModel.find().populate('user');
+
+
         console.log(offerts)
-        //return offerts
+        return offerts
     } catch (error) {
-        console.log(error);
+        throw new Error('Error fetching Offerts: ' + error.message);
     }
+    //return offertsData;
 };
 
 

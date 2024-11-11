@@ -1,4 +1,4 @@
-import { ASIDE_STYLES } from "../mainPage/aside/asideStyles";
+import { ASIDE_STYLES } from "../../mainPage/aside/asideStyles";
 
 export default function OffertsFormCheckbox({ offertsFormData, handlerFunction }) {
     return (

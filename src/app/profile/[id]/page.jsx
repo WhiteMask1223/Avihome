@@ -4,32 +4,37 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
 
 import { UserContext } from "@/contexts/User.context";
-import { UtilityContex } from "@/contexts/Utility.context";
 
 import { get_UserById } from "@/api/user.api";
+import { get_OffertsByUserId } from "@/api/offerts.api";
 
 import ProfileUserSecction from "@/components/profile/ProfileUserSecction";
 import ProfileOffertsSecction from "@/components/profile/ProfileOffertsSecction";
+import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export default function UserProfile() {
 
+    /**************************{ Declaraciones }**************************/
+
     const userId = useParams()
 
-    const [user, setUser] = useState({});
-    const [sameUser, setSameUser] = useState(false);
+    const [ user, setUser ] = useState(null);
+    const [ sameUser, setSameUser ] = useState(false);
+    const [ userOfferts, setUserOfferts ] = useState([]);
 
     const { userData } = useContext(UserContext);
-    const { setLoading } = useContext(UtilityContex);
+
+
+    /**************************{ Funciones }**************************/
 
     const fetchUserData = async () => {
-        if(!userData) {
-            return
-        };
+        if (!userData) return
+
 
         if (userData._id !== userId.id) {
-            console.log('fetch user');
-            const fetchedUser = await fetchUser(userId.id);
-            
+
+            const fetchedUser = await fetchUser(userId);
+
             setUser(fetchedUser);
         } else {
             setUser(userData);
@@ -37,24 +42,52 @@ export default function UserProfile() {
         };
     };
 
+
+    /**************************{ Fetch }**************************/
+
     const fetchUser = async (id) => {
         const user = await get_UserById(id)
         return user
     };
 
+    const fetchOfferts = async () => {
+        if (!userData) return
+        
+        try {
+            const offerts = await get_OffertsByUserId(userId);
+
+            if(!offerts.error) {
+                setUserOfferts(offerts);
+            };
+            
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
+    /**************************{ useEffects }**************************/
+
     useEffect(() => {
-        if (Object.keys(user).length === 0) {
+        if (!user) {
             fetchUserData();
-            //setLoading(false)
-        }; 
+        };
+
+        if (!userOfferts.length) {
+            fetchOfferts();
+        };
     });
+
+    if (!user && !userOfferts.length) {
+        return <LoadingBg />
+    };
 
     return (
         <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
 
             <ProfileUserSecction user={user} sameUser={sameUser} />
 
-            <ProfileOffertsSecction></ProfileOffertsSecction>
+            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser}/>
 
         </section>
     );

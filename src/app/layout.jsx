@@ -15,15 +15,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es"> 
-      <body>
+    <html lang="es">
+      <body className="flex flex-col min-h-screen">
         <SessionWrapper>
           <ContextProvider>
-            <NavBar></NavBar>
+            <div className="flex-grow">
+              <NavBar></NavBar>
               {children}
+              <SidebarDarkBg />
+              <LoadingBg />
+            </div>
             <Footer/>
-            <SidebarDarkBg/>
-            <LoadingBg/>
           </ContextProvider>
         </SessionWrapper>
       </body>

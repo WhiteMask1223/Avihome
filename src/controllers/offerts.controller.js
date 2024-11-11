@@ -46,11 +46,11 @@ export const saveOffert_Controller = async (formData) => {
         description: formData.description,
 
         services: {
-            agua: formData.services.Agua,
-            aireAcondicionado: formData.services["Aire Acondicionado"],
-            electricidad: formData.services.Electricidad,
-            gas: formData.services.Gas,
-            intrnet: formData.services.Internet
+            "Agua": formData.services.Agua,
+            "Aire Acondicionado": formData.services["Aire Acondicionado"],
+            "Electricidad": formData.services.Electricidad,
+            "Gas": formData.services.Gas,
+            "Internet": formData.services.Internet
         },
 
         otherServices: formData.otherServices,
@@ -61,9 +61,9 @@ export const saveOffert_Controller = async (formData) => {
         },
 
         admits: {
-            onlyMen: formData.admits["Solo Hombres"],
-            onlyWoman: formData.admits["Solo Mujeres"],
-            any: formData.admits.Cualquiera
+            "Solo Hombres": formData.admits["Solo Hombres"],
+            "Solo Mujeres": formData.admits["Solo Mujeres"],
+            "Cualquiera": formData.admits.Cualquiera
         },
 
         user: formData.user

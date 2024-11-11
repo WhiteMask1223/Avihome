@@ -5,9 +5,9 @@ export async function POST(request) {
     await dbConnect();
 
     try {
-        const requestData = await request.json();
-        console.log("get User by this ID: ", requestData)
-        const user = await getUserById_Controller(requestData);
+        const { id } = await request.json();
+        console.log("get User by this ID: ", id)
+        const user = await getUserById_Controller(id);
         
         return Response.json(user);
     } catch (error) {

@@ -5,13 +5,13 @@ export async function POST(request) {
     await dbConnect();
 
     try {
-        const userId = await request.json();
-        const response = await getOffertsByUserId_Controller(userId);
+        const { id } = await request.json();
+        const response = await getOffertsByUserId_Controller(id);
 
         return Response.json(response);
     } catch (error) {
         console.log(error);
 
-        return new Response(JSON.stringify({ message: 'status 500: Error Interno' }), { status: 500 })
+        return new Response(JSON.stringify({ message: 'Error Interno' }), { status: 500 })
     };
 };

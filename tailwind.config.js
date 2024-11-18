@@ -10,15 +10,24 @@ module.exports = {
       
       colors: {
 
+        //Estilos para fuentes y letras
+        grayFontThemeColor: 'rgb(var(--theme-grayFont-color))',
+        linkFontThemeColor: 'rgb(var(--theme-linkFont-color))',
+
         //Estilos para Checkboxes
         checkboxThemeColor: 'rgb(var(--theme-checkbox-background-color))',
         checkboxThemeBorder: 'rgb(var(--theme-checkbox-border-color))',
         checkboxThemeSelected: 'rgb(var(--theme-checkbox-selected-color))',
 
-        //Estilos Para Sections
+        //Estilos para Sections
         sectionThemeBackground: 'rgb(var(--theme-section-background-color))',
         sectionThemeBorder: 'rgb(var(--theme-section-border-color))',
         sectionThemeShadow: 'rgb(var(--theme-section-shadow-color))',
+
+        //Estilos para SubSections
+        subSectionThemeBackground: 'rgb(var(--theme-subSection-background-color))',
+        subSectionThemeBorder: 'rgb(var(--theme-subSection-border-color))',
+        subSectionThemeShadow: 'rgb(var(--theme-subSection-shadow-color))',
 
         //Estilos para elementos
         elementThemeColor: 'rgb(var(--theme-element-background-color))',
@@ -26,6 +35,10 @@ module.exports = {
         //Estilos de paginación
         arrowThemeColor: 'rgb(var(--theme-arrow-color))',
         arrowDisableThemeColor: 'rgb(var(--theme-arrow-disable-color))',
+
+        //Estilos para Submit Buttons
+        submitButtonColor: 'rgb(var(--theme-submitButton-color))',
+        submitButtonHoverColor: 'rgb(var(--theme-submitButtonHover-color))',
 
         //Estilos para Danger Buttons
         dangerButtonThemeColor: 'rgb(var(--theme-dangerButton-color))',

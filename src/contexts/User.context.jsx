@@ -36,17 +36,20 @@ export const UserProvider = ({ children }) => {
                 };
 
                 setUserSession(session);
-            }
+            };
         } catch (error) {
             console.error(error);
         };
     };
 
     const fetchUserByEmail = async (email) => {
+        try {
+            const user = await get_UserByEmail(JSON.stringify(email));
 
-        const user = await get_UserByEmail(JSON.stringify(email));
-
-        return user.data
+            return user.data
+        } catch (error) {
+            console.error(error);
+        };
     };
 
     const logout = () => {

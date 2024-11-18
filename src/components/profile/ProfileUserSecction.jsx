@@ -27,10 +27,10 @@ export default function ProfileUserSecction({ user, sameUser }) {
                 { sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
-                            <button className="bg-gray-200 px-4 py-2 rounded mb-2">Cambiar contraseña</button>
-                            <button className="bg-gray-200 px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                            <button className="bg-elementThemeColor px-4 py-2 rounded mb-2">Cambiar contraseña</button>
+                            <button className="bg-elementThemeColor px-4 py-2 rounded">Cambiar Medios de Contacto</button>
                         </div>
-                        <button className="bg-red-500 text-white px-4 py-2 rounded">Eliminar Cuenta</button>
+                        <button className="bg-dangerButtonThemeColor text-white px-4 py-2 rounded">Eliminar Cuenta</button>
                     </div>
                 }
             </div >

@@ -48,7 +48,6 @@ export const getMainPageOfferts_Service = async () => {
 /**************************{ Create, Update & Delete }**************************/
 
 export const saveOffert_Service = async (data) => {
-
     try {
         const newOffert = new OffertModel(data);
         const savedOffert = await newOffert.save();
@@ -57,4 +56,12 @@ export const saveOffert_Service = async (data) => {
     } catch (error) {
         console.log(error);
     };
+};
+
+export const changeRoomsAvailable_Service = async () => {
+    try {
+        
+    } catch (error) {
+        console.log(error)
+    }
 };

@@ -129,7 +129,7 @@ export default function SingInPage() {
 
                 {/* Name Input */}
                 <div className="mt-3">
-                    <label htmlFor="name" className="flex">
+                    <label htmlFor="name" className="flex font-bold">
                         Nombre <Asterisk />
                     </label>
                     <VariableInput
@@ -145,7 +145,7 @@ export default function SingInPage() {
 
                 {/* Email Input */}
                 <div className="mt-1">
-                    <label htmlFor="email" className="flex">
+                    <label htmlFor="email" className="flex font-bold">
                         Correo Electrónico <Asterisk />
                     </label>
                     <VariableInput
@@ -161,7 +161,7 @@ export default function SingInPage() {
 
                 {/* Password Input */}
                 <div className="mt-6">
-                    <label htmlFor="password" className="flex">
+                    <label htmlFor="password" className="flex font-bold">
                         Contraseña <Asterisk />
                     </label>
                     <VariableInput
@@ -174,11 +174,11 @@ export default function SingInPage() {
                         error={credentialsError[0]}
                     />
 
-                    <button type="button" onClick={() => { handleShowPassword('psw', !showPassword.psw) }} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { handleShowPassword('psw', !showPassword.psw) }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
                 </div>
 
                 <div>
-                    <label htmlFor="repPassword" className="flex">
+                    <label htmlFor="repPassword" className="flex font-bold">
                         Repita su Contraseña <Asterisk />
                     </label>
                     <VariableInput
@@ -190,12 +190,12 @@ export default function SingInPage() {
                         error={credentialsError[0]}
                     />
 
-                    <button type="button" onClick={() => { handleShowPassword('pswR', !showPassword.pswR) }} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { handleShowPassword('pswR', !showPassword.pswR) }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
                 </div>
 
                 {/* altEmail Input */}
                 <div className="mt-6">
-                    <label htmlFor="altEmail">
+                    <label htmlFor="altEmail" className="font-bold">
                         Correo Electrónico de Contacto
                     </label>
                     <VariableInput
@@ -210,7 +210,7 @@ export default function SingInPage() {
 
                 {/* phoneNumber Input */}
                 <div className="mt-1">
-                    <label htmlFor="phpne" className="flex">
+                    <label htmlFor="phpne" className="flex font-bold">
                         Teléfono de Contacto <Asterisk />
                     </label>
                     <VariableInput
@@ -225,7 +225,7 @@ export default function SingInPage() {
                     />
                 </div>
 
-                <h2 className="text-center text-gray-500 mt-2">* Indica que el Campo es Obligatorio</h2>
+                <h2 className="text-center text-grayFontThemeColor mt-2">* Indica que el Campo es Obligatorio</h2>
 
                 {/* SingIn Button */}
                 <div className="mt-6">
@@ -235,9 +235,9 @@ export default function SingInPage() {
 
             {/* login Link */}
             <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-grayFontThemeColor">
                     ¿Ya tienes una cuenta?{' '}
-                    <Link href="/login" className="text-indigo-600 hover:text-indigo-500">
+                    <Link href="/login" className="font-bold text-linkFontThemeColor">
                         Inicia Sesión
                     </Link>
                 </p>

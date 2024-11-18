@@ -93,7 +93,7 @@ export default function LoginPage() {
 
                 {/* Email Input */}
                 <div className="mt-6">
-                    <label htmlFor="email">
+                    <label htmlFor="email" className="font-bold">
                         Correo Electrónico
                     </label>
                     <VariableInput type={"email"} id={"email"} value={loginData.email} setStateFunction={updateLoginData} error={credentialsError[0]} autoComplete={"off"} />
@@ -101,12 +101,12 @@ export default function LoginPage() {
 
                 {/* Password Input */}
                 <div className="mt-6">
-                    <label htmlFor="password">
+                    <label htmlFor="password" className="font-bold">
                         Contraseña
                     </label>
                     <VariableInput type={`${showPassword ? "text" : "password"}`} id={"password"} value={loginData.password} setStateFunction={updateLoginData} error={credentialsError[0]} autoComplete={"off"} />
 
-                    <button type="button" onClick={() => { setShowPassword(!showPassword) }} className="block ml-auto text-sm">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { setShowPassword(!showPassword) }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
                 </div>
 
 
@@ -118,9 +118,9 @@ export default function LoginPage() {
 
             {/* Register Link */}
             <div className="mt-6 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-grayFontThemeColor">
                     ¿No tienes una cuenta? {' '}
-                    <Link href="/signup" className="text-indigo-600 hover:text-indigo-500">
+                    <Link href="/signup" className="font-bold text-linkFontThemeColor">
                         Regístrate
                     </Link>
                 </p>

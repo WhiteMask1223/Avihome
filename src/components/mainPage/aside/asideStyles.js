@@ -13,7 +13,7 @@ export const ASIDE_STYLES = {
     SHOW_HIDDEN_LABEL: "inline-flex items-center cursor-pointer ml-2",
     SHOW_HIDDEN_TEXT: "ml-2 max-w-48 text-lg overflow-hidden text-ellipsis whitespace-nowrap sm:text-base ",
 
-    RESET_FILTERS_BUTTON: "w-full bg-[#0B8D83] text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none",
+    RESET_FILTERS_BUTTON: "w-full bg-submitButtonColor text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-submitButtonHoverColor focus:outline-none",
 
 
     /*                         { FilterCategory }                         */

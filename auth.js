@@ -23,9 +23,7 @@ const authOptions = {
                 try {
                     if (!user) return
 
-                    if (
-                        await bcrypt.compare(credentials.password, user.password) === false
-                    ) return
+                    if (!await bcrypt.compare(credentials.password, user.password)) return
 
                 } catch (error) {
                     console.log('login Error: ', error)

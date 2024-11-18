@@ -5,7 +5,7 @@ const url = '/offerts/api/'
 /**************************{ Filter Data }**************************/
 
 export const get_OffertsLocationAndType = async () => {
-    const response = await axios.get(`${url}getLocationAndType`);
+    const response = await axios.get(`${url}get-location-and-type`);
 
     return response.data
 };
@@ -14,7 +14,7 @@ export const get_OffertsLocationAndType = async () => {
 /**************************{ Main Page }**************************/
 
 export const get_MainPageOfferts = async () => {
-    const response = await axios.get(`${url}getOfferts`);
+    const response = await axios.get(`${url}get-offerts`);
 
     return response.data
 };
@@ -24,7 +24,7 @@ export const get_MainPageOfferts = async () => {
 
 export const get_OffertsByUserId = async (userId) => {
     try {
-        const response = await axios.post(`${url}getOffertsByUserId`, userId);
+        const response = await axios.post(`${url}get-offerts-by-user-id`, userId);
         
         return response.data
     } catch (error) {
@@ -37,9 +37,19 @@ export const get_OffertsByUserId = async (userId) => {
 
 export const save_Offert = async (data) => {
     try {
-        const response = await axios.post(`${url}saveOffert`, data);
+        const response = await axios.post(`${url}save-offert`, data);
         
         return response
+    } catch (error) {
+        console.error(error)
+    }
+};
+
+export const update_roomsAvailable = async ( data, action ) => {
+    try {
+        const response = await axios.put(`${url}change-rooms-available`, { data, action });
+        
+        return response.data
     } catch (error) {
         console.error(error)
     }

@@ -1,29 +1,44 @@
 import Link from "next/link"
 
-export default function ProfileOffertsCard({ _id, title, location, address, description, roomsAvailable, sameUser }) {
+import { update_roomsAvailable } from "@/api/offerts.api";
+
+
+
+export default function ProfileOffertsCard({ offert, sameUser }) {
+
+    const changeRoomsAvailableHandler = async (action) => {
+        await update_roomsAvailable(offert, action)
+    };
+
     return (
-        <card>
+        <section>
             < div className="p-4 bg-subSectionThemeBackground rounded-lg border border-subSectionThemeBorder shadow-lg shadow-subSectionThemeShadow" >
 
-                <Link href={`/offerts/${_id}`}>
-                    <h3 className="font-bold">{title}</h3>
+                <Link href={`/offerts/${offert._id}`}>
+                    <h3 className="font-bold">{offert.title}</h3>
                 </Link>
 
-                <p className="text-sm text-grayFontThemeColor">{location}</p>
-                <p className="text-sm text-grayFontThemeColor">{address}</p>
-                <p className="text-sm mt-2">{description}</p>
+                <p className="text-sm text-grayFontThemeColor">{offert.location}</p>
+                <p className="text-sm text-grayFontThemeColor">{offert.address}</p>
+                <p className="text-sm mt-2">{offert.description}</p>
 
 
                 {sameUser &&
                     <div>
                         <div className="flex items-center space-x-2 mt-3">
-                            <button className="w-fit h-fit">
+                            <button
+                                className="w-fit h-fit"
+                                onClick={() => changeRoomsAvailableHandler('up')}
+                            >
                                 <i className="ri-arrow-up-circle-fill text-3xl text-elementThemeColor"></i>
                             </button>
 
-                            <span className="">{roomsAvailable}</span>
+                            <span className="font-bold">{offert.availability.capacity}{' '}/{' '}{offert.availability.roomsAvailable}</span>
 
-                            <button className="w-fit h-fit">
+                            <button 
+                                className="w-fit h-fit"
+                                onClick={() => changeRoomsAvailableHandler('down')}
+                            >
                                 <i className="ri-arrow-down-circle-fill text-3xl text-elementThemeColor"></i>
                             </button>
                         </div>
@@ -41,6 +56,6 @@ export default function ProfileOffertsCard({ _id, title, location, address, desc
                     </div>
                 }
             </div >
-        </card>
+        </section>
     );
 };

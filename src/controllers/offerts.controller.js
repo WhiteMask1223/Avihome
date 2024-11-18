@@ -2,7 +2,8 @@ import {
     getOffertsLocationAndType_Service,
     getMainPageOfferts_Service,
     saveOffert_Service,
-    getOffertsByUserId_Service
+    getOffertsByUserId_Service,
+    changeRoomsAvailable_Service
 } from "@/services/offerts.service";
 
 /**************************{ Filter Data }**************************/
@@ -72,4 +73,15 @@ export const saveOffert_Controller = async (formData) => {
     const res = await saveOffert_Service(offertData);
 
     return res;
-}
+};
+
+export const changeRoomsAvailable_Controller = async ({ data, action }) => {
+    try {
+        console.log(data, action)
+        const res = changeRoomsAvailable_Service(data, action)
+
+        return res;
+    } catch (error) {
+        console.log(error)
+    }
+};

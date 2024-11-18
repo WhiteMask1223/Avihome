@@ -33,7 +33,7 @@ export const getOffertsLocationAndType_Service = async () => {
 
 export const getMainPageOfferts_Service = async () => {
     try {
-        const offerts = await OffertModel.find().populate('user');
+        const offerts = await OffertModel.find().populate({ path: 'user', select: 'name email contEmail phone'});
 
 
         console.log(offerts)
@@ -41,7 +41,6 @@ export const getMainPageOfferts_Service = async () => {
     } catch (error) {
         throw new Error('Error fetching Offerts: ' + error.message);
     }
-    //return offertsData;
 };
 
 
@@ -58,9 +57,9 @@ export const saveOffert_Service = async (data) => {
     };
 };
 
-export const changeRoomsAvailable_Service = async () => {
+export const changeRoomsAvailable_Service = async (data, action) => {
     try {
-        
+        return true
     } catch (error) {
         console.log(error)
     }

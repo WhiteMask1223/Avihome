@@ -35,12 +35,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
                             userOfferts.map((offert) => (
                                 <ProfileOffertsCard
                                     key={offert._id}
-                                    _id={offert._id}
-                                    title={offert.title}
-                                    location={offert.location}
-                                    address={offert.address}
-                                    description={offert.description}
-                                    roomsAvailable={offert.availability.roomsAvailable}
+                                    offert={offert}
                                     sameUser={sameUser}
                                 />
                             ))

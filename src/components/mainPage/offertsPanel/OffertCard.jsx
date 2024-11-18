@@ -4,7 +4,7 @@ import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
 export default function OffertCard({ id, imageSrc, title, location, rating, availability }) {
   return (
-    <div className={OFFERTS_PANEL_STYLES.GENERAL_STYLES}>
+    <section className={OFFERTS_PANEL_STYLES.GENERAL_STYLES}>
 
       <Link href={`/offerts/${id}`}>
 
@@ -42,6 +42,6 @@ export default function OffertCard({ id, imageSrc, title, location, rating, avai
 
       </Link>
 
-    </div>
+    </section>
   );
 };

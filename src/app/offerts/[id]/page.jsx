@@ -49,7 +49,7 @@ export default function OfferDetail() {
 
     return (
         <div className="p-6 min-h-screen flex justify-center items-center">
-            <div className="bg-sectionThemeBackground p-6 mt-12 sm:mt-28 rounded-2xl shadow-lg shadow-sectionThemeShadow w-full max-w-2xl">
+            <div className="bg-sectionThemeBackground p-6 mt-12 sm:mt-20 rounded-2xl shadow-lg shadow-sectionThemeShadow w-full max-w-2xl">
 
                 {/**************************{ title }**************************/}
 
@@ -122,9 +122,9 @@ export default function OfferDetail() {
 
                         <div className="mr-2">
                             <h2 className="font-semibold">Propietario:</h2>
-                            <div className="flex items-center mt-2">
-                                <i className="ri-account-circle-line text-4xl"></i>
-                                <Link href={`/profile/${offert.user._id}`}>
+                            <div className="mt-2">
+                                <Link href={`/profile/${offert.user._id}`} className="flex items-center">
+                                    <i className="ri-account-circle-line text-4xl"></i>
                                     <p className="font-semibold">{offert.user.name}</p>
                                 </Link>
                             </div>

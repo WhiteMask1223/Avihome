@@ -1,26 +1,59 @@
+import { useState } from "react";
 import Link from "next/link"
 
 import { update_roomsAvailable } from "@/api/offerts.api";
 
-
-
 export default function ProfileOffertsCard({ offert, sameUser }) {
 
+    const [ cardOffert, setCardOffert ] = useState(offert);
+
     const changeRoomsAvailableHandler = async (action) => {
-        await update_roomsAvailable(offert, action)
+
+        const newAvailabilityValue = updateRoomsAvailable(action);
+
+        if (!newAvailabilityValue) return;
+        
+        try {
+            const newOffert = await update_roomsAvailable(cardOffert._id, newAvailabilityValue);
+
+            if (!newOffert.error) {
+                setCardOffert(newOffert);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    const updateRoomsAvailable = (action) => {
+    
+        if (action === 'up') {
+            if (cardOffert.availability.roomsAvailable < cardOffert.availability.capacity) {
+                return 1;
+            } else {
+                console.log("roomsAvailable ya está al maximo. No se puede subir más.");
+                return null
+            };
+        } else if (action === 'down') {
+            if (cardOffert.availability.roomsAvailable > 0) {
+                return -1;
+            } else {
+                console.log("roomsAvailable ya está en 0. No se puede reducir más.");
+                return null
+            };
+        };
     };
 
     return (
         <section>
             < div className="p-4 bg-subSectionThemeBackground rounded-lg border border-subSectionThemeBorder shadow-lg shadow-subSectionThemeShadow" >
 
-                <Link href={`/offerts/${offert._id}`}>
-                    <h3 className="font-bold">{offert.title}</h3>
+                <Link href={`/offerts/${cardOffert._id}`}>
+                    <h3 className="font-bold">{cardOffert.title}</h3>
                 </Link>
 
-                <p className="text-sm text-grayFontThemeColor">{offert.location}</p>
-                <p className="text-sm text-grayFontThemeColor">{offert.address}</p>
-                <p className="text-sm mt-2">{offert.description}</p>
+                <p className="text-sm text-grayFontThemeColor">{cardOffert.location}</p>
+                <p className="text-sm text-grayFontThemeColor">{cardOffert.address}</p>
+                <p className="text-sm mt-2">{cardOffert.description}</p>
 
 
                 {sameUser &&
@@ -33,7 +66,7 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                                 <i className="ri-arrow-up-circle-fill text-3xl text-elementThemeColor"></i>
                             </button>
 
-                            <span className="font-bold">{offert.availability.capacity}{' '}/{' '}{offert.availability.roomsAvailable}</span>
+                            <span className="font-bold">{cardOffert.availability.capacity}{' '}/{' '}{cardOffert.availability.roomsAvailable}</span>
 
                             <button 
                                 className="w-fit h-fit"

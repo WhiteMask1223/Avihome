@@ -57,9 +57,17 @@ export const saveOffert_Service = async (data) => {
     };
 };
 
-export const changeRoomsAvailable_Service = async (data, action) => {
+export const changeRoomsAvailable_Service = async ({ id, newAvailabilityValue }) => {
     try {
-        return true
+        const updatedOffert = await OffertModel.findByIdAndUpdate(
+            id,
+            { $inc: { "availability.roomsAvailable": newAvailabilityValue } },
+            { new: true, runVailidators: true}
+        );
+
+        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada."}
+
+        return updatedOffert
     } catch (error) {
         console.log(error)
     }

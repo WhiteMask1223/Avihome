@@ -75,10 +75,9 @@ export const saveOffert_Controller = async (formData) => {
     return res;
 };
 
-export const changeRoomsAvailable_Controller = async ({ data, action }) => {
+export const changeRoomsAvailable_Controller = async ({ id, newAvailabilityValue }) => {
     try {
-        console.log(data, action)
-        const res = changeRoomsAvailable_Service(data, action)
+        const res = changeRoomsAvailable_Service({ id, newAvailabilityValue })
 
         return res;
     } catch (error) {

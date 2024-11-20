@@ -45,9 +45,9 @@ export const save_Offert = async (data) => {
     }
 };
 
-export const update_roomsAvailable = async ( data, action ) => {
+export const update_roomsAvailable = async (id, newAvailabilityValue) => {
     try {
-        const response = await axios.put(`${url}change-rooms-available`, { data, action });
+        const response = await axios.put(`${url}change-rooms-available`, { id, newAvailabilityValue});
         
         return response.data
     } catch (error) {

@@ -5,8 +5,8 @@ export async function PUT(request) {
     await dbConnect();
 
     try {
-        const { data, action } = await request.json();
-        const response = await changeRoomsAvailable_Controller({ data, action });
+        const { id, newAvailabilityValue } = await request.json();
+        const response = await changeRoomsAvailable_Controller({ id, newAvailabilityValue });
 
         return Response.json(response);
     } catch (error) {

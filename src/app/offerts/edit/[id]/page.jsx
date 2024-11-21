@@ -16,7 +16,7 @@ import Asterisk from "@/components/UI/formElements/Asterisk";
 
 import { save_Offert } from "@/api/offerts.api";
 
-export default function OffertsForm() {
+export default function OffertsEdit() {
 
 
     /**************************{ Declaraciones }**************************/
@@ -99,8 +99,8 @@ export default function OffertsForm() {
                 router.push(`/profile/${userData._id}`);
             };
         } catch (error) {
-            console.error(error)
-        }
+            console.error(error);
+        };
     };
 
 
@@ -110,7 +110,7 @@ export default function OffertsForm() {
         <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
             <div className="bg-white p-6 rounded-lg shadow-md w-11/12 max-w-4xl m-auto">
 
-                <h1 className="m-auto w-fit p-2 text-2xl font-bold">Crear Oferta</h1>
+                <h1 className="m-auto w-fit p-2 text-2xl font-bold">Editar Oferta</h1>
 
                 <form onSubmit={handleSubmit}>
 

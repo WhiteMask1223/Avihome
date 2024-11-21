@@ -4,8 +4,13 @@ import ProfileOffertsCard from "./ProfileOffertCard"
 import UserOffertsNotFound from "@/components/profile/UserOffertsNotFound";
 import PagingCounter from "../mainPage/offertsPanel/PagingCounter"
 
+import LoadingBg from "../UI/utility/LoadingBg";
+
 export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
-    if (!userOfferts.length) return
+    
+    if (!userOfferts.length) return (
+        <LoadingBg conditional={true}/>
+    )
 
     return (
         <section className="w-full">

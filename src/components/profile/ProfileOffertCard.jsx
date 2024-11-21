@@ -3,41 +3,53 @@ import Link from "next/link"
 
 import { update_roomsAvailable } from "@/api/offerts.api";
 
+import LoadingSpinners from "../UI/utility/LoadingSpinners";
+
 export default function ProfileOffertsCard({ offert, sameUser }) {
 
-    const [ cardOffert, setCardOffert ] = useState(offert);
+    const [cardOffert, setCardOffert] = useState(offert);
+    const [disableChangeAvailability, setDisableChangeAvailability] = useState(false);
 
     const changeRoomsAvailableHandler = async (action) => {
+
+        setDisableChangeAvailability(true);
 
         const newAvailabilityValue = updateRoomsAvailable(action);
 
         if (!newAvailabilityValue) return;
-        
+
         try {
             const newOffert = await update_roomsAvailable(cardOffert._id, newAvailabilityValue);
 
             if (!newOffert.error) {
                 setCardOffert(newOffert);
-            }
+
+            };
+
+            setDisableChangeAvailability(false);
         } catch (error) {
             console.log(error)
         }
     };
 
+    const disabledHandler = (direction) => {
+        if (direction === "up" && cardOffert.availability.roomsAvailable === cardOffert.availability.capacity) return true
+        if (direction === "down" && cardOffert.availability.roomsAvailable === 0) return true
+        return false
+    };
+
     const updateRoomsAvailable = (action) => {
-    
+
         if (action === 'up') {
             if (cardOffert.availability.roomsAvailable < cardOffert.availability.capacity) {
                 return 1;
             } else {
-                console.log("roomsAvailable ya está al maximo. No se puede subir más.");
                 return null
             };
         } else if (action === 'down') {
             if (cardOffert.availability.roomsAvailable > 0) {
                 return -1;
             } else {
-                console.log("roomsAvailable ya está en 0. No se puede reducir más.");
                 return null
             };
         };
@@ -62,25 +74,37 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                             <button
                                 className="w-fit h-fit"
                                 onClick={() => changeRoomsAvailableHandler('up')}
+                                disabled={disableChangeAvailability || disabledHandler("up")}
                             >
-                                <i className="ri-arrow-up-circle-fill text-3xl text-elementThemeColor"></i>
+                                <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disableChangeAvailability || disabledHandler("up") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
 
-                            <span className="font-bold">{cardOffert.availability.capacity}{' '}/{' '}{cardOffert.availability.roomsAvailable}</span>
+                            <div className="w-10 text-center">
+                                {disableChangeAvailability ?
+                                    <LoadingSpinners />
+                                    :
+                                    <span className="font-bold">
+                                        {cardOffert.availability.roomsAvailable}
+                                        {' '}/{' '}
+                                        {cardOffert.availability.capacity}
+                                    </span>
+                                }
+                            </div>
 
-                            <button 
+                            <button
                                 className="w-fit h-fit"
                                 onClick={() => changeRoomsAvailableHandler('down')}
+                                disabled={disableChangeAvailability || disabledHandler("down")}
                             >
-                                <i className="ri-arrow-down-circle-fill text-3xl text-elementThemeColor"></i>
+                                <i className={`ri-arrow-down-circle-fill text-3xl transition duration-300 ease-in-out ${disableChangeAvailability || disabledHandler("down") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
                         </div>
 
                         <div className="flex justify-between items-center mt-4">
 
-                            <button className="w-8 h-8 rounded bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out">
-                                <i className="ri-edit-2-fill text-xl text-white"></i>
-                            </button>
+                            <Link href={`/offerts/edit/${cardOffert._id}`} className="w-8 h-8 rounded bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out text-center flex items-center">
+                                <i className="ri-edit-2-fill m-auto text-xl text-white"></i>
+                            </Link>
 
                             <button className="w-8 h-8 bg-dangerButtonThemeColor rounded">
                                 <i className="ri-delete-bin-2-fill text-xl text-white"></i>

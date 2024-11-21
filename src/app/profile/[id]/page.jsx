@@ -79,7 +79,7 @@ export default function UserProfile() {
     });
 
     if (!user && !userOfferts.length) {
-        return <LoadingBg />
+        return <LoadingBg conditional={true}/>
     };
 
     return (

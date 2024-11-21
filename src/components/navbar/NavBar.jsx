@@ -23,7 +23,7 @@ export default function NavBar() {
         <div>
             <nav className={NAVBAR_STYLES.GENERAL}>
                 <div className="w-full flex justify-between items-center p-1">
-                    <Link href="/" className={`text-white text-left px-4 py-2 ${isHomePage ? "hidden sm:inline" : ""}`}>Home</Link>
+                    <a href="/" className={`text-white text-left px-4 py-2 ${isHomePage ? "hidden sm:inline" : ""}`}>Home</a>
                     {isHomePage && (
                         <button 
                         onClick={toggleFilterSidebar}

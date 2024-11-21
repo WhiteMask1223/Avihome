@@ -18,5 +18,5 @@ export default function ArrowBotton({acction, onClickHandler, currentPage, total
             >
             {double === true ? <i className={`ri-arrow-${direction}-double-line`}></i> : <i className={`ri-arrow-${direction}-s-line`}></i>}
         </button>
-    )
-}
+    );
+};

@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
               <NavBar></NavBar>
               {children}
               <SidebarDarkBg />
-              <LoadingBg />
+              <LoadingBg conditional={false}/>
             </div>
             <Footer/>
           </ContextProvider>

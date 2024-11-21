@@ -3,7 +3,8 @@ import {
     getMainPageOfferts_Service,
     saveOffert_Service,
     getOffertsByUserId_Service,
-    changeRoomsAvailable_Service
+    changeRoomsAvailable_Service,
+    hiddenOrShowOffert_Service
 } from "@/services/offerts.service";
 
 /**************************{ Filter Data }**************************/
@@ -77,10 +78,21 @@ export const saveOffert_Controller = async (formData) => {
 
 export const changeRoomsAvailable_Controller = async ({ id, newAvailabilityValue }) => {
     try {
-        const res = changeRoomsAvailable_Service({ id, newAvailabilityValue })
+        let updatedOffert = await changeRoomsAvailable_Service({ id, newAvailabilityValue });
 
-        return res;
+        if (updatedOffert.availability.roomsAvailable === 0) {
+            updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
+        };
+
+        if (
+            updatedOffert.availability.roomsAvailable > 0 &&
+            updatedOffert.hidden === true
+        ) {
+            updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
+        };
+
+        return updatedOffert;
     } catch (error) {
         console.log(error)
-    }
+    };
 };

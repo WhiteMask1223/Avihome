@@ -35,8 +35,6 @@ export const getMainPageOfferts_Service = async () => {
     try {
         const offerts = await OffertModel.find().populate({ path: 'user', select: 'name email contEmail phone'});
 
-        console.log(offerts)
-
         return offerts;
     } catch (error) {
         throw new Error('Error fetching Offerts: ' + error.message);

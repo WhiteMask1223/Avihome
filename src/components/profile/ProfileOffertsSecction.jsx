@@ -21,7 +21,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
                     <h2 className="text-xl font-bold my-auto">Ofertas Publicadas</h2>
 
                     {sameUser &&
-                        <Link href={"/offerts/offertsForm"} className="flex justify-between text-center p-2 rounded-lg bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out">
+                        <Link href={"/offerts/offerts-form"} className="flex justify-between text-center p-2 rounded-lg bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out">
                             <p className="m-auto text-white font-bold">Agregar Oferta</p>
                             <i className="ri-add-box-fill text-3xl text-white"></i>
                         </Link>

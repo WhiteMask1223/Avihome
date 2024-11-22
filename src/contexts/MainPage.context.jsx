@@ -63,10 +63,11 @@ export const MainPageProvider = ({ children }) => {
             const offerts = await get_MainPageOfferts();
             setOfertsData(offerts);
             setFiltredDataForCards(offerts);
+            return true
         } catch (error) {
             setOffertsFetched(false);
             console.error(error);
-        }
+        };
     };
 
 
@@ -225,6 +226,7 @@ export const MainPageProvider = ({ children }) => {
 
                 offertsData,
 
+                fetchOfferts,
                 pageChangeHandler,
                 handleSearchChange,
                 clearSearchInput

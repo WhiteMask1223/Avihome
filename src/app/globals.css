@@ -12,13 +12,14 @@
 
   /*Estilos para Sections*/
   --theme-section-background-color: 250, 250, 250;
+  --theme-section-danger-color: 255, 210, 210;
   --theme-section-border-color: 200, 200, 200;
   --theme-section-shadow-color: 200, 200, 200;
+  --theme-section-danger-shadow-color: 250, 150, 150;
 
   /*Estilos para SubSections*/
   --theme-subSection-background-color: 235, 235, 235;
   --theme-subSection-border-color: 200, 200, 200;
-  --theme-subSection-shadow-color: 200, 200, 200;
 
   /*Estilos para CheckBoxes*/
   --theme-checkbox-background-color: 200, 200, 200;
@@ -53,8 +54,10 @@
 
     /*Estilos para Sections*/
     --theme-section-background-color: 35, 35, 35;
+    --theme-section-danger-color: 75, 35, 35;
     --theme-section-border-color: 5, 5, 5;
     --theme-section-shadow-color: 0, 0, 0;
+    --theme-section-danger-shadow-color: 30, 0, 0;
 
     /*Estilos para SubSections*/
     --theme-subSection-background-color: 20, 20, 20;

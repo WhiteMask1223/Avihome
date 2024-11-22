@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link"
+
+import { MainPageContext } from "@/contexts/MainPage.context";
 
 import { update_roomsAvailable } from "@/api/offerts.api";
 
 import LoadingSpinners from "../UI/utility/LoadingSpinners";
 
 export default function ProfileOffertsCard({ offert, sameUser }) {
+
+    const { fetchOfferts } = useContext(MainPageContext)
 
     const [cardOffert, setCardOffert] = useState(offert);
     const [disableChangeAvailability, setDisableChangeAvailability] = useState(false);
@@ -23,7 +27,7 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
 
             if (!newOffert.error) {
                 setCardOffert(newOffert);
-
+                await fetchOfferts();
             };
 
             setDisableChangeAvailability(false);
@@ -57,7 +61,7 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
 
     return (
         <section>
-            < div className="p-4 bg-subSectionThemeBackground rounded-lg border border-subSectionThemeBorder shadow-lg shadow-subSectionThemeShadow" >
+            < div className={`p-4 rounded-lg border border-subSectionThemeBorder shadow-inner transition duration-300 ease-in-out ${cardOffert.hidden ? "bg-sectionThemeDanger shadow-sectionDangerShadow" : "bg-subSectionThemeBackground shadow-sectionThemeShadow"}`} >
 
                 <Link href={`/offerts/${cardOffert._id}`}>
                     <h3 className="font-bold">{cardOffert.title}</h3>
@@ -67,7 +71,6 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                 <p className="text-sm text-grayFontThemeColor">{cardOffert.address}</p>
                 <p className="text-sm mt-2">{cardOffert.description}</p>
 
-
                 {sameUser &&
                     <div>
                         <div className="flex items-center space-x-2 mt-3">
@@ -76,7 +79,7 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                                 onClick={() => changeRoomsAvailableHandler('up')}
                                 disabled={disableChangeAvailability || disabledHandler("up")}
                             >
-                                <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disableChangeAvailability || disabledHandler("up") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
+                                <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("up") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
 
                             <div className="w-10 text-center">
@@ -96,8 +99,13 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                                 onClick={() => changeRoomsAvailableHandler('down')}
                                 disabled={disableChangeAvailability || disabledHandler("down")}
                             >
-                                <i className={`ri-arrow-down-circle-fill text-3xl transition duration-300 ease-in-out ${disableChangeAvailability || disabledHandler("down") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
+                                <i className={`ri-arrow-down-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("down") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
+
+                            {cardOffert.hidden &&
+                                <p className="text-sm my-auto font-bold">Esta oferta se encuentra oculta</p>
+                            }
+
                         </div>
 
                         <div className="flex justify-between items-center mt-4">

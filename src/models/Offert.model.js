@@ -21,8 +21,8 @@ const OffertSchema = mongoose.Schema({
     otherServices: { type: String, trim: true, required: true},
 
     availability: {
-        capacity: { type: Number, min: 0, required: true, immutable: true},
-        roomsAvailable: { type: Number, min: 0, required: true}
+        capacity: { type: Number, min: 0, required: true },
+        roomsAvailable: { type: Number, min: 0, required: true }
     },
 
     admits: {

@@ -21,13 +21,14 @@ module.exports = {
 
         //Estilos para Sections
         sectionThemeBackground: 'rgb(var(--theme-section-background-color))',
+        sectionThemeDanger: 'rgb(var(--theme-section-danger-color))',
         sectionThemeBorder: 'rgb(var(--theme-section-border-color))',
         sectionThemeShadow: 'rgb(var(--theme-section-shadow-color))',
+        sectionDangerShadow: 'rgb(var(--theme-section-danger-shadow-color))',
 
         //Estilos para SubSections
         subSectionThemeBackground: 'rgb(var(--theme-subSection-background-color))',
         subSectionThemeBorder: 'rgb(var(--theme-subSection-border-color))',
-        subSectionThemeShadow: 'rgb(var(--theme-subSection-shadow-color))',
 
         //Estilos para elementos
         elementThemeColor: 'rgb(var(--theme-element-background-color))',

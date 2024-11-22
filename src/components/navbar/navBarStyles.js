@@ -3,7 +3,7 @@ export const NAVBAR_STYLES = {
 
     /*                         { NavBar }                         */
 
-    GENERAL: "fixed h-fit top-0 left-0 w-screen bg-[#405453] z-50 p-1 sm:h-[80px]",
+    GENERAL: "fixed h-fit top-0 left-0 w-screen bg-[#405453] z-50 p-1 shadow-lg sm:h-[80px]",
 
 
     /*                         { NavSessionSidebar }                         */

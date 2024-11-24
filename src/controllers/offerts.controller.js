@@ -1,11 +1,32 @@
 import {
+    saveOffert_Service,
+    getOffertById_Service,
+    getOffertsByUserId_Service,
     getOffertsLocationAndType_Service,
     getMainPageOfferts_Service,
-    saveOffert_Service,
-    getOffertsByUserId_Service,
+    updateOffert_Service,
     changeRoomsAvailable_Service,
-    hiddenOrShowOffert_Service
+    hiddenOrShowOffert_Service,
+    deleteOffertById_Service
 } from "@/services/offerts.service";
+
+
+/**************************{ Funciones Mixtas }**************************/
+
+const hiddenHandeler = async (id, updatedOffert) => {
+    if (updatedOffert.availability.roomsAvailable === 0) {
+        updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
+    };
+
+    if (
+        updatedOffert.availability.roomsAvailable > 0 &&
+        updatedOffert.hidden === true
+    ) {
+        updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
+    };
+
+    return updatedOffert;
+};
 
 /**************************{ Filter Data }**************************/
 
@@ -33,8 +54,14 @@ export const getOffertsByUserId_Controller = async (userId) => {
     return res;
 };
 
+export const getOffertById_Controller = async (offertId) => {
+    const res = await getOffertById_Service(offertId);
 
-/**************************{ Create, Update & Delete }**************************/
+    return res;
+};
+
+
+/**************************{ Create }**************************/
 
 export const saveOffert_Controller = async (formData) => {
 
@@ -76,23 +103,42 @@ export const saveOffert_Controller = async (formData) => {
     return res;
 };
 
-export const changeRoomsAvailable_Controller = async ({ id, newAvailabilityValue }) => {
+
+/**************************{ Update }**************************/
+
+export const changeRoomsAvailable_Controller = async ( offertId, newAvailabilityValue ) => {
     try {
-        let updatedOffert = await changeRoomsAvailable_Service({ id, newAvailabilityValue });
+        let updatedOffert = await changeRoomsAvailable_Service( offertId, newAvailabilityValue );
+        
+        console.log(updatedOffert)
 
-        if (updatedOffert.availability.roomsAvailable === 0) {
-            updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
-        };
-
-        if (
-            updatedOffert.availability.roomsAvailable > 0 &&
-            updatedOffert.hidden === true
-        ) {
-            updatedOffert = await hiddenOrShowOffert_Service(id, !updatedOffert.hidden);
-        };
+        if(!updatedOffert.error) {
+            updatedOffert = await hiddenHandeler(offertId, updatedOffert);
+        }
 
         return updatedOffert;
     } catch (error) {
         console.log(error)
     };
+};
+
+export const updateOffert_Controller = async (offertId, newOffertData) => {
+    try {
+        let updatedOffert = await updateOffert_Service(offertId.id, newOffertData);
+
+        updatedOffert = await hiddenHandeler(offertId.id, updatedOffert);
+
+        return updatedOffert;
+    } catch (error) {
+        console.log(error)
+    };
+};
+
+
+/**************************{ Delete }**************************/
+
+export const deleteOffertById_Controller = async (offertId) => {
+    const res = await deleteOffertById_Service(offertId);
+
+    return res;
 };

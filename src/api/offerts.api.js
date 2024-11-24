@@ -29,11 +29,21 @@ export const get_OffertsByUserId = async (userId) => {
         return response.data
     } catch (error) {
         console.error(error)
-    }
+    };
+};
+
+export const get_OffertById = async (offertId) => {
+    try {
+        const response = await axios.post(`${url}get-offert-by-id`, offertId);
+
+        return response.data
+    } catch (error) {
+        console.error(error)
+    };
 };
 
 
-/**************************{ Create, Update & Delete }**************************/
+/**************************{ Create }**************************/
 
 export const save_Offert = async (data) => {
     try {
@@ -42,15 +52,41 @@ export const save_Offert = async (data) => {
         return response
     } catch (error) {
         console.error(error)
-    }
+    };
 };
+
+
+/**************************{ Update }**************************/
 
 export const update_roomsAvailable = async (id, newAvailabilityValue) => {
     try {
-        const response = await axios.put(`${url}change-rooms-available`, { id, newAvailabilityValue});
+        const response = await axios.put(`${url}update-rooms-available`, { id, newAvailabilityValue });
         
         return response.data
     } catch (error) {
         console.error(error)
-    }
+    };
+};
+
+export const update_offert = async (id, newOffert) => {
+    try {
+        const response = await axios.put(`${url}update-offert`, { id, newOffert });
+        
+        return response.data
+    } catch (error) {
+        console.error(error)
+    };
+};
+
+
+/**************************{ Delete }**************************/
+
+export const delete_offert = async (id) => {
+    try {
+        const response = await axios.delete(`${url}delete-offert/${id}`);
+        
+        return response.data
+    } catch (error) {
+        console.error(error)
+    };
 };

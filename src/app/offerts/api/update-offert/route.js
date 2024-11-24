@@ -1,12 +1,12 @@
-import { changeRoomsAvailable_Controller } from "@/controllers/offerts.controller";
+import { updateOffert_Controller } from "@/controllers/offerts.controller";
 import dbConnect from "@/lib/db";
 
 export async function PUT(request) {
     await dbConnect();
 
     try {
-        const { id, newAvailabilityValue } = await request.json();
-        const response = await changeRoomsAvailable_Controller({ id, newAvailabilityValue });
+        const { id, newOffert } = await request.json();
+        const response = await updateOffert_Controller( id, newOffert );
 
         return Response.json(response);
     } catch (error) {

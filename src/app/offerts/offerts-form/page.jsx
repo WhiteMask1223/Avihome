@@ -174,6 +174,8 @@ export default function OffertsForm() {
                             required
                             autoComplete={"off"}
                             error={formError[0]}
+                            readOnly
+                            onKeyDown={(e) => e.preventDefault()}
                         />
 
                     </div>
@@ -268,7 +270,7 @@ export default function OffertsForm() {
 
                     <div className="mt-6 sm:flex justify-between">
 
-                        <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"}>Limpiar Formulario</button>
+                        <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"}>Limpiar Formulario</button>
 
                         <input type="submit" value="Crear Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} />
 

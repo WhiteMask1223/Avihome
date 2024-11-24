@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useContext } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useContext } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
 import { UserContext } from "@/contexts/User.context";
+import { MainPageContext } from "@/contexts/MainPage.context";
 
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
 import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
@@ -14,50 +15,90 @@ import OffertsFormAdmits from "@/components/offerts/form/OffertsFormAdmits";
 import VariableInput from "@/components/UI/formElements/VariableInput";
 import SelectOption from "@/components/UI/formElements/SelectOption";
 import Asterisk from "@/components/UI/formElements/Asterisk";
+import LoadingBg from "@/components/UI/utility/LoadingBg";
 
-import { save_Offert } from "@/api/offerts.api";
+import { update_offert, get_OffertById } from "@/api/offerts.api";
 
 export default function OffertsForm() {
 
 
     /**************************{ Declaraciones }**************************/
 
+    const router = useRouter();
+    const offertId = useParams();
+
     const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
+    const { fetchOfferts } = useContext(MainPageContext)
 
-    const router = useRouter();
+    const [ offertsFormData, setOffertsFormData ] = useState(null);
+    const [ originalOffertData, setOriginalOffertData ] = useState(null);
 
-    const offertsFormDataTemplate = {
-        title: '',
-        type: '',
 
-        location: '',
-        address: '',
+    /**************************{ Funciones }**************************/
 
-        description: '',
+    const offertsFormDataFormater = (offertData) => {
 
-        services: {
-            'Agua': false,
-            'Aire Acondicionado': false,
-            'Electricidad': false,
-            'Gas': false,
-            'Internet': false
-        },
+        const offertsFormDataTemplate = {
+            title: offertData.title,
+            type: offertData.type,
+    
+            location: offertData.location,
+            address: offertData.address,
+    
+            description: offertData.description,
+    
+            services: {
+                'Agua': offertData.services.Agua,
+                'Aire Acondicionado': offertData.services['Aire Acondicionado'],
+                'Electricidad': offertData.services.Electricidad,
+                'Gas': offertData.services.Gas,
+                'Internet': offertData.services.Internet
+            },
+    
+            otherServices: offertData.otherServices,
+    
+            availability: {
+                capacity: offertData.availability.capacity,
+                roomsAvailable: offertData.availability.roomsAvailable
+            },
+    
+            admits: {
+                'Solo Hombres': offertData.admits['Solo Hombres'],
+                'Solo Mujeres': offertData.admits['Solo Mujeres'],
+                'Cualquiera': offertData.admits.Cualquiera
+            },
+        };
 
-        otherServices: '',
+        setOriginalOffertData(offertsFormDataTemplate);
 
-        availability: 0,
-
-        admits: {
-            'Solo Hombres': false,
-            'Solo Mujeres': false,
-            'Cualquiera': true
-        },
-
-        user: null
+        return offertsFormDataTemplate;
     };
 
-    const [ offertsFormData, setOffertsFormData ] = useState(offertsFormDataTemplate);
+
+    /**************************{ Fetch }**************************/
+
+    const fechtOffertById = async () => {
+        try {
+            const offert = await get_OffertById(offertId);
+
+            if (!offert.error) {
+                setOffertsFormData(offertsFormDataFormater(offert));
+            }
+        } catch (error) {
+            console.log(error);
+        };
+    };
+
+
+    /**************************{ useEffects }**************************/
+
+    useEffect(() => {
+        if(!offertsFormData || !originalOffertData) {
+            fechtOffertById();
+        }
+    });
+
     const [ formError, setFormError ] = useState([false, ""]);
 
 
@@ -71,15 +112,32 @@ export default function OffertsForm() {
             }));
         };
 
-        if (field === "availability" && newValue < 0) return;
-
         setOffertsFormData(prevFormData => ({
             ...prevFormData,
             [field]: newValue
         }));
+
+        console.log(offertsFormData)
     };
 
-    const updateSubObj = (objKey, field, newValue) => {
+
+    const updateSubObj = (objKey, field, value) => {
+
+        let newValue = value
+        
+        if (objKey === "availability" && newValue < 0) {
+            setFormError([true, "Rellene todos los campos."]);
+            return
+        };
+
+        if (objKey === "availability" ) newValue = Number(value);
+
+        if (field === "capacity" && newValue < offertsFormData.availability.roomsAvailable) {
+            updateSubObj('availability', 'roomsAvailable', offertsFormData.availability.roomsAvailable - 1)
+        };
+
+        if (field === "roomsAvailable" && newValue > offertsFormData.availability.capacity) return;
+
         setOffertsFormData(prevFormData => ({
             ...prevFormData,
             [objKey]: {
@@ -89,9 +147,11 @@ export default function OffertsForm() {
         }));
     };
 
+
     const clearForm = () => {
-        setOffertsFormData(offertsFormDataTemplate);
-    }
+        setOffertsFormData(originalOffertData);
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -101,11 +161,12 @@ export default function OffertsForm() {
             return
         };
 
-        try {
-            const saveResponse = await save_Offert(offertsFormData);
+        try { 
+            const saveResponse = await update_offert( offertId, offertsFormData );
 
-            if (saveResponse) {
+            if (!saveResponse.error) {
                 router.push(`/profile/${userData._id}`);
+                fetchOfferts();
             };
         } catch (error) {
             console.error(error);
@@ -114,6 +175,10 @@ export default function OffertsForm() {
 
 
     /**************************{ Return }**************************/
+
+    if (!offertsFormData) {
+        return <LoadingBg conditional={true}/>
+    };
 
     return (
 
@@ -152,7 +217,7 @@ export default function OffertsForm() {
                             Tipo de Residencia: <Asterisk />
                         </label>
 
-                        <select className={`h-10 px-2 rounded-md bg-elementThemeColor ${formError[0] ? "ring-2 ring-red-500 focus:ring" : "focus:ring-[#10c4b6]"}`} value={offertsFormData.type} onChange={(e) => updateField('type', e.target.value)}>
+                        <select className={`h-10 px-2 mt-1 rounded-md bg-elementThemeColor ${formError[0] ? "ring-2 ring-red-500 focus:ring" : "focus:ring-[#10c4b6]"}`} value={offertsFormData.type} onChange={(e) => updateField('type', e.target.value)}>
 
                             <option value="" className="text-grayFontThemeColor" disabled>Seleccione una opción</option>
 
@@ -164,16 +229,34 @@ export default function OffertsForm() {
                     </div>
                     <div>
                         <label htmlFor="tittle" className="flex text-lg font-bold">
-                            Número de habitaciones <Asterisk />
+                            Número de total habitaciones <Asterisk />
                         </label>
                         <VariableInput
                             type={'number'}
                             id={'availability'}
-                            value={offertsFormData.availability}
-                            setStateFunction={updateField}
+                            value={offertsFormData.availability.capacity}
                             required
                             autoComplete={"off"}
                             error={formError[0]}
+                            onChange={(e) => updateSubObj('availability', 'capacity', e.target.value)}
+                            onKeyDown={(e) => e.preventDefault()}
+                        />
+
+                    </div>
+
+                    <div>
+                        <label htmlFor="tittle" className="flex text-lg font-bold">
+                            Número de habitaciones disponibles <Asterisk />
+                        </label>
+                        <VariableInput
+                            type={'number'}
+                            id={'availability'}
+                            value={offertsFormData.availability.roomsAvailable}
+                            required
+                            autoComplete={"off"}
+                            error={formError[0]}
+                            onChange={(e) => updateSubObj('availability', 'roomsAvailable', e.target.value)}
+                            onKeyDown={(e) => e.preventDefault()}
                         />
 
                     </div>
@@ -268,9 +351,9 @@ export default function OffertsForm() {
 
                     <div className="mt-6 sm:flex justify-between">
 
-                        <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"}>Limpiar Formulario</button>
+                        <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"}>Revertir Cambios</button>
 
-                        <input type="submit" value="Crear Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} />
+                        <input type="submit" value="Actualizar Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} />
 
                     </div>
                 </div>

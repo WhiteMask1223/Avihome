@@ -35,7 +35,9 @@ export default function UserProfile() {
 
             const fetchedUser = await fetchUser(userId);
 
-            setUser(fetchedUser);
+            if(!fetchedUser.error) {
+                setUser(fetchedUser);
+            };
         } else {
             setUser(userData);
             setSameUser(true);

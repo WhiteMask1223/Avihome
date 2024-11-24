@@ -19,6 +19,20 @@ export const getOffertsByUserId_Service = async (userId) => {
     }
 };
 
+export const getOffertById_Service = async (offertId) => {
+    try {
+        const offert = await OffertModel.findById(offertId);
+
+        if (!offert) {
+            return { error: true, status: 404, message: "Oferta no Encontrada" }
+        };
+
+        return offert;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 
 /*                         { Filter Data }                         */
 
@@ -58,9 +72,25 @@ export const saveOffert_Service = async (data) => {
 
 /**************************{ Update }**************************/
 
-export const changeRoomsAvailable_Service = async ({ id, newAvailabilityValue }) => {
+export const updateOffert_Service = async ( id, newOffertData ) => {
     try {
-        let updatedOffert = await OffertModel.findByIdAndUpdate(
+        const updatedOffert = await OffertModel.findByIdAndUpdate(
+            id,
+            newOffertData,
+            { new: true, runVailidators: true}
+        );
+
+        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada."}
+
+        return updatedOffert;
+    } catch (error) {
+        console.log(error)
+    };
+};
+
+export const changeRoomsAvailable_Service = async ( id, newAvailabilityValue ) => {
+    try {
+        const updatedOffert = await OffertModel.findByIdAndUpdate(
             id,
             { $inc: { "availability.roomsAvailable": newAvailabilityValue } },
             { new: true, runVailidators: true}
@@ -89,4 +119,23 @@ export const hiddenOrShowOffert_Service = async (id, hiddenValue) => {
     } catch (error) {
         console.log(error)
     }
-}
+};
+
+
+/**************************{ Delete }**************************/
+
+export const deleteOffertById_Service = async (offertId) => {
+    try {
+        console.log(offertId)
+        /*const offert = await OffertModel.findById(offertId);
+
+        if (!offert) {
+            return { error: true, status: 404, message: "Oferta no Encontrada" }
+        };
+
+        return offert;*/
+        return true
+    } catch (error) {
+        console.log(error);
+    }
+};

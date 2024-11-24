@@ -3,7 +3,7 @@ import Link from "next/link"
 
 import { MainPageContext } from "@/contexts/MainPage.context";
 
-import { update_roomsAvailable } from "@/api/offerts.api";
+import { update_roomsAvailable, delete_offert } from "@/api/offerts.api";
 
 import LoadingSpinners from "../UI/utility/LoadingSpinners";
 
@@ -82,7 +82,7 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                                 <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("up") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
 
-                            <div className="w-10 text-center">
+                            <div className="w-fit min-w-12 text-center">
                                 {disableChangeAvailability ?
                                     <LoadingSpinners />
                                     :
@@ -114,7 +114,8 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
                                 <i className="ri-edit-2-fill m-auto text-xl text-white"></i>
                             </Link>
 
-                            <button className="w-8 h-8 bg-dangerButtonThemeColor rounded">
+                            <button className="w-8 h-8 bg-dangerButtonThemeColor rounded"
+                            onClick={() => delete_offert(offert._id)}>
                                 <i className="ri-delete-bin-2-fill text-xl text-white"></i>
                             </button>
                         </div>

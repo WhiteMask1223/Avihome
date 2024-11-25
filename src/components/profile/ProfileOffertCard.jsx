@@ -1,18 +1,30 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link"
 
 import { MainPageContext } from "@/contexts/MainPage.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import { update_roomsAvailable, delete_offert } from "@/api/offerts.api";
 
 import LoadingSpinners from "../UI/utility/LoadingSpinners";
+import DeleteConfirm from "../UI/utility/DeleteConfirm";
 
-export default function ProfileOffertsCard({ offert, sameUser }) {
+export default function ProfileOffertsCard({ offert, sameUser, profilFetchOfferts }) {
 
-    const { fetchOfferts } = useContext(MainPageContext)
+
+    /**************************{ Declaraciones }**************************/
+
+    const { fetchOfferts } = useContext(MainPageContext);
+    const { loading, setLoading } = useContext(UtilityContex);
 
     const [cardOffert, setCardOffert] = useState(offert);
     const [disableChangeAvailability, setDisableChangeAvailability] = useState(false);
+
+    const [editLoading, setEditLoading] = useState(false);
+    const [deletePopUp, setDeletePopUp] = useState(false);
+
+
+    /**************************{ Funciones }**************************/
 
     const changeRoomsAvailableHandler = async (action) => {
 
@@ -58,6 +70,27 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
             };
         };
     };
+
+    const deleteOffertHandeler = async () => {
+        const res = await delete_offert(offert._id);
+
+        if (!res.error) {
+            profilFetchOfferts();
+            fetchOfferts();
+        };
+    };
+
+
+    /**************************{ useEffects }**************************/
+
+    useEffect(() => {
+        if (loading) {
+            setLoading(!loading);
+        };
+    });
+
+
+    /**************************{ Return }**************************/
 
     return (
         <section>
@@ -110,15 +143,29 @@ export default function ProfileOffertsCard({ offert, sameUser }) {
 
                         <div className="flex justify-between items-center mt-4">
 
-                            <Link href={`/offerts/edit/${cardOffert._id}`} className="w-8 h-8 rounded bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out text-center flex items-center">
-                                <i className="ri-edit-2-fill m-auto text-xl text-white"></i>
+                            <Link href={`/offerts/edit/${cardOffert._id}`} onClick={() => setEditLoading(true)} className="w-8 h-8 rounded bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out text-center flex items-center">
+                                {editLoading ?
+                                    <div className="p-2">
+                                        <LoadingSpinners size={'very small'}/>
+                                    </div>
+                                    :
+                                    <i className="ri-edit-2-fill m-auto text-xl text-white"></i>
+                                }
                             </Link>
 
                             <button className="w-8 h-8 bg-dangerButtonThemeColor rounded"
-                            onClick={() => delete_offert(offert._id)}>
+                                onClick={() => setDeletePopUp(!deletePopUp)}>
                                 <i className="ri-delete-bin-2-fill text-xl text-white"></i>
                             </button>
                         </div>
+
+                        <DeleteConfirm
+                            text={offert.title}
+                            trigger={deletePopUp}
+                            setTrigger={setDeletePopUp}
+                            deleteFunction={deleteOffertHandeler}
+                        />
+
                     </div>
                 }
             </div >

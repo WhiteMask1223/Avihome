@@ -1,0 +1,10 @@
+export default function DangerButton({ text, buttonFunction }) {
+    return (
+        <button
+            onClick={buttonFunction}
+            className="w-full mt-5 bg-[#d11717] text-lg text-white p-2 font-bold rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"
+        >
+            { text }
+        </button>
+    );
+};

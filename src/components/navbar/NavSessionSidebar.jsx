@@ -24,7 +24,7 @@ export default function NavSessionSidebar() {
                 className={NAVBAR_STYLES.SIDEBAR(sessionSidebar)}>
                 <h1 className="text-2xl font-semibold mb-4">Menú de Sesión</h1>
                 <ul>
-                    {userSession === null ?
+                    {userSession === null || userSession === "No Session" ?
                         <div>
                             <SidebarMenuLi text={"Iniciar Sesión"} href={"/login"} onClick={toggleSessionSidebar} />
 

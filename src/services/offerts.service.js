@@ -127,14 +127,13 @@ export const hiddenOrShowOffert_Service = async (id, hiddenValue) => {
 export const deleteOffertById_Service = async (offertId) => {
     try {
         console.log(offertId)
-        /*const offert = await OffertModel.findById(offertId);
+        const result = await OffertModel.deleteOne({ _id: offertId });
 
-        if (!offert) {
+        if (!result.deletedCount) {
             return { error: true, status: 404, message: "Oferta no Encontrada" }
         };
 
-        return offert;*/
-        return true
+        return result
     } catch (error) {
         console.log(error);
     }

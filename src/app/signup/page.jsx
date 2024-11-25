@@ -37,7 +37,7 @@ export default function SingInPage() {
     const [credentialsError, setCredentialsError] = useState([false, '']);
 
     const { setUserData, setAuth } = useContext(UserContext);
-    const { setLoading } = useContext(UtilityContex);
+    const { loading, setLoading } = useContext(UtilityContex);
 
     const router = useRouter();
 
@@ -113,9 +113,11 @@ export default function SingInPage() {
         };
     };
 
-    /*useEffect(() => {
-        setLoading(false);
-    });*/
+    useEffect(() => {
+        if(loading){
+            setLoading(!loading);
+        };
+    });
 
     /**************************{ Return }**************************/
 

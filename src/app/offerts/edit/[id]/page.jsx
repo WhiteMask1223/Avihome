@@ -6,6 +6,7 @@ import { useRouter, useParams } from "next/navigation";
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
 import { UserContext } from "@/contexts/User.context";
 import { MainPageContext } from "@/contexts/MainPage.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
 import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
@@ -30,9 +31,10 @@ export default function OffertsForm() {
     const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
     const { fetchOfferts } = useContext(MainPageContext)
+    const { loading, setLoading } = useContext(UtilityContex);
 
-    const [ offertsFormData, setOffertsFormData ] = useState(null);
-    const [ originalOffertData, setOriginalOffertData ] = useState(null);
+    const [offertsFormData, setOffertsFormData] = useState(null);
+    const [originalOffertData, setOriginalOffertData] = useState(null);
 
 
     /**************************{ Funciones }**************************/
@@ -42,12 +44,12 @@ export default function OffertsForm() {
         const offertsFormDataTemplate = {
             title: offertData.title,
             type: offertData.type,
-    
+
             location: offertData.location,
             address: offertData.address,
-    
+
             description: offertData.description,
-    
+
             services: {
                 'Agua': offertData.services.Agua,
                 'Aire Acondicionado': offertData.services['Aire Acondicionado'],
@@ -55,14 +57,14 @@ export default function OffertsForm() {
                 'Gas': offertData.services.Gas,
                 'Internet': offertData.services.Internet
             },
-    
+
             otherServices: offertData.otherServices,
-    
+
             availability: {
                 capacity: offertData.availability.capacity,
                 roomsAvailable: offertData.availability.roomsAvailable
             },
-    
+
             admits: {
                 'Solo Hombres': offertData.admits['Solo Hombres'],
                 'Solo Mujeres': offertData.admits['Solo Mujeres'],
@@ -94,12 +96,16 @@ export default function OffertsForm() {
     /**************************{ useEffects }**************************/
 
     useEffect(() => {
-        if(!offertsFormData || !originalOffertData) {
+        if (!offertsFormData || !originalOffertData) {
             fechtOffertById();
-        }
+        };
+
+        if (loading) {
+            setLoading(!loading);
+        };
     });
 
-    const [ formError, setFormError ] = useState([false, ""]);
+    const [formError, setFormError] = useState([false, ""]);
 
 
     /**************************{ Funciones }**************************/
@@ -124,13 +130,13 @@ export default function OffertsForm() {
     const updateSubObj = (objKey, field, value) => {
 
         let newValue = value
-        
+
         if (objKey === "availability" && newValue < 0) {
             setFormError([true, "Rellene todos los campos."]);
             return
         };
 
-        if (objKey === "availability" ) newValue = Number(value);
+        if (objKey === "availability") newValue = Number(value);
 
         if (field === "capacity" && newValue < offertsFormData.availability.roomsAvailable) {
             updateSubObj('availability', 'roomsAvailable', offertsFormData.availability.roomsAvailable - 1)
@@ -161,8 +167,8 @@ export default function OffertsForm() {
             return
         };
 
-        try { 
-            const saveResponse = await update_offert( offertId, offertsFormData );
+        try {
+            const saveResponse = await update_offert(offertId, offertsFormData);
 
             if (!saveResponse.error) {
                 router.push(`/profile/${userData._id}`);
@@ -177,7 +183,7 @@ export default function OffertsForm() {
     /**************************{ Return }**************************/
 
     if (!offertsFormData) {
-        return <LoadingBg conditional={true}/>
+        return <LoadingBg conditional={true} />
     };
 
     return (

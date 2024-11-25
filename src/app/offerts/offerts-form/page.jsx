@@ -174,7 +174,6 @@ export default function OffertsForm() {
                             required
                             autoComplete={"off"}
                             error={formError[0]}
-                            readOnly
                             onKeyDown={(e) => e.preventDefault()}
                         />
 

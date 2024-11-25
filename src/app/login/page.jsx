@@ -11,6 +11,7 @@ import { UtilityContex } from "@/contexts/Utility.context";
 import AuthSecction from "@/components/auth/AuthSection";
 import VariableInput from "@/components/UI/formElements/VariableInput";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
+import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 import { validateEmail } from "@/validations/user.validation";
 
@@ -28,11 +29,13 @@ export default function LoginPage() {
     const router = useRouter();
 
     const { setAuth } = useContext(UserContext);
-    const { setLoading } = useContext(UtilityContex);
+    const { loading, setLoading } = useContext(UtilityContex)
 
-    const [loginData, setLoginData] = useState(loginDataObjTemplate);
-    const [credentialsError, setCredentialsError] = useState([false, '']);
-    const [showPassword, setShowPassword] = useState(false);
+    const [ loginData, setLoginData ] = useState(loginDataObjTemplate);
+    const [ credentialsError, setCredentialsError ] = useState([false, '']);
+    const [ showPassword, setShowPassword ] = useState(false);
+
+    const [ handleloading, setHandleLoading ] = useState(false);
 
 
     /**************************{ Funciones }**************************/
@@ -57,7 +60,7 @@ export default function LoginPage() {
             return
         };
 
-        setLoading(true);
+        setHandleLoading(true);
 
         const authResult = await signIn("credentials", {
             redirect: false,
@@ -67,22 +70,27 @@ export default function LoginPage() {
 
         if (authResult.error) {
             setCredentialsError([true, 'Credenciales Incorrectas o Usuario Inexistente']);
-            setLoading(false);
+            setHandleLoading(false);
         } else {
             console.log(authResult);
             setAuth(true);
             router.push("/");
-        }
+        };
     };
 
-
-    /*useEffect(() => {
-        setLoading(false);
-    });*/
-
+    useEffect(() => {
+        if(loading){
+            setLoading(!loading);
+        };
+    });
 
     /**************************{ Return }**************************/
 
+    if(handleloading) {
+        return (
+            <LoadingBg conditional={true}/>
+        );
+    };
 
     return (
         <AuthSecction>

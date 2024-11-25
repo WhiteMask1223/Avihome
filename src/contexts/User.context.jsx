@@ -14,7 +14,8 @@ export const UserProvider = ({ children }) => {
     const [auth, setAuth] = useState(false);
 
     useEffect(() => {
-        if (!userSession) {
+        console.log(userSession)
+        if (userSession === null || userSession === "No Session") {
             fetchSession();
         }
     }, [auth]);
@@ -22,10 +23,12 @@ export const UserProvider = ({ children }) => {
     const fetchSession = async () => {
         try {
             const session = await get_Session();
+
             if (session.authenticated === false) {
+                setUserSession("No Session");
                 return
             } else {
-                
+
                 if (!userData) {
 
                     const email = session.user.email;
@@ -55,7 +58,7 @@ export const UserProvider = ({ children }) => {
     const logout = () => {
         setAuth(false);
         setUserData(null);
-        setUserSession(null)     
+        setUserSession("No Session");     
     };
 
     return (

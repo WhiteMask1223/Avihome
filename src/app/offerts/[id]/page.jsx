@@ -135,10 +135,10 @@ export default function OfferDetail() {
                         <form className="space-y-4 mt-5 sm:mt-0">
                             <h2 className="font-semibold">Enviar un Correo Electrónico:</h2>
                             <div className="flex space-x-4">
-                                <input type="text" placeholder="Correo" className="p-2 w-full border rounded" />
-                                <input type="text" placeholder="Asunto" className="p-2 w-full border rounded" />
+                                <input type="text" placeholder="Correo" className="p-2 w-full bg-elementThemeColor rounded" />
+                                <input type="text" placeholder="Asunto" className="p-2 w-full bg-elementThemeColor rounded" />
                             </div>
-                            <textarea placeholder="Mensaje" className="p-2 w-full border rounded h-24"></textarea>
+                            <textarea placeholder="Mensaje" className="p-2 w-full bg-elementThemeColor rounded h-24"></textarea>
                             <SubmitButton text={'Enviar Correo'} />
                         </form>
 

@@ -24,7 +24,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         <p></p>
                     </div>
                 </div>
-                { sameUser &&
+                {/* sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
                             <button className="bg-elementThemeColor px-4 py-2 rounded mb-2">Cambiar contraseña</button>
@@ -32,7 +32,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         </div>
                         <button className="bg-dangerButtonThemeColor text-white px-4 py-2 rounded">Eliminar Cuenta</button>
                     </div>
-                }
+                */}
             </div >
         </section>
     )

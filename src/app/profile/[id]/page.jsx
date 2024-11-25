@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
 
 import { UserContext } from "@/contexts/User.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import { get_UserById } from "@/api/user.api";
 import { get_OffertsByUserId } from "@/api/offerts.api";
@@ -18,11 +19,12 @@ export default function UserProfile() {
 
     const userId = useParams()
 
-    const [ user, setUser ] = useState(null);
-    const [ sameUser, setSameUser ] = useState(false);
-    const [ userOfferts, setUserOfferts ] = useState([]);
+    const [user, setUser] = useState(null);
+    const [sameUser, setSameUser] = useState(false);
+    const [userOfferts, setUserOfferts] = useState(null);
 
     const { userData } = useContext(UserContext);
+    const { loading, setLoading } = useContext(UtilityContex)
 
 
     /**************************{ Funciones }**************************/
@@ -35,7 +37,7 @@ export default function UserProfile() {
 
             const fetchedUser = await fetchUser(userId);
 
-            if(!fetchedUser.error) {
+            if (!fetchedUser.error) {
                 setUser(fetchedUser);
             };
         } else {
@@ -54,14 +56,17 @@ export default function UserProfile() {
 
     const fetchOfferts = async () => {
         if (!userData) return
-        
+
         try {
             const offerts = await get_OffertsByUserId(userId);
 
-            if(!offerts.error) {
+            console.log(offerts)
+            if (!offerts.error) {
                 setUserOfferts(offerts);
-            };
-            
+            } else {
+                setUserOfferts([])
+            }
+
         } catch (error) {
             console.error(error);
         }
@@ -75,13 +80,20 @@ export default function UserProfile() {
             fetchUserData();
         };
 
-        if (!userOfferts.length) {
+        if (!userOfferts) {
             fetchOfferts();
+        };
+
+        if (loading) {
+            setLoading(!loading);
         };
     });
 
-    if (!user && !userOfferts.length) {
-        return <LoadingBg conditional={true}/>
+
+    /**************************{ Return }**************************/
+
+    if (!user && !userOfferts) {
+        return <LoadingBg conditional={true} />
     };
 
     return (
@@ -89,7 +101,7 @@ export default function UserProfile() {
 
             <ProfileUserSecction user={user} sameUser={sameUser} />
 
-            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser}/>
+            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} fetchOfferts={fetchOfferts} />
 
         </section>
     );

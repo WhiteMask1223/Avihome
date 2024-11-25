@@ -6,10 +6,10 @@ import PagingCounter from "../mainPage/offertsPanel/PagingCounter"
 
 import LoadingBg from "../UI/utility/LoadingBg";
 
-export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
-    
-    if (!userOfferts.length) return (
-        <LoadingBg conditional={true}/>
+export default function ProfileOffertsSecction({ userOfferts, sameUser, fetchOfferts }) {
+
+    if (!userOfferts) return (
+        <LoadingBg conditional={true} />
     )
 
     return (
@@ -28,9 +28,9 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
                     }
                 </div>
 
-                <div className="mb-4 text-center">
+                {/*<div className="mb-4 text-center">
                     <PagingCounter currentPage={1} totalPages={1} />
-                </div>
+                </div>*/}
 
                 <div className={`${!userOfferts.length ? "" : "grid grid-cols-1 md:grid-cols-2 gap-4"}`}>
                     {
@@ -42,6 +42,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser }) {
                                     key={offert._id}
                                     offert={offert}
                                     sameUser={sameUser}
+                                    profilFetchOfferts={fetchOfferts}
                                 />
                             ))
                     }

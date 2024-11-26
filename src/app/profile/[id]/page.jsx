@@ -70,8 +70,7 @@ export default function UserProfile() {
         } catch (error) {
             console.error(error);
         }
-    }
-
+    };
 
     /**************************{ useEffects }**************************/
 

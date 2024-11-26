@@ -1,14 +1,22 @@
+"use client"
+
+import { useContext } from "react";
 import Link from "next/link";
+
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
 export default function OffertCard({ id, imageSrc, title, location, rating, availability }) {
+  
+  const { loading, setLoading } = useContext(UtilityContex);
+
   return (
     <section className={OFFERTS_PANEL_STYLES.GENERAL_STYLES}>
 
       <Link href={`/offerts/${id}`}>
 
-        <div className={OFFERTS_PANEL_STYLES.IMG_DIV}>
+        <div className={OFFERTS_PANEL_STYLES.IMG_DIV} onClick={() => setLoading(!loading)}>
           {imageSrc ? (
             <img src={imageSrc} alt={'IMG'} className="w-full h-full object-cover rounded-xl" />
           ) : (

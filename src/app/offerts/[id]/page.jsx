@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { MainPageContext } from "@/contexts/MainPage.context";
 import { UserContext } from "@/contexts/User.context";
+import { UtilityContex } from "@/contexts/Utility.context";
 
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import DetailCheckBox from "@/components/offerts/detail/DetailCheckBox";
@@ -18,6 +19,7 @@ export default function OfferDetail() {
 
     const { offertsData } = useContext(MainPageContext);
     const { userData } = useContext(UserContext);
+    const { loading, setLoading } = useContext(UtilityContex);
 
     const [offert, setOffert] = useState(null);
 
@@ -37,6 +39,10 @@ export default function OfferDetail() {
     useEffect(() => {
         if (!offert && offertsData) {
             getOffert();
+        };
+        
+        if(loading){
+            setLoading(!loading);
         };
     }, [offertsData]);
 

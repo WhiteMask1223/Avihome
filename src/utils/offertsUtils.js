@@ -12,7 +12,7 @@ const locationData = {
     'Centro': false,
     'Las Palmas': false,
     'Terminal': false,
-    'Las Abejitas': false,
+    'Urb. Las Abejitas': false,
     'Zona Industrial': false,
     'Urb. Los Jardines': false,
     'Urb. Los Morros': false,
@@ -25,7 +25,13 @@ const locationData = {
     'Barrio La Morera': false,
     'Barrio Pueblo Nuevo': false,
     'Urb. Los Naranjos': false,
-    'Urb. Altos de Fénix': false
+    'Urb. Altos de Fénix': false,
+    'Urb. Antonio Miguel Martínez': false,
+    'Barrio Lucianro': false,
+    'Urb. Hugo Chavez': false,
+    'Urb. Acosta Carle': false,
+    'Urb. La Tropical': false,
+    'Urb. El Guafal': false,
 };
 
 const sortedEntries = Object.entries(locationData).sort(([keyA], [keyB]) => {

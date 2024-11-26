@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
 import { UserContext } from "@/contexts/User.context";
+import { MainPageContext } from "@/contexts/MainPage.context";
 
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
 import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
@@ -24,6 +25,7 @@ export default function OffertsForm() {
 
     const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
+    const { fetchOfferts } = useContext(MainPageContext)
 
     const router = useRouter();
 
@@ -59,6 +61,7 @@ export default function OffertsForm() {
 
     const [ offertsFormData, setOffertsFormData ] = useState(offertsFormDataTemplate);
     const [ formError, setFormError ] = useState([false, ""]);
+    const [ saving, setSaving ] = useState(false);
 
 
     /**************************{ Funciones }**************************/
@@ -96,8 +99,11 @@ export default function OffertsForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setSaving(true);
+
         if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability) {
             setFormError([true, "Rellene todos los campos."]);
+            setSaving(false);
             return
         };
 
@@ -106,7 +112,11 @@ export default function OffertsForm() {
 
             if (saveResponse) {
                 router.push(`/profile/${userData._id}`);
+                fetchOfferts();
+                return
             };
+
+            setSaving(false);
         } catch (error) {
             console.error(error);
         };
@@ -271,7 +281,7 @@ export default function OffertsForm() {
 
                         <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"}>Limpiar Formulario</button>
 
-                        <input type="submit" value="Crear Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} />
+                        <input type="submit" value="Crear Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} disabled={saving}/>
 
                     </div>
                 </div>

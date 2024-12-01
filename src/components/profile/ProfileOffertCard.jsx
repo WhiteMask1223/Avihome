@@ -94,18 +94,20 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
 
     return (
         <section>
-            < div className={`p-4 rounded-lg border border-subSectionThemeBorder shadow-inner transition duration-300 ease-in-out ${cardOffert.hidden ? "bg-sectionThemeDanger shadow-sectionDangerShadow" : "bg-subSectionThemeBackground shadow-sectionThemeShadow"}`} >
+            < div className={`p-4 flex flex-col h-80 rounded-lg border border-subSectionThemeBorder shadow-inner transition duration-300 ease-in-out ${cardOffert.hidden ? "bg-sectionThemeDanger shadow-sectionDangerShadow" : "bg-subSectionThemeBackground shadow-sectionThemeShadow"}`} >
 
-                <Link href={`/offerts/${cardOffert._id}`}>
-                    <h3 className="font-bold">{cardOffert.title}</h3>
-                </Link>
+                <div>
+                    <Link href={`/offerts/${cardOffert._id}`}>
+                        <h3 className="font-bold">{cardOffert.title}</h3>
+                    </Link>
 
-                <p className="text-sm text-grayFontThemeColor">{cardOffert.location}</p>
-                <p className="text-sm text-grayFontThemeColor">{cardOffert.address}</p>
-                <p className="text-sm mt-2">{cardOffert.description}</p>
+                    <p className="text-sm text-grayFontThemeColor">{cardOffert.location}</p>
+                    <p className="text-sm text-grayFontThemeColor">{cardOffert.address}</p>
+                    <p className="text-sm mt-2">{cardOffert.description}</p>
+                </div>
 
                 {sameUser &&
-                    <div>
+                    <div className="mt-auto">
                         <div className="flex items-center space-x-2 mt-3">
                             <button
                                 className="w-fit h-fit"
@@ -146,7 +148,7 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
                             <Link href={`/offerts/edit/${cardOffert._id}`} onClick={() => setEditLoading(true)} className="w-8 h-8 rounded bg-submitButtonColor hover:bg-submitButtonHoverColor transition duration-300 ease-in-out text-center flex items-center">
                                 {editLoading ?
                                     <div className="p-2">
-                                        <LoadingSpinners size={'very small'}/>
+                                        <LoadingSpinners size={'very small'} />
                                     </div>
                                     :
                                     <i className="ri-edit-2-fill m-auto text-xl text-white"></i>

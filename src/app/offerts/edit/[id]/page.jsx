@@ -66,9 +66,9 @@ export default function OffertsForm() {
             },
 
             admits: {
-                'Solo Hombres': offertData.admits['Solo Hombres'],
-                'Solo Mujeres': offertData.admits['Solo Mujeres'],
-                'Cualquiera': offertData.admits.Cualquiera
+                Caballeros: offertData.admits.Caballeros,
+                Damas: offertData.admits.Damas,
+                Cualquiera: offertData.admits.Cualquiera
             },
         };
 

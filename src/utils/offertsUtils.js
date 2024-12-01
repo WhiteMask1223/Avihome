@@ -3,6 +3,7 @@ export const offertType = {
     'Casa': false,
     'Complejo Residencial': false,
     'Departamento': false,
+    'Estudio': false,
     'Habitación': false
 };
 
@@ -16,18 +17,18 @@ const locationData = {
     'Zona Industrial': false,
     'Urb. Los Jardines': false,
     'Urb. Los Morros': false,
-    'Barrio Las Mercedes': false,
+    'Comunidad Las Mercedes': false,
     'Urb. Santa Isabel': false,
     'Urb. Los Laureles': false,
-    'Barrio La Ceiba': false,
-    'Barrio Puerta Negra': false,
-    'Barrio Bicentenerio': false,
-    'Barrio La Morera': false,
-    'Barrio Pueblo Nuevo': false,
+    'Comunidad La Ceiba': false,
+    'Comunidad Puerta Negra': false,
+    'Comunidad Bicentenerio': false,
+    'Comunidad La Morera': false,
+    'Comunidad Pueblo Nuevo': false,
     'Urb. Los Naranjos': false,
     'Urb. Altos de Fénix': false,
     'Urb. Antonio Miguel Martínez': false,
-    'Barrio Lucianro': false,
+    'Comunidad Lucianro': false,
     'Urb. Hugo Chavez': false,
     'Urb. Acosta Carle': false,
     'Urb. La Tropical': false,
@@ -63,8 +64,8 @@ export const filterObjTemplate = ( offertType, locationData ) => {
         },
 
         'Admite': {
-            'Solo Hombres': false,
-            'Solo Mujeres': false,
+            'Caballeros': false,
+            'Damas': false,
             'Cualquiera': false
         },
 

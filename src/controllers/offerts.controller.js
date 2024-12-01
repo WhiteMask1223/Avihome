@@ -90,9 +90,9 @@ export const saveOffert_Controller = async (formData) => {
         },
 
         admits: {
-            "Solo Hombres": formData.admits["Solo Hombres"],
-            "Solo Mujeres": formData.admits["Solo Mujeres"],
-            "Cualquiera": formData.admits.Cualquiera
+            Caballeros: formData.admits.Caballeros,
+            Damas: formData.admits.Damas,
+            Cualquiera: formData.admits.Cualquiera
         },
 
         user: formData.user

@@ -8,8 +8,8 @@ export default function OffertsFormAdmits({ offertsFormData, setOffertsFormData 
         setOffertsFormData((prevFormData) => ({
             ...prevFormData,
             admits: {
-                'Solo Hombres': name === 'Solo Hombres',
-                'Solo Mujeres': name === 'Solo Mujeres',
+                'Caballeros': name === 'Caballeros',
+                'Damas': name === 'Damas',
                 'Cualquiera': name === 'Cualquiera'
             }
         }))
@@ -21,25 +21,25 @@ export default function OffertsFormAdmits({ offertsFormData, setOffertsFormData 
             <label className={ASIDE_STYLES.ITEM_LABEL}>
                 <input
                     className="hidden peer"
-                    name="Solo Hombres"
+                    name="Caballeros"
                     type="radio"
                     onChange={(e) => handleRadioChange(e)}
-                    checked={offertsFormData.admits['Solo Hombres']}
+                    checked={offertsFormData.admits['Caballeros']}
                 />
                 <span className={ASIDE_STYLES.CHECKBOX}></span>
-                <span className={ASIDE_STYLES.ITEM_TEXT}>Solo Hombres</span>
+                <span className={ASIDE_STYLES.ITEM_TEXT}>Caballeros</span>
             </label>
 
             <label className={ASIDE_STYLES.ITEM_LABEL}>
                 <input
                     className="hidden peer"
-                    name="Solo Mujeres"
+                    name="Damas"
                     type="radio"
                     onChange={(e) => handleRadioChange(e)}
-                    checked={offertsFormData.admits['Solo Mujeres']}
+                    checked={offertsFormData.admits['Damas']}
                 />
                 <span className={ASIDE_STYLES.CHECKBOX}></span>
-                <span className={ASIDE_STYLES.ITEM_TEXT}>Solo Mujeres</span>
+                <span className={ASIDE_STYLES.ITEM_TEXT}>Damas</span>
             </label>
 
             <label className={ASIDE_STYLES.ITEM_LABEL}>

@@ -6,7 +6,7 @@ export default function DeleteConfirm({ text, trigger, setTrigger, deleteFunctio
     if (trigger) return (
         <section onClick={() => setTrigger(!trigger)}>
             <div className="flex items-center justify-center fixed inset-0 z-30">
-                <div className="w-full sm:max-w-md bg-sectionThemeBackground p-5 rounded-2xl shadow-lg shadow-sectionThemeShadow">
+                <div className="w-full sm:max-w-md bg-sectionThemeBackground p-5 rounded-2xl shadow-lg">
                     <h2 className="font-bold text-lg">¿Seguro de querer borrar {text}?</h2>
                     <p className="mt-2">Se eliminará de forma permanente, no tendras manera alguna de recuperarlo.</p>
 

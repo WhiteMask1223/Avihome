@@ -26,8 +26,8 @@ const OffertSchema = mongoose.Schema({
     },
 
     admits: {
-        "Solo Hombres": { type: Boolean, default: false, required: true },
-        "Solo Mujeres": { type: Boolean, default: false, required: true },
+        "Caballeros": { type: Boolean, default: false, required: true },
+        "Damas": { type: Boolean, default: false, required: true },
         "Cualquiera": { type: Boolean, default: false, required: true }
     },
 

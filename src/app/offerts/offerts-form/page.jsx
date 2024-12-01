@@ -51,9 +51,9 @@ export default function OffertsForm() {
         availability: 0,
 
         admits: {
-            'Solo Hombres': false,
-            'Solo Mujeres': false,
-            'Cualquiera': true
+            Caballeros: false,
+            Damas: false,
+            Cualquiera: true
         },
 
         user: null

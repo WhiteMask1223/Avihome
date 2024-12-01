@@ -139,10 +139,10 @@ export const MainPageProvider = ({ children }) => {
 
                 //Se guardan valores booleanos en base a la disponibilidad de la carta
                 const roomFilters = {
-                    'Una Habitación': card.availability === 1,
-                    'Dos a Cinco Hablitaciones': card.availability >= 2 && card.availability <= 5,
-                    'Cinco a Diez Habitaciones': card.availability >= 6 && card.availability <= 10,
-                    'Más de Diez Habitaciones': card.availability > 10,
+                    'Una Habitación': card.availability.roomsAvailable === 1,
+                    'Dos a Cinco Hablitaciones': card.availability.roomsAvailable >= 2 && card.availability.roomsAvailable <= 5,
+                    'Cinco a Diez Habitaciones': card.availability.roomsAvailable >= 6 && card.availability.roomsAvailable <= 10,
+                    'Más de Diez Habitaciones': card.availability.roomsAvailable > 10,
                 };
 
                 if (Object.values(filterObj['Disponibilidad']).some((value) => value === true)) {

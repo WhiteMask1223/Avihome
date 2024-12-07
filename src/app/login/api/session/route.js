@@ -6,11 +6,14 @@ export async function GET() {
 
     try {
         const userSession = await getSession_Controller();
-        
+
+        if (!userSession) {
+            return new Response(JSON.stringify({ message: 'Error Interno' }), { status: 500 });
+        };
+
         return Response.json(userSession);
     } catch (error) {
         console.log(error);
-
-        return Response.json({ error: true, message: 'status 500: Error Interno'});
+        return new Response(JSON.stringify({ message: 'Error Interno' }), { status: 500 });
     };
 };

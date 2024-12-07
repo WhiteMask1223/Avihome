@@ -98,12 +98,12 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
 
                 <div>
                     <Link href={`/offerts/${cardOffert._id}`}>
-                        <h3 className="font-bold">{cardOffert.title}</h3>
+                        <h3 className="font-bold h-fit line-clamp-1">{cardOffert.title}</h3>
                     </Link>
 
-                    <p className="text-sm text-grayFontThemeColor">{cardOffert.location}</p>
-                    <p className="text-sm text-grayFontThemeColor">{cardOffert.address}</p>
-                    <p className="text-sm mt-2">{cardOffert.description}</p>
+                    <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.location}</p>
+                    <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.address}</p>
+                    <p className="text-sm mt-2 h-fit line-clamp-5">{cardOffert.description}</p>
                 </div>
 
                 {sameUser &&
@@ -114,7 +114,7 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
                                 onClick={() => changeRoomsAvailableHandler('up')}
                                 disabled={disableChangeAvailability || disabledHandler("up")}
                             >
-                                <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("up") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
+                                <i className={`ri-arrow-up-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("up") || disableChangeAvailability ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
 
                             <div className="w-fit min-w-12 text-center">
@@ -134,7 +134,7 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
                                 onClick={() => changeRoomsAvailableHandler('down')}
                                 disabled={disableChangeAvailability || disabledHandler("down")}
                             >
-                                <i className={`ri-arrow-down-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("down") ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
+                                <i className={`ri-arrow-down-circle-fill text-3xl transition duration-300 ease-in-out ${disabledHandler("down") || disableChangeAvailability ? "text-arrowDisableThemeColor" : "text-arrowThemeColor"}`}></i>
                             </button>
 
                             {cardOffert.hidden &&

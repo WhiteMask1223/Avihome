@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-
-
 export async function middleware(request) {
     const sessionToken = request.cookies.get("authjs.session-token");
 

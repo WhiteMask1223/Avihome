@@ -8,6 +8,7 @@ import { getUserByEmail_Controller } from "@/controllers/user.controller";
 
 const authOptions = {
     secret: NEXTAUTH_SECRET,
+    trustHost: true,
     providers: [
         Credentials({
             credentials: {

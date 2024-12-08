@@ -99,10 +99,12 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
                 <div>
                     <Link href={`/offerts/${cardOffert._id}`}>
                         <h3 className="font-bold h-fit line-clamp-1">{cardOffert.title}</h3>
-                    </Link>
 
-                    <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.location}</p>
-                    <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.address}</p>
+
+                        <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.location}</p>
+                        <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.address}</p>
+                    </Link>
+                    
                     <p className="text-sm mt-2 h-fit line-clamp-5">{cardOffert.description}</p>
                 </div>
 

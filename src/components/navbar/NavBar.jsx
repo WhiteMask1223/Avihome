@@ -1,11 +1,11 @@
 "use client"
 
-import Link from "next/link";
 import { useContext } from "react";
 import { usePathname } from 'next/navigation'
 
 import { UtilityContex } from "@/contexts/Utility.context";
 
+import HomeButton from "./HomeButton";
 import SearchBar from "@/components/navbar/SearchBar";
 import NavSession from "./NavSession";
 import NavSessionSidebar from "./NavSessionSidebar";
@@ -23,7 +23,9 @@ export default function NavBar() {
         <div>
             <nav className={NAVBAR_STYLES.GENERAL}>
                 <div className="w-full flex justify-between items-center p-1">
-                    <Link href="/" className={`text-white text-left px-4 py-2 ${isHomePage ? "hidden sm:inline" : ""}`}>Home</Link>
+                    
+                    <HomeButton isHomePage={isHomePage}/>
+
                     {isHomePage && (
                         <button 
                         onClick={toggleFilterSidebar}
@@ -35,11 +37,16 @@ export default function NavBar() {
                             )}
                         </button>
                     )}
-                    {isHomePage && (<SearchBar filterSidebar={false}></SearchBar>)}
-                    <NavSession></NavSession>
+
+                    {isHomePage && (<SearchBar filterSidebar={false}/>)}
+
+                    <NavSession/>
+                    
                 </div>
             </nav>
-            <NavSessionSidebar></NavSessionSidebar>
+
+            <NavSessionSidebar/>
+
         </div>
     );
 }

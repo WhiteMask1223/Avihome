@@ -34,8 +34,8 @@
   --theme-arrow-disable-color: 175, 175, 175;
 
   /*Estilos para botones Submit*/
-  --theme-submitButton-color: 11, 141, 131;
-  --theme-submitButtonHover-color: 16, 196, 182;
+  --theme-submitButton-color: 17, 94, 89;
+  --theme-submitButtonHover-color: 20, 184, 165;
 
   /*Estilos para botones Danger*/
   --theme-dangerButton-color: 255, 50, 50;

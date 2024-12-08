@@ -6,13 +6,13 @@ export async function POST(request) {
 
     try {
         const requestData = await request.json();
-        console.log("get User", requestData)
+
         const user = await getUserByEmail_Controller(requestData);
         
         return Response.json(user);
     } catch (error) {
         console.log(error);
         
-        return Response.json({ error: true, message: 'status 500: Error Interno'});
+        return new Response(JSON.stringify({ message: 'Error Interno' }), { status: 500 });
     };
 };

@@ -4,6 +4,7 @@ import { useContext } from "react"
 
 import { UtilityContex } from "@/contexts/Utility.context"
 
+import AppLogo from "./AppLogo"
 import LoadingSpinners from "./LoadingSpinners"
 
 export default function LoadingBg({ conditional }) {
@@ -14,17 +15,29 @@ export default function LoadingBg({ conditional }) {
         <div>
             {conditional ?
                 <div
-                    className="fixed flex items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50">
+                    className="fixed flex flex-col items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50 cursor-wait">
+
+                    <div className="m-5 animate-bounce">
+                        <AppLogo fixedTheme={false} />
+                    </div>
+
                     <LoadingSpinners size={"large"} />
+
                 </div>
                 :
                 loading && (
                     <div
-                        className="fixed flex items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50">
+                        className="fixed flex flex-col items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50 cursor-wait">
+
+                        <div className="m-5 animate-bounce">
+                            <AppLogo fixedTheme={false} />
+                        </div>
+
                         <LoadingSpinners size={"large"} />
+
                     </div>
-                )   
-        }
+                )
+            }
         </div>
     )
 }

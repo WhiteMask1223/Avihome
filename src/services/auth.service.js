@@ -6,9 +6,10 @@ export const getSession_Service = async () => {
 
         if (!session) {
             return { authenticated: false };
-        } else {
-            return session;
         };
+
+        return session;
+       
     } catch (error) {
         console.log(error);
     };

@@ -40,18 +40,24 @@ export default function UserProfile() {
             if (!fetchedUser.error) {
                 setUser(fetchedUser);
             };
-        } else {
-            setUser(userData);
-            setSameUser(true);
+
+            return
         };
+
+        setUser(userData);
+        setSameUser(true);
     };
 
 
     /**************************{ Fetch }**************************/
 
     const fetchUser = async (id) => {
-        const user = await get_UserById(id)
-        return user
+        try {
+            const user = await get_UserById(id)
+            return user
+        } catch (error) {
+            console.error(error)
+        }
     };
 
     const fetchOfferts = async () => {
@@ -60,13 +66,12 @@ export default function UserProfile() {
         try {
             const offerts = await get_OffertsByUserId(userId);
 
-            console.log(offerts)
-            if (!offerts.error) {
-                setUserOfferts(offerts);
-            } else {
-                setUserOfferts([])
-            }
+            if (offerts.error) {
+                setUserOfferts([]);
+                return
+            };
 
+            setUserOfferts(offerts);
         } catch (error) {
             console.error(error);
         }

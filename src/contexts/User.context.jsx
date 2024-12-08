@@ -9,41 +9,14 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
+    /**************************{ Declaraciones }**************************/
+
     const [userSession, setUserSession] = useState(null);
     const [userData, setUserData] = useState(null);
     const [auth, setAuth] = useState(false);
 
-    useEffect(() => {
-        console.log(userSession)
-        if (userSession === null || userSession === "No Session") {
-            fetchSession();
-        }
-    }, [auth]);
 
-    const fetchSession = async () => {
-        try {
-            const session = await get_Session();
-
-            if (session.authenticated === false) {
-                setUserSession("No Session");
-                return
-            } else {
-
-                if (!userData) {
-
-                    const email = session.user.email;
-
-                    const fetchedUser = await fetchUserByEmail(email);
-
-                    setUserData(fetchedUser);
-                };
-
-                setUserSession(session);
-            };
-        } catch (error) {
-            console.error(error);
-        };
-    };
+    /**************************{ Funciones }**************************/
 
     const fetchUserByEmail = async (email) => {
         try {
@@ -54,12 +27,44 @@ export const UserProvider = ({ children }) => {
             console.error(error);
         };
     };
+    
+    const fetchSession = async () => {
+        try {
+            const session = await get_Session();
+
+            if (session.authenticated === false) {
+                setUserSession("No Session");
+                return
+            };
+
+            const email = session.user.email;
+            const fetchedUser = await fetchUserByEmail(email);
+
+            setUserData(fetchedUser);
+            setUserSession(session);
+
+        } catch (error) {
+            console.error(error);
+        };
+    };
 
     const logout = () => {
         setAuth(false);
         setUserData(null);
-        setUserSession("No Session");     
+        setUserSession("No Session");
     };
+
+
+    /**************************{ useEffects }**************************/
+
+    useEffect(() => {
+        if (userSession === null || userSession === "No Session") {
+            fetchSession();
+        };
+    }, [auth]);
+
+
+    /**************************{ Return }**************************/
 
     return (
         <UserContext.Provider value={{

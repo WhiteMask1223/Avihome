@@ -40,6 +40,7 @@ module.exports = {
         //Estilos para Submit Buttons
         submitButtonColor: 'rgb(var(--theme-submitButton-color))',
         submitButtonHoverColor: 'rgb(var(--theme-submitButtonHover-color))',
+        submitButtonDisabledColor: 'rgb(var(--theme-submitButtonDisabled-color))',
 
         //Estilos para Danger Buttons
         dangerButtonThemeColor: 'rgb(var(--theme-dangerButton-color))',

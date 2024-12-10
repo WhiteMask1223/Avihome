@@ -1,6 +1,8 @@
 import "./globals.css";
 import 'remixicon/fonts/remixicon.css';
 
+import Head from "next/head";
+
 import ContextProvider from "@/components/ContextProvider";
 import SessionWrapper from "@/components/SessionWrapper";
 import NavBar from "@/components/navbar/NavBar";
@@ -16,6 +18,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
+      
+      <head>
+        <link rel="icon" type="image/png" href="favicon-light.png" media="(prefers-color-scheme: light)"/>
+        <link rel="icon" type="image/png" href="favicon-dark.png" media="(prefers-color-scheme: dark)"/>
+      </head>
+
       <body className="flex flex-col min-h-screen">
         <SessionWrapper>
           <ContextProvider>

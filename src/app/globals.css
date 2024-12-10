@@ -34,8 +34,9 @@
   --theme-arrow-disable-color: 175, 175, 175;
 
   /*Estilos para botones Submit*/
-  --theme-submitButton-color: 17, 94, 89;
-  --theme-submitButtonHover-color: 20, 184, 165;
+  --theme-submitButton-color: 15, 118, 110;
+  --theme-submitButtonHover-color: 20, 184, 166;
+  --theme-submitButtonDisabled-color: 166, 255, 248;
 
   /*Estilos para botones Danger*/
   --theme-dangerButton-color: 255, 50, 50;
@@ -75,6 +76,9 @@
     /*Estilos de paginacion*/
     --theme-arrow-color: 255, 255, 255;
     --theme-arrow-disable-color: 75, 75, 75;
+
+    /*Estilos para botones Submit*/
+    --theme-submitButtonDisabled-color: 47, 74, 72;
 
     /*Estilos para botones Danger*/
     --theme-dangerButton-color: 200, 25, 25;

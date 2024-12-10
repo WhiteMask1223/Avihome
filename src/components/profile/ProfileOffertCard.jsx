@@ -9,7 +9,7 @@ import { update_roomsAvailable, delete_offert } from "@/api/offerts.api";
 import LoadingSpinners from "../UI/utility/LoadingSpinners";
 import DeleteConfirm from "../UI/utility/DeleteConfirm";
 
-export default function ProfileOffertsCard({ offert, sameUser, profilFetchOfferts }) {
+export default function ProfileOffertsCard({ offert, sameUser, setUserOfferts }) {
 
 
     /**************************{ Declaraciones }**************************/
@@ -75,7 +75,7 @@ export default function ProfileOffertsCard({ offert, sameUser, profilFetchOffert
         const res = await delete_offert(offert._id);
 
         if (!res.error) {
-            profilFetchOfferts();
+            setUserOfferts(null);
             fetchOfferts();
         };
     };

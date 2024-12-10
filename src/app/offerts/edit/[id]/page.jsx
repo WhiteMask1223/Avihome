@@ -20,7 +20,7 @@ import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 import { update_offert, get_OffertById } from "@/api/offerts.api";
 
-export default function OffertsForm() {
+export default function EditOffertForm() {
 
 
     /**************************{ Declaraciones }**************************/

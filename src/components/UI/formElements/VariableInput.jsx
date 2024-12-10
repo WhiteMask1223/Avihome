@@ -11,4 +11,4 @@ export default function VariableInput({ type, id, value, setStateFunction, error
             />
         </div>
     )
-}
+};

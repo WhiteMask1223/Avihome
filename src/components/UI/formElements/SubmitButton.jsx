@@ -1,10 +1,14 @@
-export default function SubmitButton({text}) {
+import LoadingSpinners from "../utility/LoadingSpinners"
+
+export default function SubmitButton({text, disabled, ...props}) {
     return (
         <button
             type="submit"
-            className="w-full mt-5 bg-[#0B8D83] text-lg text-white p-2 font-bold rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"
+            className={`w-full mt-5 mx-5 ${ disabled ? "bg-submitButtonDisabledColor cursor-wait" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} text-lg text-white p-2 font-bold rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out  focus:outline-none`}
+            disabled={disabled}
+            {...props}
         >
-            { text }
+            { disabled ? <LoadingSpinners/> : text }
         </button>
     )
 }

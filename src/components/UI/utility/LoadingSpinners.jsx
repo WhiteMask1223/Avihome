@@ -1,4 +1,4 @@
-export default function CargandoSpinners({size}) {
+export default function LoadingSpinners({size}) {
     switch (size) {
         case "very small":
             return (

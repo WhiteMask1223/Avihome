@@ -105,7 +105,7 @@ export default function UserProfile() {
 
             <ProfileUserSecction user={user} sameUser={sameUser} />
 
-            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} fetchOfferts={fetchOfferts} />
+            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} />
 
         </section>
     );

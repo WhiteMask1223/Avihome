@@ -9,13 +9,8 @@ import { MainPageContext } from "@/contexts/MainPage.context";
 import { UtilityContex } from "@/contexts/Utility.context";
 
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
-import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
-import OffertsFormCheckbox from "@/components/offerts/form/OffertsFormCheckbox";
-import OffertsFormAdmits from "@/components/offerts/form/OffertsFormAdmits";
+import OffertsForm from "@/components/offerts/form/OffertsForm";
 
-import VariableInput from "@/components/UI/formElements/VariableInput";
-import SelectOption from "@/components/UI/formElements/SelectOption";
-import Asterisk from "@/components/UI/formElements/Asterisk";
 import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 import { update_offert, get_OffertById } from "@/api/offerts.api";
@@ -35,6 +30,7 @@ export default function EditOffertForm() {
 
     const [offertsFormData, setOffertsFormData] = useState(null);
     const [originalOffertData, setOriginalOffertData] = useState(null);
+    const [saving, setSaving] = useState(false);
 
 
     /**************************{ Funciones }**************************/
@@ -122,24 +118,32 @@ export default function EditOffertForm() {
             ...prevFormData,
             [field]: newValue
         }));
-
-        console.log(offertsFormData)
     };
 
 
-    const updateSubObj = (objKey, field, value) => {
+    const updateSubObj = (objKey, field, admits, value) => {
+
+        if (admits) {
+            setOffertsFormData((prevFormData) => ({
+                ...prevFormData,
+                admits: {
+                    'Caballeros': field === 'Caballeros',
+                    'Damas': field === 'Damas',
+                    'Cualquiera': field === 'Cualquiera'
+                }
+            }))
+            return
+        }
 
         let newValue = value
 
-        if (objKey === "availability" && newValue < 0) {
-            setFormError([true, "Rellene todos los campos."]);
-            return
-        };
+        if (objKey === "availability" && newValue < 0) return
+
 
         if (objKey === "availability") newValue = Number(value);
 
         if (field === "capacity" && newValue < offertsFormData.availability.roomsAvailable) {
-            updateSubObj('availability', 'roomsAvailable', offertsFormData.availability.roomsAvailable - 1)
+            updateSubObj('availability', 'roomsAvailable', false, offertsFormData.availability.roomsAvailable - 1)
         };
 
         if (field === "roomsAvailable" && newValue > offertsFormData.availability.capacity) return;
@@ -160,7 +164,11 @@ export default function EditOffertForm() {
 
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
+
+        setSaving(true);
+
 
         if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability) {
             setFormError([true, "Rellene todos los campos."]);
@@ -189,181 +197,25 @@ export default function EditOffertForm() {
     return (
 
         <OffertsFormSection>
+
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Editar Oferta</h1>
 
-            <form onSubmit={handleSubmit}>
+            <OffertsForm
+                userData={userData}
 
-                {/**************************{ Nombre de la oferta }**************************/}
+                offertsFormData={offertsFormData}
+                setOffertsFormData={setOffertsFormData}
+                offertsLocation={offertsLocation}
+                offertsType={offertsType}
 
-                <h2 className="m-auto w-fit p-2 text-lg font-bold text-red-500 ">{formError[1]}</h2>
+                handleSubmit={handleSubmit}
 
-                <div className="mt-5">
-                    <label htmlFor="tittle" className="flex text-lg font-bold">
-                        Nombre de la Oferta: <Asterisk />
-                    </label>
+                isOffertEdit={true}
+                clearForm={clearForm}
+                formError={formError}
+                saving={saving}
+            />
 
-                    <VariableTextArea
-                        id={'title'}
-                        value={offertsFormData.title}
-                        setStateFunction={updateField}
-                        required
-                        error={formError[0]}
-                        cols={'40'}
-                        rows={'2'}
-                        placeholder={"Ingrese un nombre descriptivo."}
-                    />
-                </div>
-
-
-                {/**************************{ Tipo y Disponibilidad }**************************/}
-
-                <div className="mt-5 sm:flex justify-between">
-                    <div>
-                        <label htmlFor="repPassword" className="flex text-lg font-bold">
-                            Tipo de Residencia: <Asterisk />
-                        </label>
-
-                        <select className={`h-10 px-2 mt-1 rounded-md bg-elementThemeColor ${formError[0] ? "ring-2 ring-red-500 focus:ring" : "focus:ring-[#10c4b6]"}`} value={offertsFormData.type} onChange={(e) => updateField('type', e.target.value)}>
-
-                            <option value="" className="text-grayFontThemeColor" disabled>Seleccione una opción</option>
-
-                            {Object.entries(offertsType).map(([key]) => (
-                                <SelectOption key={key} value={key} text={key} />
-                            ))}
-
-                        </select>
-                    </div>
-                    <div>
-                        <label htmlFor="tittle" className="flex text-lg font-bold">
-                            Número de total habitaciones <Asterisk />
-                        </label>
-                        <VariableInput
-                            type={'number'}
-                            id={'availability'}
-                            value={offertsFormData.availability.capacity}
-                            required
-                            autoComplete={"off"}
-                            error={formError[0]}
-                            onChange={(e) => updateSubObj('availability', 'capacity', e.target.value)}
-                            onKeyDown={(e) => e.preventDefault()}
-                        />
-
-                    </div>
-
-                    <div>
-                        <label htmlFor="tittle" className="flex text-lg font-bold">
-                            Número de habitaciones disponibles <Asterisk />
-                        </label>
-                        <VariableInput
-                            type={'number'}
-                            id={'availability'}
-                            value={offertsFormData.availability.roomsAvailable}
-                            required
-                            autoComplete={"off"}
-                            error={formError[0]}
-                            onChange={(e) => updateSubObj('availability', 'roomsAvailable', e.target.value)}
-                            onKeyDown={(e) => e.preventDefault()}
-                        />
-
-                    </div>
-                </div>
-
-
-                {/**************************{ Direcciones }**************************/}
-
-                <div className="mt-5">
-                    <label htmlFor="address" className="flex text-lg font-bold">
-                        Localidad y Dirección <Asterisk />
-                    </label>
-                    <div className="sm:flex justify-between">
-
-                        <select className={`h-10 px-2 rounded-md bg-elementThemeColor ${formError[0] ? "ring-2 ring-red-500 focus:ring" : "focus:ring-[#10c4b6]"}`} value={offertsFormData.location} onChange={(e) => updateField('location', e.target.value)}>
-
-                            <option value="" className="text-grayFontThemeColor" disabled>Seleccione una opción</option>
-
-                            {Object.entries(offertsLocation).map(([key]) => (
-                                <SelectOption key={key} value={key} text={key} />
-                            ))}
-
-                        </select>
-
-                        <VariableTextArea
-                            id={'address'}
-                            value={offertsFormData.address}
-                            setStateFunction={updateField}
-                            required
-                            error={formError[0]}
-                            cols={'40'}
-                            rows={'2'}
-                            placeholder={"Ingrese una dirección más específica."}
-                        />
-
-                    </div>
-
-                    {/**************************{ Servicios }**************************/}
-
-                    <div className="mt-5">
-                        <label htmlFor="services" className="flex text-lg font-bold">
-                            Servicios <Asterisk />
-                        </label>
-
-                        <OffertsFormCheckbox offertsFormData={offertsFormData} handlerFunction={updateSubObj} />
-
-                        <div className="mt-5">
-                            <label htmlFor="services" className="flex text-lg font-bold">
-                                Especifique otros Servicios <Asterisk />
-                            </label>
-
-                            <VariableTextArea
-                                id={'otherServices'}
-                                value={offertsFormData.otherServices}
-                                setStateFunction={updateField}
-                                required
-                                error={formError[0]}
-                                cols={'10'}
-                                rows={'3'}
-                                placeholder={"Ejemplo: Baños individuales, garaje, cocina, lavanderia, entre otros."}
-                            />
-                        </div>
-
-                    </div>
-
-                    {/**************************{ Descripcion }**************************/}
-
-                    <div className="mt-5">
-                        <label htmlFor="services" className="flex text-lg font-bold">
-                            Descripción <Asterisk />
-                        </label>
-
-                        <VariableTextArea
-                            id={'description'}
-                            value={offertsFormData.description}
-                            setStateFunction={updateField}
-                            required
-                            error={formError[0]}
-                            cols={'10'}
-                            rows={'3'}
-                            placeholder={"Describa la habitación, defina reglas internas o cualquier información que considere relevante."}
-                        />
-                    </div>
-
-                    <div className="mt-5">
-                        <label htmlFor="services" className="flex text-lg font-bold">
-                            Admite <Asterisk />
-                        </label>
-
-                        <OffertsFormAdmits offertsFormData={offertsFormData} setOffertsFormData={setOffertsFormData} />
-                    </div>
-
-                    <div className="mt-6 sm:flex justify-between">
-
-                        <button onClick={clearForm} className={"w-full mt-5 mx-5 bg-[#d11717] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"}>Revertir Cambios</button>
-
-                        <input type="submit" value="Actualizar Oferta" className={"w-full mt-5 mx-5 bg-[#0B8D83] font-bold text-lg text-white p-2 rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#10c4b6] focus:outline-none"} />
-
-                    </div>
-                </div>
-            </form>
         </OffertsFormSection>
 
     );

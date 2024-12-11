@@ -10,14 +10,6 @@ import { MainPageContext } from "@/contexts/MainPage.context";
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
 import OffertsForm from "@/components/offerts/form/OffertsForm";
 
-import VariableTextArea from "@/components/UI/formElements/VariableTextArea";
-import OffertsFormCheckbox from "@/components/offerts/form/OffertsFormCheckbox";
-import OffertsFormAdmits from "@/components/offerts/form/OffertsFormAdmits";
-
-import VariableInput from "@/components/UI/formElements/VariableInput";
-import SelectOption from "@/components/UI/formElements/SelectOption";
-import Asterisk from "@/components/UI/formElements/Asterisk";
-
 import { save_Offert } from "@/api/offerts.api";
 
 export default function NewOffertForm() {
@@ -68,44 +60,22 @@ export default function NewOffertForm() {
 
     /**************************{ Funciones }**************************/
 
-    const updateField = (field, newValue) => {
-        if (!offertsFormData.user && userData) {
-            setOffertsFormData(prevFormData => ({
-                ...prevFormData,
-                user: userData._id
-            }));
-        };
-
-        if (field === "availability" && newValue < 0) return;
-
-        setOffertsFormData(prevFormData => ({
-            ...prevFormData,
-            [field]: newValue
-        }));
-    };
-
-    const updateSubObj = (objKey, field, newValue) => {
-        setOffertsFormData(prevFormData => ({
-            ...prevFormData,
-            [objKey]: {
-                ...prevFormData[objKey],
-                [field]: newValue
-            }
-        }));
-    };
-
-    const clearForm = () => {
-        setOffertsFormData(offertsFormDataTemplate);
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         setSaving(true);
 
-        if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability) {
+        if (
+            !offertsFormData.title ||
+            !offertsFormData.type || 
+            !offertsFormData.location || 
+            !offertsFormData.address ||
+            !offertsFormData.description ||
+            !offertsFormData.availability
+        ) {
             setFormError([true, "Rellene todos los campos."]);
             setSaving(false);
+            console.log(formError)
             return
         };
 
@@ -124,6 +94,9 @@ export default function NewOffertForm() {
         };
     };
 
+    const clearForm = () => {
+        setOffertsFormData(offertsFormDataTemplate);
+    };
 
     /**************************{ Return }**************************/
 
@@ -133,13 +106,12 @@ export default function NewOffertForm() {
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Crear Oferta</h1>
 
             <OffertsForm
+                userData={userData}
+                
                 offertsFormData={offertsFormData}
                 setOffertsFormData={setOffertsFormData}
                 offertsLocation={offertsLocation}
                 offertsType={offertsType}
-
-                updateField={updateField}
-                updateSubObj={updateSubObj}
 
                 handleSubmit={handleSubmit}
                 

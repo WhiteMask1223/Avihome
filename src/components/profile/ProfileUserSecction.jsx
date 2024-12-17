@@ -1,7 +1,32 @@
 "use client"
 
+import { useState } from "react"
+
+import EditInfoModal from "./EditInfoModal"
+import EditPasswordModal from "./EditPasswordModal"
+import Button from "../UI/utility/Button"
+import DangerButton from "../UI/utility/DangerButton"
+import DeleteConfirm from "../UI/utility/DeleteConfirm"
+
 export default function ProfileUserSecction({ user, sameUser }) {
-    if(!user) return
+
+    const [editPswModal, setEditPswModal] = useState(false);
+    const [triggerEditInfo, setTriggerEditInfo] = useState(false);
+    const [deletePopUp, setDeletePopUp] = useState(false);
+
+    const triggerEditPswFunction = () => {
+        setEditPswModal(!editPswModal)
+    };
+
+    const triggerEditInfoFunction = () => {
+        setTriggerEditInfo(!triggerEditInfo)
+    };
+
+    const triggerDelete = () => {
+        setDeletePopUp(!deletePopUp);
+    };
+
+    if (!user) return
 
     return (
         <section className="w-full">
@@ -24,15 +49,26 @@ export default function ProfileUserSecction({ user, sameUser }) {
                         <p></p>
                     </div>
                 </div>
-                {/* sameUser &&
+                {sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
-                            <button className="bg-elementThemeColor px-4 py-2 rounded mb-2">Cambiar contraseña</button>
-                            <button className="bg-elementThemeColor px-4 py-2 rounded">Cambiar Medios de Contacto</button>
+                            <Button styles={"w-full"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction}/>
+                            <EditPasswordModal trigger={editPswModal} setTrigger={setEditPswModal} user={user}/>
+
+
+                            <Button styles={"w-full mt-2"} text={"Cambiar Medios de Contacto"} buttonFunction={triggerEditInfoFunction} />
+                            <EditInfoModal trigger={triggerEditInfo} setTrigger={setTriggerEditInfo} />
                         </div>
-                        <button className="bg-dangerButtonThemeColor text-white px-4 py-2 rounded">Eliminar Cuenta</button>
+                        <DangerButton styles={"w-fit"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
+
+                        <DeleteConfirm
+                            text={"tu cuenta de Usuario"}
+                            otherText={"Todas las Ofertas que hayas creado serán eliminadas, al igual que toda tu información personal."}
+                            trigger={deletePopUp}
+                            setTrigger={setDeletePopUp}
+                        />
                     </div>
-                */}
+                }
             </div >
         </section>
     )

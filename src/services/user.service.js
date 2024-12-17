@@ -4,6 +4,33 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
 
+
+/**************************{ Create }**************************/
+
+export const registerUser_Service = async (data) => {
+
+    const registeredUser = await getUserByEmail_Service(data.email)
+
+    if (registeredUser) return { error: true, message: "Correo electrónico ya registrado." }
+
+    try {
+        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+
+        data.password = hashedPassword;
+
+        const user = new UserModel(data);
+        await user.save();
+
+        return user
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "Error interno" };
+    };
+};
+
+
+/**************************{ Read }**************************/
+
 export const getUserById_Service = async (_id) => {
     try {
         const user = await UserModel.findOne({ _id });
@@ -25,23 +52,23 @@ export const getUserByEmail_Service = async (email) => {
     }
 };
 
-export const registerUser_Service = async (data) => {
 
-    const registeredUser = await getUserByEmail_Service(data.email)
+/**************************{ Update }**************************/
 
-    if (registeredUser) return { error: true, message: "Correo electrónico ya registrado." }
-
+export const updateUserPassword_Service = async (userId, data) => {
     try {
-        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+        const hashedPassword = await bcrypt.hash(data.newPassword, saltRounds);
 
-        data.password = hashedPassword;
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { password: hashedPassword },
+            { new: true, runVailidators: true }
+        );
 
-        const user = new UserModel(data);
-        await user.save();
+        if (!updatedUser) return { error: true, status: 404, message: "Usuario no encontrado." };
 
-        return user
+        return { error: false, status: 200 };
     } catch (error) {
-        console.log(error);
-        return { error: true, message: "Error interno" };
+        console.log(error)
     };
 };

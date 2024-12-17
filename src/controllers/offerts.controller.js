@@ -109,8 +109,6 @@ export const saveOffert_Controller = async (formData) => {
 export const changeRoomsAvailable_Controller = async ( offertId, newAvailabilityValue ) => {
     try {
         let updatedOffert = await changeRoomsAvailable_Service( offertId, newAvailabilityValue );
-        
-        console.log(updatedOffert)
 
         if(!updatedOffert.error) {
             updatedOffert = await hiddenHandeler(offertId, updatedOffert);

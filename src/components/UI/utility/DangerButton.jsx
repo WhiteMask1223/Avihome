@@ -1,12 +1,25 @@
-export default function DangerButton({ text, buttonFunction, ...props }) {
+"use client"
+
+import { useState } from "react";
+
+import LoadingSpinners from "./LoadingSpinners";
+
+export default function DangerButton({ styles, text, buttonFunction, loader, ...props }) {
+
+    const [deleting, setDeleting] = useState(false);
+
     return (
         <button
             type="button"
-            onClick={buttonFunction}
-            className="w-full mt-5 bg-[#ba0000] text-lg text-white p-2 font-bold rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out hover:bg-[#fa0707] focus:outline-none"
+            onClick={() => {
+                buttonFunction();
+                setDeleting(true);
+            }}
+            disabled={deleting && loader}
+            className={`${styles} ${deleting && loader ? "bg-sectionThemeBackground cursor-wait" : "bg-[#ba0000] hover:bg-[#fa0707]"} text-lg text-white p-2 font-bold rounded-lg sm:text-base py-2 px-4 transition duration-300 ease-in-out focus:outline-none`}
             {...props}
         >
-            {text}
+            {deleting && loader ? <LoadingSpinners /> : text}
         </button>
     );
 };

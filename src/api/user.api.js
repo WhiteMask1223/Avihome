@@ -14,3 +14,13 @@ export const registerUser = async (data) => {
     const response = await axios.post('/signup/api/register', data);
     return response
 };
+
+export const update_userPassword = async (id, data) => {
+    try {
+        const response = await axios.put('/profile/api/update-user-password', { id, data });
+        
+        return response.data
+    } catch (error) {
+        console.error(error)
+    };
+};

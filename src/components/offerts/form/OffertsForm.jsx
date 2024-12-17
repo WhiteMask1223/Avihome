@@ -253,11 +253,11 @@ export default function OffertsForm({
                 />
             </div>
 
-            <div className="mt-6 sm:flex justify-between">
+            <div className="mt-6 sm:flex justify-evenly">
 
-                <DangerButton text={isOffertEdit ? "Revertir Cambios" : "Limpiar Formulario"} buttonFunction={clearForm} />
+                <DangerButton styles={"w-full mt-5"} text={isOffertEdit ? "Revertir Cambios" : "Limpiar Formulario"} buttonFunction={clearForm} />
 
-                <SubmitButton text={isOffertEdit ? "Actualizar Oferta" : "Crear Oferta"} disabled={saving} />
+                <SubmitButton styles={"w-full mt-5 ml-5"} text={isOffertEdit ? "Actualizar Oferta" : "Crear Oferta"} disabled={saving} />
 
             </div>
         </form>

@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials"
 import { NEXTAUTH_SECRET } from "@/config";
 
 const bcrypt = require('bcrypt');
-import { getUserByEmail_Controller } from "@/controllers/user.controller";
+import { getUserWithPasswordByEmail_Controller } from "@/controllers/user.controller";
 
 const authOptions = {
     secret: NEXTAUTH_SECRET,
@@ -19,7 +19,7 @@ const authOptions = {
             authorize: async (credentials) => {
                 let user = null
                 
-                user = await getUserByEmail_Controller(credentials.email)
+                user = await getUserWithPasswordByEmail_Controller(credentials.email)
 
                 try {
                     if (!user) return
@@ -28,7 +28,9 @@ const authOptions = {
 
                 } catch (error) {
                     console.log('login Error: ', error)
+                    return
                 }
+
                 return user
             }
         })

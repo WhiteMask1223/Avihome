@@ -31,11 +31,11 @@ export default function LoginPage() {
     const { setAuth } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex)
 
-    const [ loginData, setLoginData ] = useState(loginDataObjTemplate);
-    const [ credentialsError, setCredentialsError ] = useState([false, '']);
-    const [ showPassword, setShowPassword ] = useState(false);
+    const [loginData, setLoginData] = useState(loginDataObjTemplate);
+    const [credentialsError, setCredentialsError] = useState([false, '']);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const [ handleloading, setHandleLoading ] = useState(false);
+    const [handleloading, setHandleLoading] = useState(false);
 
 
     /**************************{ Funciones }**************************/
@@ -72,23 +72,22 @@ export default function LoginPage() {
             setCredentialsError([true, 'Credenciales Incorrectas o Usuario Inexistente']);
             setHandleLoading(false);
         } else {
-            console.log(authResult);
             setAuth(true);
             router.push("/");
         };
     };
 
     useEffect(() => {
-        if(loading){
+        if (loading) {
             setLoading(!loading);
         };
     });
 
     /**************************{ Return }**************************/
 
-    if(handleloading) {
+    if (handleloading) {
         return (
-            <LoadingBg conditional={true}/>
+            <LoadingBg conditional={true} />
         );
     };
 
@@ -120,7 +119,7 @@ export default function LoginPage() {
 
                 {/* Login Button */}
                 <div className="mt-6">
-                    <SubmitButton text={'Iniciar Sesión'}/>
+                    <SubmitButton text={'Iniciar Sesión'} styles={"w-full"} />
                 </div>
             </form>
 

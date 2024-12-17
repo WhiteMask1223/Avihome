@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-import EditInfoModal from "./EditInfoModal"
+//import EditInfoModal from "./EditInfoModal"
 import EditPasswordModal from "./EditPasswordModal"
 import Button from "../UI/utility/Button"
 import DangerButton from "../UI/utility/DangerButton"
@@ -11,16 +11,16 @@ import DeleteConfirm from "../UI/utility/DeleteConfirm"
 export default function ProfileUserSecction({ user, sameUser }) {
 
     const [editPswModal, setEditPswModal] = useState(false);
-    const [triggerEditInfo, setTriggerEditInfo] = useState(false);
+    //const [triggerEditInfo, setTriggerEditInfo] = useState(false);
     const [deletePopUp, setDeletePopUp] = useState(false);
 
     const triggerEditPswFunction = () => {
         setEditPswModal(!editPswModal)
     };
 
-    const triggerEditInfoFunction = () => {
+    /*const triggerEditInfoFunction = () => {
         setTriggerEditInfo(!triggerEditInfo)
-    };
+    };*/
 
     const triggerDelete = () => {
         setDeletePopUp(!deletePopUp);
@@ -32,7 +32,12 @@ export default function ProfileUserSecction({ user, sameUser }) {
         <section className="w-full">
             <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
 
-                <h2 className="text-xl font-bold mb-4">Perfil de Usuario</h2>
+                <h2 className="text-xl font-bold mb-4">{
+                    user.role === "User" ?
+                        "Perfil de Usuario"
+                        :
+                        "Perfil de Administrador"
+                }</h2>
 
                 <div className="sm:flex items-center justify-between">
                     <div className="sm:flex">
@@ -52,14 +57,19 @@ export default function ProfileUserSecction({ user, sameUser }) {
                 {sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
-                            <Button styles={"w-full"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction}/>
-                            <EditPasswordModal trigger={editPswModal} setTrigger={setEditPswModal} user={user}/>
+                            <Button styles={"w-full"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction} />
+                            <EditPasswordModal trigger={editPswModal} setTrigger={setEditPswModal} user={user} />
 
 
-                            <Button styles={"w-full mt-2"} text={"Cambiar Medios de Contacto"} buttonFunction={triggerEditInfoFunction} />
-                            <EditInfoModal trigger={triggerEditInfo} setTrigger={setTriggerEditInfo} />
+                            {/*<Button styles={"w-full mt-2"} text={"Cambiar Medios de Contacto"} buttonFunction={triggerEditInfoFunction} />
+                            <EditInfoModal trigger={triggerEditInfo} setTrigger={setTriggerEditInfo} />*/}
                         </div>
-                        <DangerButton styles={"w-fit"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
+
+                        {user.role === "Root" || user.role === "Admin" ?
+                            ""
+                            :
+                            <DangerButton styles={"w-fit"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
+                        }
 
                         <DeleteConfirm
                             text={"tu cuenta de Usuario"}

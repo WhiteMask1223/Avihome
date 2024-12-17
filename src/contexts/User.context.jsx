@@ -30,6 +30,8 @@ export const UserProvider = ({ children }) => {
     
     const fetchSession = async () => {
         try {
+            setUserSession(null);
+
             const session = await get_Session();
 
             if (session.authenticated === false) {

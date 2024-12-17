@@ -12,7 +12,7 @@ export const get_UserByEmail = async (data) => {
 
 export const registerUser = async (data) => {
     const response = await axios.post('/signup/api/register', data);
-    return response
+    return response.data
 };
 
 export const update_userPassword = async (id, data) => {

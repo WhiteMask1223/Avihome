@@ -13,6 +13,10 @@ export const registerUser_Controller = async (userData) => {
     
     const res = await registerUser_Service(userData);
 
+    if (res.error) {
+        return res
+    };
+
     const data = {
         name: res.name,
         email: res.email,
@@ -22,7 +26,7 @@ export const registerUser_Controller = async (userData) => {
         active: res.active,
         _id: res._id,
     };
-      
+    
     return data
 };
 
@@ -59,6 +63,12 @@ export const getUserByEmail_Controller = async (email) => {
     };
       
     return data
+};
+
+export const getUserWithPasswordByEmail_Controller = async (email) => {
+    const res = await getUserByEmail_Service(email);
+      
+    return res
 };
 
 

@@ -35,6 +35,7 @@ export default function SingInPage() {
     const [registrationData, setRegistrationData] = useState(registrationDataObjTemplate);
     const [showPassword, setShowPassword] = useState({ psw: false, pswR: false });
     const [credentialsError, setCredentialsError] = useState([false, '']);
+    const [saving, setSaving] = useState(false);
 
     const { setUserData, setAuth } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex);
@@ -46,6 +47,16 @@ export default function SingInPage() {
 
 
     const updateRegistrationData = (key, newValue) => {
+
+        //Formatea los numeros telefonicos
+        if (key === "phone") {
+            newValue = newValue.replace(/[^0-9]/g, "");
+
+            if (newValue.length > 4) {
+                newValue = newValue.slice(0, 4) + "-" + newValue.slice(4);
+            }
+        }
+
         setRegistrationData((prevRegistrationData) => ({
             ...prevRegistrationData,
             [key]: newValue
@@ -85,11 +96,11 @@ export default function SingInPage() {
             return
         }
 
-        setLoading(true);
+        setSaving(true);
 
         const registerResponse = await registerUser(registrationData);
 
-        if (!registerResponse.data.error) {
+        if (!registerResponse.error) {
             const authResult = await signIn("credentials", {
                 redirect: false,
                 email,
@@ -99,22 +110,22 @@ export default function SingInPage() {
             if (authResult.error) {
                 setCredentialsError([true, 'Error al Iniciar Sesión']);
                 setRegistrationData(registrationDataObjTemplate);
-                setLoading(false);
+                setSaving(false);
             } else {
                 setAuth(true);
-                setUserData(registerResponse.data);
+                setUserData(registerResponse);
                 router.push("/");
             };
 
         } else {
-            setCredentialsError([true, registerResponse.data.message]);
+            setCredentialsError([true, registerResponse.message]);
             setRegistrationData(registrationDataObjTemplate);
-            setLoading(false);
+            setSaving(false);
         };
     };
 
     useEffect(() => {
-        if(loading){
+        if (loading) {
             setLoading(!loading);
         };
     });
@@ -224,6 +235,7 @@ export default function SingInPage() {
                         required
                         autoComplete={"off"}
                         placeholder={"04XX-0000000"}
+                        maxLength="12"
                     />
                 </div>
 
@@ -231,7 +243,7 @@ export default function SingInPage() {
 
                 {/* SingIn Button */}
                 <div className="mt-6">
-                    <SubmitButton text={'Registrarse'} />
+                    <SubmitButton text={'Registrarse'} styles={"w-full"} disabled={saving} />
                 </div>
             </form>
 

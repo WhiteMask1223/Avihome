@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 //import EditInfoModal from "./EditInfoModal"
 import EditPasswordModal from "./EditPasswordModal"
@@ -8,7 +10,17 @@ import Button from "../UI/utility/Button"
 import DangerButton from "../UI/utility/DangerButton"
 import DeleteConfirm from "../UI/utility/DeleteConfirm"
 
+import { UserContext } from "@/contexts/User.context";
+import { MainPageContext } from "@/contexts/MainPage.context";
+
+import { delete_user } from "@/api/user.api"
+
 export default function ProfileUserSecction({ user, sameUser }) {
+
+    const router = useRouter();
+
+    const { logout } = useContext(UserContext);
+    const { fetchOfferts } = useContext(MainPageContext);
 
     const [editPswModal, setEditPswModal] = useState(false);
     //const [triggerEditInfo, setTriggerEditInfo] = useState(false);
@@ -24,6 +36,23 @@ export default function ProfileUserSecction({ user, sameUser }) {
 
     const triggerDelete = () => {
         setDeletePopUp(!deletePopUp);
+    };
+
+    const deleteUser = async () => {
+        try {
+            console.log(user)
+
+            const deleteResponse = await delete_user(user._id);
+
+            console.log(deleteResponse)
+
+            await signOut({ redirect: false });
+            logout();
+            fetchOfferts();
+            router.push("/");
+        } catch (error) {
+            console.error(error)
+        }
     };
 
     if (!user) return
@@ -76,6 +105,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
                             otherText={"Todas las Ofertas que hayas creado serán eliminadas, al igual que toda tu información personal."}
                             trigger={deletePopUp}
                             setTrigger={setDeletePopUp}
+                            deleteFunction={deleteUser}
                         />
                     </div>
                 }

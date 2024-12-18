@@ -1,4 +1,4 @@
-import { deleteOffertById_Controller } from "@/controllers/offerts.controller";
+import { deleteUserById_Controller } from "@/controllers/user.controller";
 import dbConnect from "@/lib/db";
 
 export async function DELETE(request) {
@@ -8,13 +8,13 @@ export async function DELETE(request) {
         const { pathname } = new URL(request.url);
         const parts = pathname.split("/");
 
-        const id = parts[parts.length -1];
+        const id = parts[parts.length - 1];
 
         if (!id) {
             return new Response(JSON.stringify({ message: "ID es requerido" }), { status: 400 });
         }
-        
-        const response = await deleteOffertById_Controller( id );
+
+        const response = await deleteUserById_Controller(id);
 
         return Response.json(response);
     } catch (error) {

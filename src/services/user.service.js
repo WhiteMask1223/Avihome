@@ -72,3 +72,20 @@ export const updateUserPassword_Service = async (userId, data) => {
         console.log(error)
     };
 };
+
+
+/**************************{ Delete }**************************/
+
+export const deleteUserById_Service = async (userId) => {
+    try {
+        const result = await UserModel.deleteOne({ _id: userId });
+
+        if (!result.deletedCount) {
+            return { error: true, status: 404, message: "Usuario no Encontrado" }
+        };
+
+        return result
+    } catch (error) {
+        console.log(error);
+    }
+};

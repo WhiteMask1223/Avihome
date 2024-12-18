@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
 
+    console.log("cookies: ", request.cookies)
+
     const isProduction = process.env.NODE_ENV === "production";
 
     console.log(process.env.NODE_ENV)

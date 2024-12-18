@@ -6,12 +6,7 @@ export async function middleware(request) {
 
     const isProduction = process.env.NODE_ENV === "production";
 
-    console.log(process.env.NODE_ENV)
-
-    const cookieName = isProduction ? "_Secure-authjs.session-token:" : "authjs.session-token";
-
-    console.log(cookieName)
-
+    const cookieName = isProduction ? "__Secure-authjs.session-token" : "authjs.session-token";
 
     const sessionToken = request.cookies.get(cookieName);
 
@@ -20,7 +15,7 @@ export async function middleware(request) {
     if (!sessionToken) {    
         // Redirige a /login si no está autenticado
         console.log("Redirigido")
-        return NextResponse.redirect(new URL("/login", request.url));
+        //return NextResponse.redirect(new URL("/login", request.url));
     }
     // Permite el acceso si el usuario está autenticado
     return NextResponse.next();

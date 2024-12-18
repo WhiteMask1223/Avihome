@@ -112,6 +112,7 @@ export default function OffertsForm({
                     </label>
 
                     <OffertsFormDropList
+                        id={"offertType"}
                         selectKey={'type'}
                         value={offertsFormData.type}
                         obj={offertsType}
@@ -128,7 +129,7 @@ export default function OffertsForm({
                     isOffertEdit ?
                         <div>
                             <div>
-                                <label htmlFor="roomsTotal" className="flex text-lg font-bold">
+                                <label htmlFor="availability" className="flex text-lg font-bold">
                                     Número de total habitaciones <Asterisk />
                                 </label>
                                 <VariableInput
@@ -241,7 +242,7 @@ export default function OffertsForm({
             />
 
             <div className="mt-5">
-                <label htmlFor="services" className="flex text-lg font-bold">
+                <label htmlFor="admits" className="flex text-lg font-bold">
                     Admite: <Asterisk />
                 </label>
 

@@ -191,7 +191,7 @@ export default function SingInPage() {
                 </div>
 
                 <div>
-                    <label htmlFor="repPassword" className="flex font-bold">
+                    <label htmlFor="passwordRepeat" className="flex font-bold">
                         Repita su Contraseña <Asterisk />
                     </label>
                     <VariableInput
@@ -208,7 +208,7 @@ export default function SingInPage() {
 
                 {/* altEmail Input */}
                 <div className="mt-6">
-                    <label htmlFor="altEmail" className="font-bold">
+                    <label htmlFor="contEmail" className="font-bold">
                         Correo Electrónico de Contacto
                     </label>
                     <VariableInput
@@ -223,7 +223,7 @@ export default function SingInPage() {
 
                 {/* phoneNumber Input */}
                 <div className="mt-1">
-                    <label htmlFor="phpne" className="flex font-bold">
+                    <label htmlFor="phone" className="flex font-bold">
                         Teléfono de Contacto <Asterisk />
                     </label>
                     <VariableInput

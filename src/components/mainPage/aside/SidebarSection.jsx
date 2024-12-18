@@ -30,8 +30,8 @@ export default function SidebarSection() {
                     ))}
 
                     <div className="mt-4">
-                        <label className={ASIDE_STYLES.SORT_BY_LABEl}>Ordenado Por:</label>
-                        <select className={ASIDE_STYLES.SORT_BY_DROPOLIST} value={filterObj.sortBy} onChange={(e) => sortAndHiddenHandler('sortBy', e.target.value)}>
+                        <label htmlFor='sortBy' className={ASIDE_STYLES.SORT_BY_LABEl}>Ordenado Por:</label>
+                        <select id='sortBy' className={ASIDE_STYLES.SORT_BY_DROPOLIST} value={filterObj.sortBy} onChange={(e) => sortAndHiddenHandler('sortBy', e.target.value)}>
                             <option value="bestRated">Mejor Puntuados</option>
                             <option value="worstRated">Peor Puntuados</option>
                             <option value="higherAvailability">Mayor Disponibilidad</option>
@@ -43,7 +43,7 @@ export default function SidebarSection() {
 
                     <div className="mt-4">
                         <label className={ASIDE_STYLES.SHOW_HIDDEN_LABEL}>
-                            <input className="hidden peer" type="checkbox" onChange={() => sortAndHiddenHandler('showHidden', !filterObj.showHidden)} checked={filterObj.showHidden} />
+                            <input id='showHidden' className="hidden peer" type="checkbox" onChange={() => sortAndHiddenHandler('showHidden', !filterObj.showHidden)} checked={filterObj.showHidden} />
                             <span className={ASIDE_STYLES.CHECKBOX}></span>
                             <span className={ASIDE_STYLES.SHOW_HIDDEN_TEXT}>Mostrar Ocultos</span>
                         </label>

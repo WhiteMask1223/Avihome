@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getSession_Controller } from "@/controllers/auth.controller"
 import dbConnect from "@/lib/db";
 

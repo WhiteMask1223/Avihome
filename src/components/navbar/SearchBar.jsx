@@ -14,6 +14,7 @@ export default function SearchBar({filterSidebar}) {
         <div className={`${filterSidebar ? "block sm:hidden mb-4" : "hidden sm:block"}`}>
             <div className="flex items-center">
                 <input 
+                    id={ filterSidebar ? "asideSearchBar" : "searchBar"}
                     type="text"
                     placeholder="Buscar por Nombre"
                     value={searchTerm}

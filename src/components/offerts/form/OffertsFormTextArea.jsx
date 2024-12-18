@@ -21,6 +21,7 @@ export default function OffertsFormTextArea({ children, label, id, value, handle
                         cols={textAreaSize[0]}
                         rows={textAreaSize[1]}
                         placeholder={placeholder}
+                        autoComplete={"off"}
                     />
                 </div>
                 :

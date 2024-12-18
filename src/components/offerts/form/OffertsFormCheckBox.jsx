@@ -2,6 +2,7 @@ export default function OffertsFormCheckBox({ objKey, subKey, value, handlerFunc
     return (
         <label className="py-0.5 inline-flex items-center cursor-pointer ml-2 sm:py-0">
             <input
+                id={subKey}
                 className="hidden peer"
                 type="checkbox"
                 onChange={

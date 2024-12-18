@@ -4,6 +4,7 @@ export default function FilterItem({ objKey, objSubKey, filterObj, handleClick }
     return(
         <label className={ASIDE_STYLES.ITEM_LABEL}>
             <input
+                id={objSubKey}
                 className="hidden peer"
                 type="checkbox" 
                 onChange={

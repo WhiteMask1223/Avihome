@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-    const sessionToken = request.cookies.get("authjs.session-token");
+
+    const isProduction = process.env.NODE_ENV === "production";
+    const cookieName = isProduction ? "__Secure-authjs.session-token:" : "authjs.session-token";
+
+
+    const sessionToken = request.cookies.get(cookieName);
 
     if (!sessionToken) {    
         // Redirige a /login si no está autenticado

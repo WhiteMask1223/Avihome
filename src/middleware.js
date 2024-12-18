@@ -6,7 +6,7 @@ export async function middleware(request) {
 
     console.log(process.env.NODE_ENV)
 
-    const cookieName = isProduction ? "__Secure-authjs.session-token:" : "authjs.session-token";
+    const cookieName = isProduction ? "_Secure-authjs.session-token:" : "authjs.session-token";
 
     console.log(cookieName)
 

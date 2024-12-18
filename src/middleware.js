@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 export async function middleware(request) {
 
     const isProduction = process.env.NODE_ENV === "Production";
-    const cookieName = isProduction ? "__Secure-authjs.session-token:" : "s-authjs.session-token";
+
+    console.log(process.env.NODE_ENV)
+    
+    const cookieName = isProduction ? "__Secure-authjs.session-token:" : "authjs.session-token";
 
     console.log(cookieName)
 

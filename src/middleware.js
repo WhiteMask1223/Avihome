@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function middleware(request) {
 
-    console.log("cookies: ", request.cookies)
+    //console.log("cookies: ", request.cookies)
 
     const isProduction = process.env.NODE_ENV === "production";
 
@@ -10,12 +10,12 @@ export async function middleware(request) {
 
     const sessionToken = request.cookies.get(cookieName);
 
-    console.log(sessionToken)
+    //console.log(sessionToken)
 
     if (!sessionToken) {    
         // Redirige a /login si no está autenticado
         console.log("Redirigido")
-        //return NextResponse.redirect(new URL("/login", request.url));
+        if (!isProduction) return NextResponse.redirect(new URL("/login", request.url));
     }
     // Permite el acceso si el usuario está autenticado
     return NextResponse.next();

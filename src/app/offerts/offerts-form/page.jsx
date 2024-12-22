@@ -24,6 +24,7 @@ export default function NewOffertForm() {
     const router = useRouter();
 
     const offertsFormDataTemplate = {
+        images: [],
         title: '',
         type: '',
 

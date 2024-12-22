@@ -1,5 +1,37 @@
 import { offertsData, offertType, sortedLocationData } from '../utils/offertsUtils'; //TODO: DELETE ME
 import OffertModel from '@/models/Offert.model';
+import cloudinary from '@/lib/cloudinary';
+
+
+export const saveImageInCloudinary = async (images) => {
+    try {
+        if (!Array.isArray(images) || images.length < 3) {
+            return { error: true, status: 400, message: "Error del Cliente" }
+        };
+
+        const uploadResults = await Promise.all(
+            images.map((image) => cloudinary.uploader.upload(image, {
+                folder: "avihome/offerts",
+            }))
+        );
+        
+        console.log(uploadResults)
+
+        const urls = uploadResults.map((result) => {
+            return {
+                name: result.display_name,
+                public_id: result.public_id,
+                url: result.secure_url
+            }
+        })
+
+        console.log(urls)
+
+        return urls
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 
 /**************************{ Read }**************************/
@@ -56,7 +88,7 @@ export const getMainPageOfferts_Service = async () => {
 };
 
 
-/**************************{ Create & Delete }**************************/
+/**************************{ Create }**************************/
 
 export const saveOffert_Service = async (data) => {
     try {

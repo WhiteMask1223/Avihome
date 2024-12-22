@@ -40,8 +40,8 @@ export default function OfferDetail() {
         if (!offert && offertsData) {
             getOffert();
         };
-        
-        if(loading){
+
+        if (loading) {
             setLoading(!loading);
         };
     }, [offertsData]);
@@ -63,6 +63,17 @@ export default function OfferDetail() {
 
 
                 {/**************************{ Type & Availability }**************************/}
+
+                <div className="flex gap-4">
+                    {offert.images.map((img) => (
+                        <img
+                            key={img.name}
+                            src={img.url}
+                            alt={`Preview ${img.name}`}
+                            className="w-32 h-32 object-cover"
+                        />
+                    ))}
+                </div>
 
                 <div className="flex justify-between">
                     <div>

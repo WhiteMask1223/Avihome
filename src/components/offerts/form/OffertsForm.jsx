@@ -1,3 +1,4 @@
+import ImgUploader from "./OffertsFormImgUploader";
 import OffertsFormSelector from "./OffertsFormSelector";
 import OffertsFormTextArea from "./OffertsFormTextArea";
 import OffertsFormDropList from "./OffertsFormDropList";
@@ -86,6 +87,17 @@ export default function OffertsForm({
 
     return (
         <form onSubmit={handleSubmit}>
+
+            {
+                isOffertEdit ?
+                    ""
+                    :
+                    <ImgUploader
+                        offertsFormData={offertsFormData}
+                        setOffertsFormData={setOffertsFormData}
+                        isOffertEdit={isOffertEdit}
+                    />
+            }
 
 
             {/**************************{ Nombre de la oferta }**************************/}

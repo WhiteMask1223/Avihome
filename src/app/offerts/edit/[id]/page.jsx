@@ -38,6 +38,8 @@ export default function EditOffertForm() {
     const offertsFormDataFormater = (offertData) => {
 
         const offertsFormDataTemplate = {
+            images: offertData.images,
+
             title: offertData.title,
             type: offertData.type,
 

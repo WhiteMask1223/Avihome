@@ -18,7 +18,7 @@ const authOptions = {
 
             authorize: async (credentials) => {
                 let user = null
-                
+
                 user = await getUserWithPasswordByEmail_Controller(credentials.email)
 
                 try {
@@ -35,12 +35,26 @@ const authOptions = {
             }
         })
     ],
+    cookies: {
+        sessionToken: {
+            name: process.env.NODE_ENV === "production"
+                ? "__Secure-authjs.session-token"
+                : "authjs.session-token",
+            options: {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+                path: "/",
+            },
+        },
+    },
     pages: {
         signIn: '/login',
         error: '/'
     },
     session: {
-        strategy: 'jwt'
+        strategy: 'jwt',
+        maxAge: 30 * 24 * 60 * 60,
     },
     callbacks: {
         async jwt({ token, user }) {

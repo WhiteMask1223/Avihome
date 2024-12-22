@@ -7,7 +7,9 @@ import {
     updateOffert_Service,
     changeRoomsAvailable_Service,
     hiddenOrShowOffert_Service,
-    deleteOffertById_Service
+    deleteOffertById_Service,
+
+    saveImageInCloudinary
 } from "@/services/offerts.service";
 
 
@@ -65,7 +67,13 @@ export const getOffertById_Controller = async (offertId) => {
 
 export const saveOffert_Controller = async (formData) => {
 
+    const imgUrls = await saveImageInCloudinary(formData.images);
+
+    if (imgUrls.error) return;
+
     const offertData = {
+        images: imgUrls,
+        
         title: formData.title,
         type: formData.type,
 

@@ -2,6 +2,14 @@ import mongoose from "mongoose";
 
 const OffertSchema = mongoose.Schema({
 
+    images: [
+        {
+            name: { type: String, required: true },
+            public_id: { type: String, required: true },
+            url: { type: String, required: true },
+        },
+    ],
+
     title: { type: String, trim: true, required: true },
     type: { type: String, trim: true, required: true },
 

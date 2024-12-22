@@ -6,3 +6,8 @@ export const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost:27017
 
 //NextAuth
 export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
+
+//cloundinary
+export const CLOUDINARY_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+export const CLOUDINARY_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+export const CLOUDINARY_SECRET = process.env.CLOUDINARY_API_SECRET;

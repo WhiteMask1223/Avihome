@@ -30,7 +30,7 @@ export default function OffertsMain() {
                             <OffertCard
                                 key={card._id}
                                 id={card._id}
-                                imageSrc={card.imageSrc}
+                                imageSrc={card.images[0].url}
                                 title={card.title}
                                 location={card.location}
                                 rating={card.rating}

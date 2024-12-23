@@ -11,6 +11,8 @@ export default function OffertCard({ id, imageSrc, title, location, rating, avai
   
   const { loading, setLoading } = useContext(UtilityContex);
 
+  console.log(imageSrc)
+
   return (
     <section className={OFFERTS_PANEL_STYLES.GENERAL_STYLES}>
 

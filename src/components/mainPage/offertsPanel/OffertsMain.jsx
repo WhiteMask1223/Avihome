@@ -10,6 +10,8 @@ import NoResults from "@/components/UI/utility/NoResults";
 
 import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
+
+
 export default function OffertsMain() {
 
     const { currentPage, totalPages, renderedCards, pageChangeHandler } = useContext(MainPageContext);

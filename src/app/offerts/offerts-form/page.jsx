@@ -76,7 +76,6 @@ export default function NewOffertForm() {
         ) {
             setFormError([true, "Rellene todos los campos."]);
             setSaving(false);
-            console.log(formError)
             return
         };
 
@@ -120,6 +119,7 @@ export default function NewOffertForm() {
                 clearForm={clearForm}
                 formError={formError}
                 saving={saving}
+                setSaving={setSaving}
             />
 
         </OffertsFormSection>

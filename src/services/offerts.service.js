@@ -14,8 +14,6 @@ export const saveImageInCloudinary = async (images) => {
                 folder: "avihome/offerts",
             }))
         );
-        
-        console.log(uploadResults)
 
         const urls = uploadResults.map((result) => {
             return {

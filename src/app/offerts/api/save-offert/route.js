@@ -8,6 +8,10 @@ export async function POST(request) {
         const requestData = await request.json();
         const response = await saveOffert_Controller(requestData);
 
+        if (response.error) {
+            return new Response(JSON.stringify({ message: response.message }), { status: response.status })
+        };
+
         return Response.json(response);
     } catch (error) {
         console.log(error);

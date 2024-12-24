@@ -25,7 +25,8 @@ export default function OffertsForm({
     isOffertEdit,
     clearForm,
     formError,
-    saving
+    saving,
+    setSaving
 }) {
 
 
@@ -95,7 +96,8 @@ export default function OffertsForm({
                     <ImgUploader
                         offertsFormData={offertsFormData}
                         setOffertsFormData={setOffertsFormData}
-                        isOffertEdit={isOffertEdit}
+                        saving={saving}
+                        setSaving={setSaving}
                     />
             }
 

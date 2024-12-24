@@ -118,6 +118,7 @@ export default function NewOffertForm() {
                 isOffertEdit={false}
                 clearForm={clearForm}
                 formError={formError}
+                setFormError={setFormError}
                 saving={saving}
                 setSaving={setSaving}
             />

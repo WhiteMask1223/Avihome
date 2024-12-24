@@ -25,6 +25,7 @@ export default function OffertsForm({
     isOffertEdit,
     clearForm,
     formError,
+    setFormError,
     saving,
     setSaving
 }) {
@@ -89,6 +90,10 @@ export default function OffertsForm({
     return (
         <form onSubmit={handleSubmit}>
 
+            <h2 className="m-auto w-fit p-2 text-lg font-bold text-red-500 ">{formError[1]}</h2>
+
+            {/**************************{ Imagenes }**************************/}
+
             {
                 isOffertEdit ?
                     ""
@@ -98,13 +103,13 @@ export default function OffertsForm({
                         setOffertsFormData={setOffertsFormData}
                         saving={saving}
                         setSaving={setSaving}
+                        formError={formError}
+                        setFormError={setFormError}
                     />
             }
 
 
             {/**************************{ Nombre de la oferta }**************************/}
-
-            <h2 className="m-auto w-fit p-2 text-lg font-bold text-red-500 ">{formError[1]}</h2>
 
             <OffertsFormTextArea
                 label={'Nombre de la Oferta:'}

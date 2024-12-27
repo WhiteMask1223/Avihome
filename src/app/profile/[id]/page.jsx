@@ -30,22 +30,26 @@ export default function UserProfile() {
     /**************************{ Funciones }**************************/
 
     const fetchUserData = async () => {
-        if (!userData) return
+        try {
+            if (!userData) return
 
 
-        if (userData._id !== userId.id) {
+            if (userData._id !== userId.id) {
 
-            const fetchedUser = await fetchUser(userId);
+                const fetchedUser = await fetchUser(userId);
 
-            if (!fetchedUser.error) {
-                setUser(fetchedUser);
+                if (!fetchedUser.error) {
+                    setUser(fetchedUser);
+                };
+
+                return
             };
 
-            return
-        };
-
-        setUser(userData);
-        setSameUser(true);
+            setUser(userData);
+            setSameUser(true);
+        } catch (error) {
+            console.erro("fetchUserData error: ", error);
+        }
     };
 
 
@@ -56,8 +60,8 @@ export default function UserProfile() {
             const user = await get_UserById(id)
             return user
         } catch (error) {
-            console.error(error)
-        }
+            console.error("fetchUser error: ", error);
+        };
     };
 
     const fetchOfferts = async () => {
@@ -73,7 +77,7 @@ export default function UserProfile() {
 
             setUserOfferts(offerts);
         } catch (error) {
-            console.error(error);
+            console.error("fetchOfferts error: ", error);
         }
     };
 

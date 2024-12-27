@@ -117,7 +117,8 @@ export default function ImgUploader({
                         <button 
                         type="button"
                         onClick={() => deleteImage(idx)}
-                        className="absolute top-1 right-2 bg-white rounded-full h-6 p-0 flex items-center"
+                        className="absolute top-1 right-2 bg-white rounded-full h-6 w-6 p-0 flex items-center place-content-center"
+                        disabled={saving}
                         >
                             <i className="ri-close-circle-fill text-2xl text-red-600 hover:text-red-500 duration-300 ease-in-out focus:outline-none shadow-lg"></i>
                         </button>

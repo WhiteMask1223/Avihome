@@ -10,6 +10,7 @@ import { UtilityContex } from "@/contexts/Utility.context";
 
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import DetailCheckBox from "@/components/offerts/detail/DetailCheckBox";
+import Carrousel from "@/components/offerts/carrousel/ImageCarrousel";
 
 import LoadingBg from "@/components/UI/utility/LoadingBg";
 
@@ -22,6 +23,7 @@ export default function OfferDetail() {
     const { loading, setLoading } = useContext(UtilityContex);
 
     const [offert, setOffert] = useState(null);
+
 
     const getOffert = () => {
         if (!offertsData) return
@@ -59,21 +61,13 @@ export default function OfferDetail() {
 
                 {/**************************{ title }**************************/}
 
+
                 <h1 className="text-2xl font-bold mb-4">{offert.title}</h1>
 
+                <Carrousel offert={offert} />
 
                 {/**************************{ Type & Availability }**************************/}
 
-                <div className="flex gap-4">
-                    {offert.images.map((img) => (
-                        <img
-                            key={img.name}
-                            src={img.url}
-                            alt={`Preview ${img.name}`}
-                            className="w-32 h-32 object-cover"
-                        />
-                    ))}
-                </div>
 
                 <div className="flex justify-between">
                     <div>

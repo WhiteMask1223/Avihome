@@ -23,8 +23,6 @@ export const saveImageInCloudinary = async (images) => {
             }
         })
 
-        console.log(urls)
-
         return urls
     } catch (error) {
         console.log(error);

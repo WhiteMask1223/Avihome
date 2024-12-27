@@ -67,8 +67,6 @@ export const getOffertById_Controller = async (offertId) => {
 
 export const saveOffert_Controller = async (formData) => {
 
-    return { error: true, status: 408, message: "Tiempo de espera excedido." }
-
     const imgUrls = await saveImageInCloudinary(formData.images);
 
     if (!Array.isArray(imgUrls)) {

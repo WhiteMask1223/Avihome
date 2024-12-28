@@ -11,15 +11,20 @@ import NoResults from "@/components/UI/utility/NoResults";
 import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
 
-
 export default function OffertsMain() {
 
-    const { currentPage, totalPages, renderedCards, pageChangeHandler } = useContext(MainPageContext);
+    const {
+        currentPage,
+        totalPages,
+        renderedCards,
+        pageChangeHandler
+    } = useContext(MainPageContext);
 
 
     return (
-        <section className="mt-24">
+        <section className="mt-24 relative">
 
+            
 
             {!renderedCards.length ?
                 <NoResults />

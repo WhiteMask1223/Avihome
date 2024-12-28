@@ -74,8 +74,11 @@ export const MainPageProvider = ({ children }) => {
 
             const offerts = await get_MainPageOfferts();
 
+            console.log("FetchOfferts")
+
             //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
             if (areArraysEqual(offertsData, offerts)) {
+                console.log("no update")
                 return true;
             };
 

@@ -4,7 +4,8 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-import { MainPageContext } from "@/contexts/MainPage.context";
+import { get_OffertById } from "@/api/offerts.api";
+
 import { UserContext } from "@/contexts/User.context";
 import { UtilityContex } from "@/contexts/Utility.context";
 
@@ -16,43 +17,44 @@ import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export default function OfferDetail() {
 
-    const params = useParams();
+    const offertId = useParams();
 
-    const { offertsData } = useContext(MainPageContext);
     const { userData } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex);
 
     const [offert, setOffert] = useState(null);
 
 
-    const getOffert = () => {
-        if (!offertsData) return
+    const getOffert = async () => {
+        try {
+            const dbOffert = await get_OffertById(offertId);
 
-        const sortedOffert = offertsData.find((offert) => offert._id === params.id);
-
-        if (sortedOffert) {
-            setOffert(sortedOffert);
-        }
+            if (dbOffert) {
+                setOffert(dbOffert);
+            };
+        } catch (error) {
+            console.error("getOffert error: ", error);
+        };
     };
 
 
     /**************************{ useEffect }**************************/
 
     useEffect(() => {
-        if (!offert && offertsData) {
+        if (!offert) {
             getOffert();
         };
 
         if (loading) {
             setLoading(!loading);
         };
-    }, [offertsData]);
+    }, [offert]);
 
 
     /**************************{ Return }**************************/
 
     if (!offert) {
-        return <LoadingBg />
+        return <LoadingBg conditional={true}/>
     };
 
     return (
@@ -72,11 +74,11 @@ export default function OfferDetail() {
                 <div className="flex justify-between">
                     <div>
                         <h2 className="text-lg font-semibold">Tipo:</h2>
-                        <span className="font-normal">{offert.type}</span>
+                        <p className="font-normal bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.type}</p>
                     </div>
                     <div className="text-center">
                         <h2 className="text-lg font-semibold">Disponibilidad:</h2>
-                        <span className="font-normal">{offert.availability.roomsAvailable}</span>
+                        <p className="font-normal bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.availability.roomsAvailable}</p>
                     </div>
                 </div>
 
@@ -84,7 +86,7 @@ export default function OfferDetail() {
                 {/**************************{ Location & Address }**************************/}
 
                 <h2 className="text-lg font-semibold mt-4">Dirección:</h2>
-                <p>{offert.location} - {offert.address}</p>
+                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.location} - {offert.address}</p>
 
 
                 {/**************************{ Services }**************************/}
@@ -99,13 +101,13 @@ export default function OfferDetail() {
                     }
                 </div>
 
-                <p className="mt-2">{offert.otherServices}</p>
+                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.otherServices}</p>
 
 
                 {/**************************{ Description }**************************/}
 
                 <h2 className="text-lg font-semibold mt-4">Descripción:</h2>
-                <p>{offert.description}.</p>
+                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.description}.</p>
 
 
                 {/**************************{ Admits }**************************/}

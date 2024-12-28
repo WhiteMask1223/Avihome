@@ -17,8 +17,8 @@ export const MainPageProvider = ({ children }) => {
 
     const { filterObj } = useContext(CategoryFilterContext);
 
-    const [ offertsData, setOfertsData ] = useState(null)
-    const [ offertsFetched, setOffertsFetched ] = useState(false)
+    const [offertsData, setOfertsData] = useState(null)
+    const [offertsFetched, setOffertsFetched] = useState(false)
 
     const [filtredDataForCards, setFiltredDataForCards] = useState([]);
     const [renderedCards, setRenderedCards] = useState(filtredDataForCards.slice(0, MAX_ITEMS_PER_PAGE));
@@ -33,13 +33,6 @@ export const MainPageProvider = ({ children }) => {
 
     /**************************{ UseEfects }**************************/
 
-
-    useEffect(() => {
-        if (!offertsData && offertsFetched === false) {
-            setOffertsFetched(true);
-            fetchOfferts(); 
-        };
-    });
 
     //Se actualizan las cartas a renderizar cada que se cambia de pagina
     useEffect(() => {
@@ -58,15 +51,42 @@ export const MainPageProvider = ({ children }) => {
     /*                         { fetching de datos }                         */
 
     
+    function areArraysEqual(arr1, arr2) {
+
+        if ( !arr1 || arr1.length !== arr2.length) return false;
+ 
+        const serialize = (obj) => JSON.stringify(obj);
+
+        const set1 = new Set(arr1.map(serialize));
+        
+        for (const obj of arr2) {
+            if (!set1.has(serialize(obj))) {
+                return false; 
+            };
+        };
+
+        return true;
+    };
+
     const fetchOfferts = async () => {
         try {
+            setOffertsFetched(true);
+
             const offerts = await get_MainPageOfferts();
+
+            //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
+            if (areArraysEqual(offertsData, offerts)) {
+                return true;
+            };
+
             setOfertsData(offerts);
             setFiltredDataForCards(offerts);
-            return true
+            return true;
+
         } catch (error) {
             setOffertsFetched(false);
             console.error(error);
+            return false;
         };
     };
 

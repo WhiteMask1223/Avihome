@@ -6,11 +6,7 @@ export default function DotButton({ buttonFunction, index, selectedIndex, ...pro
             onClick={buttonFunction}
             {...props}
         >
-            {index === selectedIndex ?
-                <i className="ri-checkbox-blank-circle-fill"></i>
-                :
-                <i className="ri-checkbox-blank-circle-line"></i>
-            }
+            <i className={`ri-checkbox-blank-circle-${index === selectedIndex ? "fill" : "line"} text-submitButtonColor font-bold transition duration-300 ease-in-out`}></i>
         </button>
     );
 };

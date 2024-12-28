@@ -7,7 +7,7 @@ export default function PrevButton({ buttonFunction, disabled, ...props }) {
             disabled={disabled}
             {...props}
         >
-            <i className="ri-arrow-left-s-line text-xl"></i>
+            <i className={`ri-arrow-left-s-line text-xl transition duration-300 ease-in-out ${ disabled ? "text-grayFontThemeColor" : "font-bold" }`}></i>
         </button>
     );
 };

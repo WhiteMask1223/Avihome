@@ -24,7 +24,7 @@ export default function Carrousel({ offert }) {
     } = useDotButton(emblaApi);
 
     return (
-        <section className="embla overflow-hidden bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow">
+        <section className="embla overflow-hidden bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4">
             <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container flex">
                     {offert.images.map((img, idx) => (

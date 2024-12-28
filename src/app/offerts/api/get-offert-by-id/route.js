@@ -6,7 +6,6 @@ export async function POST(request) {
 
     try {
         const { id } = await request.json();
-        console.log(id)
         const response = await getOffertById_Controller(id);
 
         return Response.json(response);

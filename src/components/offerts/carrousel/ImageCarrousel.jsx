@@ -6,7 +6,7 @@ import PrevButton from "./PrevButton";
 import NextButton from "./NextButton";
 import DotButton from "./DotButton";
 
-export default function Carrousel({ offert }) {
+export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
 
     const [emblaRef, emblaApi] = useEmblaCarousel();
 
@@ -28,13 +28,24 @@ export default function Carrousel({ offert }) {
             <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container flex">
                     {offert.images.map((img, idx) => (
-                        <div key={idx} className="embla__slide flex-[0_0_95%] mx-2 my-3">
+                        <div key={idx} className="embla__slide flex-[0_0_95%] mx-2 my-3 relative">
                             <img
-                                key={img.name}
-                                src={img.url}
-                                alt={`Imagen de ${offert.title}`}
+                                key={img.name || idx}
+                                src={img.url || img}
+                                alt={`Imagen ${offert.title || idx}`}
                                 className="w-full mx-auto h-80 object-cover rounded-[10px]"
                             />
+
+                            {isEdit &&
+                                <button
+                                    type="button"
+                                    onClick={() => deleteImg(idx)}
+                                    className="absolute top-1 right-2 bg-white rounded-full h-6 w-6 p-0 flex items-center place-content-center"
+                                    disabled={saving}
+                                >
+                                    <i className="ri-close-circle-fill text-2xl text-red-600 hover:text-red-500 duration-300 ease-in-out focus:outline-none shadow-lg"></i>
+                                </button>
+                            }
                         </div>
                     ))}
                 </div>

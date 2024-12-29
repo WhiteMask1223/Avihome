@@ -5,7 +5,7 @@ import cloudinary from '@/lib/cloudinary';
 
 export const saveImageInCloudinary = async (images) => {
     try {
-        if (!Array.isArray(images) || images.length < 3) {
+        if (!Array.isArray(images)) {
             return { error: true, status: 400, message: "Error del Cliente" }
         };
 
@@ -27,6 +27,15 @@ export const saveImageInCloudinary = async (images) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const eliminateCdnryImg = async (imgPublicId) => {
+    try {
+        const result = await cloudinary.uploader.destroy(imgPublicId);
+        return result;
+    } catch (error) {
+        console.log(error);
+    };
 };
 
 

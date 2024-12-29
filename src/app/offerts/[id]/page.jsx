@@ -66,7 +66,7 @@ export default function OfferDetail() {
 
                 <h1 className="text-2xl font-bold mb-4">{offert.title}</h1>
 
-                <Carrousel offert={offert} />
+                <Carrousel offert={offert} isEdit={false}/>
 
                 {/**************************{ Type & Availability }**************************/}
 

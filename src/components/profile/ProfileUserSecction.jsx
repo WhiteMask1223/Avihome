@@ -86,7 +86,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
                 {sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
-                            <Button styles={"w-full"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction} />
+                            <Button styles={"w-full px-4 py-2"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction} />
                             <EditPasswordModal trigger={editPswModal} setTrigger={setEditPswModal} user={user} />
 
 

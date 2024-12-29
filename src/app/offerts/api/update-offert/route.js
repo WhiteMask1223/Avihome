@@ -6,7 +6,7 @@ export async function PUT(request) {
 
     try {
         const { id, newOffert } = await request.json();
-        const response = await updateOffert_Controller( id, newOffert );
+        const response = await updateOffert_Controller(id, newOffert);
 
         return Response.json(response);
     } catch (error) {

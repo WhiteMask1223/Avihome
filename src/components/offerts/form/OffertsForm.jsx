@@ -94,20 +94,14 @@ export default function OffertsForm({
 
             {/**************************{ Imagenes }**************************/}
 
-            {
-                isOffertEdit ?
-                    ""
-                    :
-                    <ImgUploader
-                        offertsFormData={offertsFormData}
-                        setOffertsFormData={setOffertsFormData}
-                        saving={saving}
-                        setSaving={setSaving}
-                        formError={formError}
-                        setFormError={setFormError}
-                    />
-            }
-
+            <ImgUploader
+                offertsFormData={offertsFormData}
+                setOffertsFormData={setOffertsFormData}
+                saving={saving}
+                setSaving={setSaving}
+                formError={formError}
+                setFormError={setFormError}
+            />
 
             {/**************************{ Nombre de la oferta }**************************/}
 

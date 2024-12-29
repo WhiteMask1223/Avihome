@@ -72,7 +72,8 @@ export default function NewOffertForm() {
             !offertsFormData.location || 
             !offertsFormData.address ||
             !offertsFormData.description ||
-            !offertsFormData.availability
+            !offertsFormData.availability ||
+            offertsFormData.images.length < 3
         ) {
             setFormError([true, "Rellene todos los campos."]);
             setSaving(false);

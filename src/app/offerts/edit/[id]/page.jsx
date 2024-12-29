@@ -5,7 +5,6 @@ import { useRouter, useParams } from "next/navigation";
 
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
 import { UserContext } from "@/contexts/User.context";
-import { MainPageContext } from "@/contexts/MainPage.context";
 import { UtilityContex } from "@/contexts/Utility.context";
 
 import OffertsFormSection from "@/components/offerts/form/OffertsFormSection";
@@ -25,7 +24,6 @@ export default function EditOffertForm() {
 
     const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
-    const { fetchOfferts } = useContext(MainPageContext)
     const { loading, setLoading } = useContext(UtilityContex);
 
     const [offertsFormData, setOffertsFormData] = useState(null);
@@ -101,26 +99,12 @@ export default function EditOffertForm() {
         if (loading) {
             setLoading(!loading);
         };
-    });
+    }, [originalOffertData]);
 
     const [formError, setFormError] = useState([false, ""]);
 
 
     /**************************{ Funciones }**************************/
-
-    const updateField = (field, newValue) => {
-        if (!offertsFormData.user && userData) {
-            setOffertsFormData(prevFormData => ({
-                ...prevFormData,
-                user: userData._id
-            }));
-        };
-
-        setOffertsFormData(prevFormData => ({
-            ...prevFormData,
-            [field]: newValue
-        }));
-    };
 
 
     const updateSubObj = (objKey, field, admits, value) => {
@@ -161,7 +145,7 @@ export default function EditOffertForm() {
 
 
     const clearForm = () => {
-        setOffertsFormData(originalOffertData);
+        fechtOffertById(); //TODO: fix img
     };
 
 
@@ -172,8 +156,9 @@ export default function EditOffertForm() {
         setSaving(true);
 
 
-        if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability) {
+        if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability || offertsFormData.images.length < 3) {
             setFormError([true, "Rellene todos los campos."]);
+            setSaving(false);
             return
         };
 
@@ -182,7 +167,6 @@ export default function EditOffertForm() {
 
             if (!saveResponse.error) {
                 router.push(`/profile/${userData._id}`);
-                fetchOfferts();
             };
         } catch (error) {
             console.error(error);
@@ -215,7 +199,9 @@ export default function EditOffertForm() {
                 isOffertEdit={true}
                 clearForm={clearForm}
                 formError={formError}
+                setFormError={setFormError}
                 saving={saving}
+                setSaving={setSaving}
             />
 
         </OffertsFormSection>

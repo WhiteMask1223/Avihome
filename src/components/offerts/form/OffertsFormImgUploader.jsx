@@ -3,6 +3,7 @@
 import imageCompression from "browser-image-compression";
 
 import Asterisk from "@/components/UI/formElements/Asterisk";
+import Carrousel from "../carrousel/ImageCarrousel";
 import LoadingSpinners from "@/components/UI/utility/LoadingSpinners";
 
 export default function ImgUploader({
@@ -67,6 +68,8 @@ export default function ImgUploader({
                 setSaving(false);
             }))
             .catch((err) => console.error("Error al leer las imágenes:", err));
+
+            console.log(offertsFormData)
     };
 
 
@@ -91,8 +94,8 @@ export default function ImgUploader({
 
                     <p className="text-grayFontThemeColor text-sm">Minimo 3 imágenes, maximo 5 imágenes</p>
                 </div>
-               <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
-                    { saving ? <LoadingSpinners/> : "Subir Imagen"}
+                <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
+                    {saving ? <LoadingSpinners /> : "Subir Imagen"}
                 </label>
                 <input
                     id="imgUploader"
@@ -105,26 +108,11 @@ export default function ImgUploader({
                 />
             </div>
 
-            <div className="flex justify-center gap-4 py-3 h-40">
-                {offertsFormData.images.map((img, idx) => (
-                    <div key={idx} className="relative">
-                        <img
-                            src={img}
-                            alt={`Preview ${idx}`}
-                            className="w-36 h-36 object-cover rounded-xl"
-                        />
-
-                        <button 
-                        type="button"
-                        onClick={() => deleteImage(idx)}
-                        className="absolute top-1 right-2 bg-white rounded-full h-6 w-6 p-0 flex items-center place-content-center"
-                        disabled={saving}
-                        >
-                            <i className="ri-close-circle-fill text-2xl text-red-600 hover:text-red-500 duration-300 ease-in-out focus:outline-none shadow-lg"></i>
-                        </button>
-                    </div>
-                ))}
-            </div>
+            {offertsFormData.images.length ?
+                <Carrousel offert={offertsFormData} isEdit={true} deleteImg={deleteImage}/>
+                :
+                <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4"/>
+            } 
         </div>
     );
 };

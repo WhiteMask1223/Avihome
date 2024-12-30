@@ -20,7 +20,7 @@ export default function OffertCard({ id, imageSrc, title, location, rating, avai
         <div className={OFFERTS_PANEL_STYLES.IMG_DIV} onClick={() => setLoading(!loading)}>
           {imageSrc ? (
             <img src={imageSrc} alt={'IMG'} className="w-full h-full object-cover rounded-xl" />
-            //<Image src={imageSrc} width={500} height={500} alt="IMG"/>
+            //<Image src={imageSrc} layout="responsive" width={16} height={9} alt="IMG" objectFit="cover"/>
           ) : (
             <span className="text-gray-400">IMG</span>
           )}

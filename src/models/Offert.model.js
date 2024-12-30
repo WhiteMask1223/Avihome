@@ -10,6 +10,8 @@ const OffertSchema = mongoose.Schema({
         },
     ],
 
+    localImages: [ String ],
+
     title: { type: String, trim: true, required: true },
     type: { type: String, trim: true, required: true },
 

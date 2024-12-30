@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react";
+
 import useEmblaCarousel from "embla-carousel-react";
 
 import { usePrevNextButtons } from "./CarrouselButtons";
@@ -5,10 +9,15 @@ import { useDotButton } from "./CarrouselIndicator";
 import PrevButton from "./PrevButton";
 import NextButton from "./NextButton";
 import DotButton from "./DotButton";
+import ImageModal from "@/components/UI/utility/ImageModal";
+
+import { IS_LOCAL } from "@/config";
 
 export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
 
     const [emblaRef, emblaApi] = useEmblaCarousel();
+    const [triggerImgModal, setTriggerImgModal] = useState(false);
+    const [base64Img, setBase64Img] = useState(offert.localImages)
 
     const {
         prevBtnDisabled,
@@ -31,9 +40,10 @@ export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
                         <div key={idx} className="embla__slide flex-[0_0_95%] mx-2 my-3 relative">
                             <img
                                 key={img.name || idx}
-                                src={img.url || img}
+                                src={img.url || img || base64Img[idx]}
                                 alt={`Imagen ${offert.title || idx}`}
-                                className="w-full mx-auto h-80 object-cover rounded-[10px]"
+                                className="w-full mx-auto h-80 object-cover rounded-[10px] cursor-pointer"
+                                onClick={() => setTriggerImgModal(!triggerImgModal)}
                             />
 
                             {isEdit &&
@@ -53,7 +63,7 @@ export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
 
             <div className="embla__controls flex justify-between">
                 <PrevButton buttonFunction={onPrevButtonClick} disabled={prevBtnDisabled} />
-                <div>
+                <div className="m-auto">
                     {scrollSnaps.map((_, idx) => (
                         <DotButton
                             key={idx}
@@ -65,6 +75,14 @@ export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
                 </div>
                 <NextButton buttonFunction={onNextButtonClick} disabled={nextBtnDisabled} />
             </div>
+
+            <ImageModal
+                trigger={triggerImgModal}
+                setTrigger={setTriggerImgModal}
+                imgUrl={offert.images}
+                selectedImg={selectedIndex}
+            />
+
         </section>
     );
 

@@ -61,85 +61,87 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
 
     return (
         <ModalSection trigger={trigger} setTrigger={setTrigger}>
+            <div className="w-full sm:max-w-md h-fit m-auto bg-sectionThemeBackground p-5 rounded-2xl shadow-lg inset-0 fixed z-50 mt-32">
 
-            <h1 className="m-auto w-fit p-2 text-2xl font-bold">Cambiar Contraseña</h1>
+                <h1 className="m-auto w-fit p-2 text-2xl font-bold">Cambiar Contraseña</h1>
 
-            <h2 className="text-center font-bold text-red-500">{formError[1]}</h2>
+                <h2 className="text-center font-bold text-red-500">{formError[1]}</h2>
 
-            <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
 
-                <div className="mt-6">
-                    <label htmlFor="oldPassword" className="font-bold">
-                        Introduzca su antigua contraseña:
-                    </label>
+                    <div className="mt-6">
+                        <label htmlFor="oldPassword" className="font-bold">
+                            Introduzca su antigua contraseña:
+                        </label>
 
-                    <VariableInput
-                        type={`${showPassword ? "text" : "password"}`}
-                        id={"oldPassword"}
-                        value={formData.oldPassword}
-                        setStateFunction={updateFormData}
-                        error={formError[0]}
-                        autoComplete={"off"}
-                    />
-                </div>
+                        <VariableInput
+                            type={`${showPassword ? "text" : "password"}`}
+                            id={"oldPassword"}
+                            value={formData.oldPassword}
+                            setStateFunction={updateFormData}
+                            error={formError[0]}
+                            autoComplete={"off"}
+                        />
+                    </div>
 
-                <div className="mt-6">
-                    <label htmlFor="newPassword" className="font-bold">
-                        Introduzca su nueva contraseña:
-                    </label>
+                    <div className="mt-6">
+                        <label htmlFor="newPassword" className="font-bold">
+                            Introduzca su nueva contraseña:
+                        </label>
 
-                    <VariableInput
-                        type={`${showPassword ? "text" : "password"}`}
-                        id={"newPassword"}
-                        value={formData.newPassword}
-                        setStateFunction={updateFormData}
-                        error={formError[0]}
-                        autoComplete={"off"}
-                    />
-                </div>
+                        <VariableInput
+                            type={`${showPassword ? "text" : "password"}`}
+                            id={"newPassword"}
+                            value={formData.newPassword}
+                            setStateFunction={updateFormData}
+                            error={formError[0]}
+                            autoComplete={"off"}
+                        />
+                    </div>
 
-                <div className="mt-6">
-                    <label htmlFor="repNewPassword" className="font-bold">
-                        Repita su contraseña:
-                    </label>
+                    <div className="mt-6">
+                        <label htmlFor="repNewPassword" className="font-bold">
+                            Repita su contraseña:
+                        </label>
 
-                    <VariableInput
-                        type={`${showPassword ? "text" : "password"}`}
-                        id={"repNewPassword"}
-                        value={formData.repNewPassword}
-                        setStateFunction={updateFormData}
-                        error={formError[0]}
-                        autoComplete={"off"}
-                    />
+                        <VariableInput
+                            type={`${showPassword ? "text" : "password"}`}
+                            id={"repNewPassword"}
+                            value={formData.repNewPassword}
+                            setStateFunction={updateFormData}
+                            error={formError[0]}
+                            autoComplete={"off"}
+                        />
 
-                    <button
-                        type="button"
-                        onClick={() => { setShowPassword(!showPassword) }}
-                        className="block ml-auto text-sm font-bold"
-                    >
-                        Mostar Contraseñas
-                    </button>
-                </div>
+                        <button
+                            type="button"
+                            onClick={() => { setShowPassword(!showPassword) }}
+                            className="block ml-auto text-sm font-bold"
+                        >
+                            Mostar Contraseñas
+                        </button>
+                    </div>
 
-                <div className="flex justify-evenly mt-10">
-                    <SubmitButton
-                        text={"Cambiar Contraseña"}
-                        disabled={updating}
-                        styles={'min-w-44'}
-                    />
+                    <div className="flex justify-evenly mt-10">
+                        <SubmitButton
+                            text={"Cambiar Contraseña"}
+                            disabled={updating}
+                            styles={'min-w-44'}
+                        />
 
-                    <Button
-                        text={"Cancelar"}
-                        buttonFunction={() => {
-                            setTrigger(!trigger);
-                            setFormData(formDataTemplate)
-                            setFormError([false, '']);
-                            setUpdating(false);
-                        }}
-                    />
-                </div>
-            </form>
-
+                        <Button
+                            text={"Cancelar"}
+                            buttonFunction={() => {
+                                setTrigger(!trigger);
+                                setFormData(formDataTemplate)
+                                setFormError([false, '']);
+                                setUpdating(false);
+                            }}
+                            styles={"py-2 px-4"}
+                        />
+                    </div>
+                </form>
+            </div>
         </ModalSection>
     );
 };

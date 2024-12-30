@@ -13,6 +13,8 @@ import {
     eliminateCdnryImg
 } from "@/services/offerts.service";
 
+import { IS_LOCAL } from "@/config";
+
 
 /**************************{ Funciones Mixtas }**************************/
 
@@ -78,39 +80,80 @@ export const saveOffert_Controller = async (formData) => {
         return { error: true, status: 408, message: "Tiempo de espera excedido." }
     };
 
-    const offertData = {
-        images: imgUrls,
+    let offertData = {};
 
-        title: formData.title,
-        type: formData.type,
-
-        location: formData.location,
-        address: formData.address,
-
-        description: formData.description,
-
-        services: {
-            "Agua": formData.services.Agua,
-            "Aire Acondicionado": formData.services["Aire Acondicionado"],
-            "Electricidad": formData.services.Electricidad,
-            "Gas": formData.services.Gas,
-            "Internet": formData.services.Internet
-        },
-
-        otherServices: formData.otherServices,
-
-        availability: {
-            capacity: formData.availability,
-            roomsAvailable: formData.availability
-        },
-
-        admits: {
-            Caballeros: formData.admits.Caballeros,
-            Damas: formData.admits.Damas,
-            Cualquiera: formData.admits.Cualquiera
-        },
-
-        user: formData.user
+    if (IS_LOCAL) {
+        offertData = {
+            images: imgUrls,
+    
+            localImages: formData.images,
+    
+            title: formData.title,
+            type: formData.type,
+    
+            location: formData.location,
+            address: formData.address,
+    
+            description: formData.description,
+    
+            services: {
+                "Agua": formData.services.Agua,
+                "Aire Acondicionado": formData.services["Aire Acondicionado"],
+                "Electricidad": formData.services.Electricidad,
+                "Gas": formData.services.Gas,
+                "Internet": formData.services.Internet
+            },
+    
+            otherServices: formData.otherServices,
+    
+            availability: {
+                capacity: formData.availability,
+                roomsAvailable: formData.availability
+            },
+    
+            admits: {
+                Caballeros: formData.admits.Caballeros,
+                Damas: formData.admits.Damas,
+                Cualquiera: formData.admits.Cualquiera
+            },
+    
+            user: formData.user
+        };
+    } else {
+        offertData = {
+            images: imgUrls,
+    
+            title: formData.title,
+            type: formData.type,
+    
+            location: formData.location,
+            address: formData.address,
+    
+            description: formData.description,
+    
+            services: {
+                "Agua": formData.services.Agua,
+                "Aire Acondicionado": formData.services["Aire Acondicionado"],
+                "Electricidad": formData.services.Electricidad,
+                "Gas": formData.services.Gas,
+                "Internet": formData.services.Internet
+            },
+    
+            otherServices: formData.otherServices,
+    
+            availability: {
+                capacity: formData.availability,
+                roomsAvailable: formData.availability
+            },
+    
+            admits: {
+                Caballeros: formData.admits.Caballeros,
+                Damas: formData.admits.Damas,
+                Cualquiera: formData.admits.Cualquiera
+            },
+    
+            user: formData.user
+        };
     };
 
     const res = await saveOffert_Service(offertData);

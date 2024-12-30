@@ -46,11 +46,11 @@ export default function ImgUploader({
             files = files.splice(0, 5 - offertsFormData.images.length);
         };
 
-        const fileReaders = files.map(async (file) => { //Base64
+        const fileReaders = files.map(async (file) => { 
 
             const compresedFile = await imageCompression(file, compressionOptions)
 
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, reject) => { //Base64
                 const reader = new FileReader();
                 reader.onloadend = () => resolve(reader.result);
                 reader.onerror = reject;
@@ -68,8 +68,6 @@ export default function ImgUploader({
                 setSaving(false);
             }))
             .catch((err) => console.error("Error al leer las imágenes:", err));
-
-            console.log(offertsFormData)
     };
 
 

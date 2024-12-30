@@ -1,6 +1,9 @@
 //URL del Servidor
 export const SERVER_URL = process.env.SERVER_URL || `http://localhost:3000`;
 
+//Es local?
+export const IS_LOCAL = process.env.IS_LOCAL || false;
+
 //DB url
 export const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost:27017`;
 

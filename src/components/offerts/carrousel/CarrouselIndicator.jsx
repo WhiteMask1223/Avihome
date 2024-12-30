@@ -1,36 +1,36 @@
 import { useCallback, useEffect, useState } from "react";
- 
-export const useDotButton = (emblaApi) => { 
-  const [selectedIndex, setSelectedIndex] = useState(0) 
-  const [scrollSnaps, setScrollSnaps] = useState([]) 
- 
-  const onDotButtonClick = useCallback( 
-    (index) => { 
-      if (!emblaApi) return 
+
+export const useDotButton = (emblaApi) => {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState([])
+
+  const onDotButtonClick = useCallback(
+    (index) => {
+      if (!emblaApi) return
       emblaApi.scrollTo(index);
-    }, 
-    [emblaApi] 
+    },
+    [emblaApi]
   );
- 
-  const onInit = useCallback((emblaApi) => { 
+
+  const onInit = useCallback((emblaApi) => {
     setScrollSnaps(emblaApi.scrollSnapList());
   }, []);
- 
-  const onSelect = useCallback((emblaApi) => { 
+
+  const onSelect = useCallback((emblaApi) => {
     setSelectedIndex(emblaApi.selectedScrollSnap());
   }, []);
- 
-  useEffect(() => { 
+
+  useEffect(() => {
     if (!emblaApi) return;
- 
+
     onInit(emblaApi);
     onSelect(emblaApi);
     emblaApi.on('reInit', onInit).on('reInit', onSelect).on('select', onSelect);
   }, [emblaApi, onInit, onSelect]);
- 
-  return { 
-    selectedIndex, 
-    scrollSnaps, 
-    onDotButtonClick 
+
+  return {
+    selectedIndex,
+    scrollSnaps,
+    onDotButtonClick
   };
 };

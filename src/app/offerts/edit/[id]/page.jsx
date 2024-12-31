@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 import { CategoryFilterContext } from "@/contexts/CategoryFilter.context";
@@ -76,7 +76,7 @@ export default function EditOffertForm() {
 
     /**************************{ Fetch }**************************/
 
-    const fechtOffertById = async () => {
+    const fechtOffertById = useCallback(async () => {
         try {
             const offert = await get_OffertById(offertId);
 
@@ -86,7 +86,7 @@ export default function EditOffertForm() {
         } catch (error) {
             console.log(error);
         };
-    };
+    }, [offertId]);
 
 
     /**************************{ useEffects }**************************/
@@ -99,7 +99,7 @@ export default function EditOffertForm() {
         if (loading) {
             setLoading(!loading);
         };
-    }, [originalOffertData]);
+    }, [originalOffertData, fechtOffertById, loading, offertsFormData, setLoading]);
 
     const [formError, setFormError] = useState([false, ""]);
 

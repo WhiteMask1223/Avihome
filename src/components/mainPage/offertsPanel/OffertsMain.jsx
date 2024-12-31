@@ -23,9 +23,6 @@ export default function OffertsMain() {
 
     return (
         <section className="mt-24 relative">
-
-            
-
             {!renderedCards.length ?
                 <NoResults />
                 :

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ export default function OfferDetail() {
     const [offert, setOffert] = useState(null);
 
 
-    const getOffert = async () => {
+    const getOffert = useCallback(async () => {
         try {
             const dbOffert = await get_OffertById(offertId);
 
@@ -35,7 +35,7 @@ export default function OfferDetail() {
         } catch (error) {
             console.error("getOffert error: ", error);
         };
-    };
+    }, [offertId]);
 
 
     /**************************{ useEffect }**************************/
@@ -48,7 +48,7 @@ export default function OfferDetail() {
         if (loading) {
             setLoading(!loading);
         };
-    }, [offert]);
+    }, [offert, getOffert, loading, setLoading]);
 
 
     /**************************{ Return }**************************/

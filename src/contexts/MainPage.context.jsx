@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 import { CategoryFilterContext } from './CategoryFilter.context';
 
@@ -74,7 +74,7 @@ export const MainPageProvider = ({ children }) => {
 
             const offerts = await get_MainPageOfferts();
 
-            console.log("FetchOfferts")
+            console.log("FetchOfferts", offertsData, offerts)
 
             //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
             if (areArraysEqual(offertsData, offerts)) {
@@ -115,18 +115,18 @@ export const MainPageProvider = ({ children }) => {
         };
     };
 
-    const paginationRederedCardHandeler = () => {
+    const paginationRederedCardHandeler = useCallback(() => {
         const startIndex = (currentPage - 1) * MAX_ITEMS_PER_PAGE;
         const endIndex = startIndex + MAX_ITEMS_PER_PAGE;
 
         setRenderedCards(filtredDataForCards.slice(startIndex, endIndex));
-    };
+    }, [currentPage, filtredDataForCards]);
 
 
     /*                         { Filtros }                         */
 
 
-    const offertsFilter = () => {
+    const offertsFilter = useCallback(() => {
 
         if (!offertsData) {
             return
@@ -221,7 +221,7 @@ export const MainPageProvider = ({ children }) => {
         ));
 
         setCurrentPage(1);
-    };
+    }, [offertsData, filterObj, searchTerm]);
 
 
     /*                         { Busqueda  }                         */

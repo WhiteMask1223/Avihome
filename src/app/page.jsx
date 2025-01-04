@@ -28,7 +28,7 @@ export default function HomePage() {
     if (!offertsFetched) {
       getNewOfferts();
     };
-  }, [offertsFetched, getNewOfferts]);
+  }, [/*offertsFetched, getNewOfferts*/]);
 
   return (
     <main>

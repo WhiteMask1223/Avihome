@@ -101,6 +101,7 @@ export default function OffertsForm({
                 setSaving={setSaving}
                 formError={formError}
                 setFormError={setFormError}
+                isOffertEdit={isOffertEdit}
             />
 
             {/**************************{ Nombre de la oferta }**************************/}

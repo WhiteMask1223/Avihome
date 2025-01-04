@@ -13,7 +13,7 @@ import {
     eliminateCdnryImg
 } from "@/services/offerts.service";
 
-import { IS_LOCAL } from "@/config";
+import { IS_DEVELOPMENT } from "@/config"; //TODO: DELTE ME
 
 
 /**************************{ Funciones Mixtas }**************************/
@@ -82,7 +82,7 @@ export const saveOffert_Controller = async (formData) => {
 
     let offertData = {};
 
-    if (IS_LOCAL) {
+    if (IS_DEVELOPMENT) { //TODO: DELTE ME
         offertData = {
             images: imgUrls,
     

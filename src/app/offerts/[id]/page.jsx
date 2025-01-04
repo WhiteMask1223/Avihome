@@ -48,88 +48,91 @@ export default function OfferDetail() {
         if (loading) {
             setLoading(!loading);
         };
-    }, [offert, getOffert, loading, setLoading]);
+    }, []);
 
 
     /**************************{ Return }**************************/
 
     if (!offert) {
-        return <LoadingBg conditional={true}/>
+        return <LoadingBg conditional={true} />
     };
 
     return (
-        <div className="p-6 min-h-screen flex justify-center items-center">
-            <div className="bg-sectionThemeBackground p-6 mt-12 sm:mt-20 rounded-2xl shadow-lg shadow-sectionThemeShadow w-full max-w-2xl">
+        <div className="py-6 sm:px-6 min-h-screen flex justify-center items-center">
+            <div className="bg-sectionThemeBackground sm:px-6 mt-14 sm:mt-20 sm:rounded-2xl shadow-lg shadow-sectionThemeShadow w-full sm:max-w-4xl">
 
                 {/**************************{ title }**************************/}
 
 
-                <h1 className="text-2xl font-bold mb-4">{offert.title}</h1>
+                <h1 className="text-2xl font-bold my-4">{offert.title}</h1>
 
-                <Carrousel offert={offert} isEdit={false}/>
+                <Carrousel offert={offert} isEdit={false} />
 
-                {/**************************{ Type & Availability }**************************/}
+                <div className="px-2 sm:px-0">
+                    {/**************************{ Type & Availability }**************************/}
 
 
-                <div className="flex justify-between">
-                    <div>
-                        <h2 className="text-lg font-semibold">Tipo:</h2>
-                        <p className="font-normal bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.type}</p>
+                    <div className="flex justify-between">
+                        <div>
+                            <h2 className="text-lg font-semibold">Tipo:</h2>
+                            <p className="font-normal bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.type}</p>
+                        </div>
+                        <div className="text-center">
+                            <h2 className="text-lg font-semibold">Disponibilidad:</h2>
+                            <p className="font-normal bg-subSectionThemeBackground py-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.availability.roomsAvailable}</p>
+                        </div>
                     </div>
-                    <div className="text-center">
-                        <h2 className="text-lg font-semibold">Disponibilidad:</h2>
-                        <p className="font-normal bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.availability.roomsAvailable}</p>
+
+
+                    {/**************************{ Location & Address }**************************/}
+
+                    <h2 className="text-lg font-semibold mt-4">Dirección:</h2>
+                    <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.location} - {offert.address}</p>
+
+
+                    {/**************************{ Services }**************************/}
+
+                    <h2 className="text-lg font-semibold mt-4">Servicios:</h2>
+
+                    <div className="flex sm:flex-row flex-col justify-between">
+                        {offert.services &&
+                            Object.entries(offert.services).map(([key, value]) => {
+                                return <DetailCheckBox key={key} text={key} checked={value} />
+                            })
+                        }
                     </div>
+
+                    <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.otherServices}</p>
+
+
+                    {/**************************{ Description }**************************/}
+
+                    <h2 className="text-lg font-semibold mt-4">Descripción:</h2>
+                    <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.description}.</p>
+
+
+                    {/**************************{ Admits }**************************/}
+
+                    <h2 className="text-lg font-semibold mt-4">Admite:</h2>
+
+                    <div className="flex sm:flex-row flex-col justify-between">
+                        {offert.admits &&
+                            Object.entries(offert.admits).map(([key, value]) => {
+                                return <DetailCheckBox key={key} text={key} checked={value} />
+                            })
+                        }
+                    </div>
+
+
+                    {/**************************{ Contact }**************************/}
+
+                    <h2 className="text-lg font-semibold mt-6">Medio de contactos del Propietario:</h2>
+
                 </div>
-
-
-                {/**************************{ Location & Address }**************************/}
-
-                <h2 className="text-lg font-semibold mt-4">Dirección:</h2>
-                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.location} - {offert.address}</p>
-
-
-                {/**************************{ Services }**************************/}
-
-                <h2 className="text-lg font-semibold mt-4">Servicios:</h2>
-
-                <div className="sm:flex justify-between">
-                    {offert.services &&
-                        Object.entries(offert.services).map(([key, value]) => {
-                            return <DetailCheckBox key={key} text={key} checked={value} />
-                        })
-                    }
-                </div>
-
-                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.otherServices}</p>
-
-
-                {/**************************{ Description }**************************/}
-
-                <h2 className="text-lg font-semibold mt-4">Descripción:</h2>
-                <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.description}.</p>
-
-
-                {/**************************{ Admits }**************************/}
-
-                <h2 className="text-lg font-semibold mt-4">Admite:</h2>
-
-                <div className="sm:flex justify-between">
-                    {offert.admits &&
-                        Object.entries(offert.admits).map(([key, value]) => {
-                            return <DetailCheckBox key={key} text={key} checked={value} />
-                        })
-                    }
-                </div>
-
-
-                {/**************************{ Contact }**************************/}
-
-                <h2 className="text-lg font-semibold mt-6">Medio de contactos del Propietario:</h2>
 
                 {userData ?
 
-                    <div className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 sm:flex">
+                    <div className="bg-subSectionThemeBackground p-4 sm:rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 mb-6 sm:flex">
 
                         {/**************************{ Datos del propietario }**************************/}
 
@@ -162,6 +165,7 @@ export default function OfferDetail() {
                     </div>
 
                 }
+
             </div>
         </div>
     );

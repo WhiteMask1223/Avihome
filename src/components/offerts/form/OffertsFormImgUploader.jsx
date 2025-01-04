@@ -12,7 +12,8 @@ export default function ImgUploader({
     saving,
     setSaving,
     formError,
-    setFormError
+    setFormError,
+    isOffertEdit
 }) {
 
     const compressionOptions = {
@@ -22,6 +23,7 @@ export default function ImgUploader({
     }
 
     const handleFilesChange = async (event) => {
+        console.log(offertsFormData)
 
         setSaving(true);
 
@@ -46,7 +48,7 @@ export default function ImgUploader({
             files = files.splice(0, 5 - offertsFormData.images.length);
         };
 
-        const fileReaders = files.map(async (file) => { 
+        const fileReaders = files.map(async (file) => {
 
             const compresedFile = await imageCompression(file, compressionOptions)
 
@@ -65,6 +67,13 @@ export default function ImgUploader({
                     images: [...prevFormData.images, selectedImage]
                 }));
 
+                if (isOffertEdit) {
+                    setOffertsFormData(prevFormData => ({
+                        ...prevFormData,
+                        localImages: [...prevFormData.localImages, selectedImage]
+                    }));
+                };
+
                 setSaving(false);
             }))
             .catch((err) => console.error("Error al leer las imágenes:", err));
@@ -72,14 +81,22 @@ export default function ImgUploader({
 
 
     const deleteImage = (id) => {
-        let newArray = offertsFormData.images;
+        const deleteElementFromArray = (id, field) => {
+            let newArray = offertsFormData[field];
 
-        newArray.splice(id, 1);
+            newArray.splice(id, 1);
 
-        setOffertsFormData(prevFormData => ({
-            ...prevFormData,
-            images: newArray
-        }));
+            setOffertsFormData(prevFormData => ({
+                ...prevFormData,
+                [field]: newArray
+            }));
+        };
+
+        if (isOffertEdit) {
+            deleteElementFromArray(id, "localImages");
+        };
+
+        deleteElementFromArray(id, "images");
     };
 
     return (
@@ -107,10 +124,10 @@ export default function ImgUploader({
             </div>
 
             {offertsFormData.images.length ?
-                <Carrousel offert={offertsFormData} isEdit={true} deleteImg={deleteImage}/>
+                <Carrousel offert={offertsFormData} isEdit={true} deleteImg={deleteImage} />
                 :
-                <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4"/>
-            } 
+                <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4" />
+            }
         </div>
     );
 };

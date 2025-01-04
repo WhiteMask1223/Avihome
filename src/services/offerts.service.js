@@ -44,7 +44,7 @@ export const eliminateCdnryImg = async (imgPublicId) => {
 export const getOffertsByUserId_Service = async (userId) => {
     try {
 
-        const offerts = await OffertModel.find({ user: userId });
+        const offerts = await OffertModel.find({ user: userId }).populate({ path: 'user', select: 'name email contEmail phone'});;
 
         if (!offerts.length) {
             return { error: true, status: 404, message: "Este usuario no tiene Ofertas" }
@@ -58,7 +58,7 @@ export const getOffertsByUserId_Service = async (userId) => {
 
 export const getOffertById_Service = async (offertId) => {
     try {
-        const offert = await OffertModel.findById(offertId);
+        const offert = await OffertModel.findById(offertId).populate({ path: 'user', select: 'name email contEmail phone'});
 
         if (!offert) {
             return { error: true, status: 404, message: "Oferta no Encontrada" }

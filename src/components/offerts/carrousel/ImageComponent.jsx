@@ -22,7 +22,7 @@ export default function ImageComponent({
     };
 
     return (
-        <div key={idx} className="embla__slide flex-[0_0_100%] sm:flex-[0_0_97.5%]  sm:mx-2 my-2 min-h-xl relative">
+        <div className="embla__slide flex-[0_0_100%] sm:flex-[0_0_97.5%]  sm:mx-2 my-2 min-h-xl relative">
             <img
                 src={img.url || img || offert.localImages[idx]}
                 alt={`Imagen ${offert.title || idx}`}

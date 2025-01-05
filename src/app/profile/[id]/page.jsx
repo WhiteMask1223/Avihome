@@ -95,7 +95,7 @@ export default function UserProfile() {
         if (loading) {
             setLoading(!loading);
         };
-    });
+    }, []);
 
 
     /**************************{ Return }**************************/
@@ -109,7 +109,9 @@ export default function UserProfile() {
 
             <ProfileUserSecction user={user} sameUser={sameUser} />
 
-            <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} />
+            {user.role === "Admin" || user.role === "Root" ? "" :
+                <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} />
+            }
 
         </section>
     );

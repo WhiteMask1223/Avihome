@@ -12,7 +12,7 @@ export default function DeleteConfirm({ text, otherText, trigger, setTrigger, de
                 <div className="flex justify-evenly mt-5 space-x-5">
                     <DangerButton text={'Eliminar'} buttonFunction={deleteFunction} loader={true} />
 
-                    <Button text={'Cancelar'} buttonFunction={() => setTrigger(!trigger)} />
+                    <Button text={'Cancelar'} buttonFunction={() => setTrigger(!trigger)} styles={"p-2"} />
                 </div>
             </div>
 

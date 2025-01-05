@@ -2,9 +2,9 @@
 
 import { useContext } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { UtilityContex } from "@/contexts/Utility.context";
+import CardImage from "./CardImage";
 
 import { OFFERTS_PANEL_STYLES } from "./offertsPanelStyles";
 
@@ -19,8 +19,9 @@ export default function OffertCard({ id, imageSrc, title, location, rating, avai
 
         <div className={OFFERTS_PANEL_STYLES.IMG_DIV} onClick={() => setLoading(!loading)}>
           {imageSrc ? (
-            <img src={imageSrc} alt={'IMG'} className="w-full h-full object-cover rounded-xl" />
-            //<Image src={imageSrc} layout="responsive" width={16} height={9} alt="IMG" objectFit="cover"/>
+            <CardImage
+              imageSrc={imageSrc}
+            />
           ) : (
             <span className="text-gray-400">IMG</span>
           )}

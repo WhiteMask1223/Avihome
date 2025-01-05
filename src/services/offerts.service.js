@@ -2,6 +2,8 @@ import { offertsData, offertType, sortedLocationData } from '../utils/offertsUti
 import OffertModel from '@/models/Offert.model';
 import cloudinary from '@/lib/cloudinary';
 
+import { IS_DEVELOPMENT } from '@/config';
+
 
 export const saveImageInCloudinary = async (images) => {
     try {
@@ -44,8 +46,16 @@ export const eliminateCdnryImg = async (imgPublicId) => {
 export const getOffertsByUserId_Service = async (userId) => {
     try {
 
-        const offerts = await OffertModel.find({ user: userId }).populate({ path: 'user', select: 'name email contEmail phone'});;
+        let offerts = [];
 
+        if (IS_DEVELOPMENT) { //TODO: DELETE ME
+            offerts = await OffertModel.find({ user: userId }, {
+                localImages: 0,
+            }).populate({ path: 'user', select: 'name email contEmail phone' }).lean();
+        } else {
+            offerts = await OffertModel.find({ user: userId }).populate({ path: 'user', select: 'name email contEmail phone' }).lean()
+        };
+        
         if (!offerts.length) {
             return { error: true, status: 404, message: "Este usuario no tiene Ofertas" }
         };
@@ -58,7 +68,7 @@ export const getOffertsByUserId_Service = async (userId) => {
 
 export const getOffertById_Service = async (offertId) => {
     try {
-        const offert = await OffertModel.findById(offertId).populate({ path: 'user', select: 'name email contEmail phone'});
+        const offert = await OffertModel.findById(offertId).populate({ path: 'user', select: 'name email contEmail phone' }).lean();
 
         if (!offert) {
             return { error: true, status: 404, message: "Oferta no Encontrada" }
@@ -84,9 +94,21 @@ export const getOffertsLocationAndType_Service = async () => {
 
 export const getMainPageOfferts_Service = async () => {
     try {
-        const offerts = await OffertModel.find().populate({ path: 'user', select: 'name email contEmail phone'});
+        if (IS_DEVELOPMENT) { //TODO: DELETE ME
 
-        return offerts;
+            const offerts = await OffertModel.find({}, {
+                "localImages": { $slice: 1 },
+            }).populate({ path: 'user', select: 'name email contEmail phone' }).lean();
+
+            return offerts;
+
+        } else {
+
+            const offerts = await OffertModel.find().populate({ path: 'user', select: 'name email contEmail phone' }).lean();
+
+            return offerts;
+
+        };
     } catch (error) {
         throw new Error('Error fetching Offerts: ' + error.message);
     }
@@ -109,15 +131,15 @@ export const saveOffert_Service = async (data) => {
 
 /**************************{ Update }**************************/
 
-export const updateOffert_Service = async ( id, newOffertData ) => {
+export const updateOffert_Service = async (id, newOffertData) => {
     try {
         const updatedOffert = await OffertModel.findByIdAndUpdate(
             id,
             newOffertData,
-            { new: true, runVailidators: true}
+            { new: true, runVailidators: true }
         );
 
-        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada."}
+        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada." }
 
         return updatedOffert;
     } catch (error) {
@@ -125,15 +147,15 @@ export const updateOffert_Service = async ( id, newOffertData ) => {
     };
 };
 
-export const changeRoomsAvailable_Service = async ( id, newAvailabilityValue ) => {
+export const changeRoomsAvailable_Service = async (id, newAvailabilityValue) => {
     try {
         const updatedOffert = await OffertModel.findByIdAndUpdate(
             id,
             { $inc: { "availability.roomsAvailable": newAvailabilityValue } },
-            { new: true, runVailidators: true}
+            { new: true, runVailidators: true }
         );
 
-        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada."}
+        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada." }
 
         return updatedOffert;
     } catch (error) {
@@ -147,10 +169,10 @@ export const hiddenOrShowOffert_Service = async (id, hiddenValue) => {
         const updatedOffert = await OffertModel.findByIdAndUpdate(
             id,
             { $set: { "hidden": hiddenValue } },
-            { new: true, runVailidators: true}
+            { new: true, runVailidators: true }
         );
 
-        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada."}
+        if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada." }
 
         return updatedOffert;
     } catch (error) {

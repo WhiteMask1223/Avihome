@@ -124,7 +124,12 @@ export default function ImgUploader({
             </div>
 
             {offertsFormData.images.length ?
-                <Carrousel offert={offertsFormData} isEdit={true} deleteImg={deleteImage} />
+                <Carrousel
+                    offert={offertsFormData}
+                    isEdit={true}
+                    deleteImg={deleteImage}
+                    saving={saving}
+                />
                 :
                 <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4" />
             }

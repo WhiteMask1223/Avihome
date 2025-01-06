@@ -22,5 +22,10 @@ export async function middleware(request) {
 };
 
 export const config = {
-    matcher: ["/profile/:path*", "/offerts/offertsForm", "/offerts/edit", "/admin/:path*"],
+    matcher: [
+        "/profile/:path*", 
+        "/offerts/offertsForm", 
+        "/offerts/edit", 
+        "/admin/:path*", 
+    ],
 };

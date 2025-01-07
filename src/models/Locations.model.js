@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const LocationSchema = mongoose.Schema({
-    location: { type: String, trim: true, required: true }
-});
+    text: { type: String, trim: true, required: true }
+}, { timestamps: true });
 
 export default mongoose.models?.Location || mongoose.model('Location', LocationSchema);

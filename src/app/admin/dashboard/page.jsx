@@ -4,7 +4,7 @@ import { useEffect, useContext } from "react";
 
 import { UtilityContex } from "@/contexts/Utility.context";
 
-import LocationServicesSection from "@/components/Admin/Dashboard/Location&ServicesSection";
+import LocationAndTypesSection from "@/components/Admin/Dashboard/LocationAndTypesSection";
 
 export default function AdminDashboard() {
 
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
 
     return (
         <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
-            <LocationServicesSection />
+            <LocationAndTypesSection />
         </section>
     );
 };

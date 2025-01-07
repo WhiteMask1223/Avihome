@@ -26,7 +26,7 @@ export default function ImageComponent({
             <img
                 src={img.url || img || offert.localImages[idx]}
                 alt={`Imagen ${offert.title || idx}`}
-                className={`w-full mx-auto h-xl object-cover sm:rounded-[10px] ${loading ? "opacity-0" : "opacity-100 cursor-pointer"}`}
+                className={`w-full mx-auto h-96 object-cover sm:rounded-[10px] ${loading ? "opacity-0" : "opacity-100 cursor-pointer"}`}
                 onClick={() => {
                     if (!loading) {
                         setTriggerImgModal(!triggerImgModal);

@@ -33,14 +33,6 @@ const hiddenHandeler = async (id, updatedOffert) => {
     return updatedOffert;
 };
 
-/**************************{ Filter Data }**************************/
-
-export const getOffertsLocationAndType_Controller = async () => {
-    const res = await getOffertsLocationAndType_Service();
-
-    return res;
-};
-
 
 /**************************{ MainPage }**************************/
 

@@ -19,7 +19,7 @@ export const UtilityProvider = ({ children }) => {
 
     const [sessionSidebar, setSessionSidebar] = useState(false);
     const [filterSidebar, setFilterSidebar] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (offertsData && loading === true) {

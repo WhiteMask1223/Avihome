@@ -2,14 +2,6 @@ import axios from "axios";
 
 const url = '/offerts/api/'
 
-/**************************{ Filter Data }**************************/
-
-export const get_OffertsLocationAndType = async () => {
-    const response = await axios.get(`${url}get-location-and-type`);
-
-    return response.data
-};
-
 
 /**************************{ Main Page }**************************/
 

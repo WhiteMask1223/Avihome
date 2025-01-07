@@ -30,33 +30,37 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        try {
+            e.preventDefault();
 
-        setUpdating(true);
+            setUpdating(true);
 
-        if (!formData.oldPassword || !formData.newPassword || !formData.repNewPassword) {
-            setFormError([true, 'Rellene todos los campos.']);
+            if (!formData.oldPassword || !formData.newPassword || !formData.repNewPassword) {
+                setFormError([true, 'Rellene todos los campos.']);
+                setUpdating(false);
+                return
+            }
+
+            if (formData.newPassword !== formData.repNewPassword) {
+                setFormError([true, 'Las contraseñas nuevas no coinciden.']);
+                setUpdating(false);
+                return
+            }
+
+            const response = await update_userPassword(user._id, formData);
+
+            if (response.error) {
+                setFormError([true, response.message]);
+                setUpdating(false);
+                return
+            };
+
+            setTrigger(!trigger);
+            setFormData(formDataTemplate)
             setUpdating(false);
-            return
+        } catch (error) {
+            console.error("Error al acatualizar contraseña: ", error)
         }
-
-        if (formData.newPassword !== formData.repNewPassword) {
-            setFormError([true, 'Las contraseñas nuevas no coinciden.']);
-            setUpdating(false);
-            return
-        }
-
-        const response = await update_userPassword(user._id, formData);
-
-        if (response.error) {
-            setFormError([true, response.message]);
-            setUpdating(false);
-            return
-        };
-
-        setTrigger(!trigger);
-        setFormData(formDataTemplate)
-        setUpdating(false);
     };
 
     return (

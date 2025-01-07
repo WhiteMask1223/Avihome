@@ -2,7 +2,7 @@
 
 import { createContext, useState, useEffect } from 'react';
 
-import { get_OffertsLocationAndType } from '@/api/offerts.api';
+import { get_OffertsLocationAndType } from '@/api/locationsAndTypes.api';
 
 import { filterObjTemplate } from '@/utils/offertsUtils';
 
@@ -20,12 +20,26 @@ export const CategoryFilterProvider = ({ children }) => {
     const [filterObj, setFilterObj] = useState(filterObjTemplate(offertsType, offertsLocation));
 
     const locationAndTypeFetch = async () => {
-        const data = await get_OffertsLocationAndType();
+        try {
+            const data = await get_OffertsLocationAndType();
 
-        setOffertsType(data.offertType);
-        setOffertsLocation(data.sortedLocationData);
+            setOffertsLocation(dbArrayToObject(data.locations));
+            setOffertsType(dbArrayToObject(data.types));
 
-        setFilterObj(filterObjTemplate(data.offertType, data.sortedLocationData));
+            setFilterObj(filterObjTemplate(dbArrayToObject(data.types), dbArrayToObject(data.locations)));
+        } catch (error) {
+            console.error("locationAndTypeFetch error: ", error)
+        }
+    };
+
+    const dbArrayToObject = (initialArray) => {
+        let transformedObject = {};
+
+        initialArray.forEach(item => {
+            transformedObject[item.text] = false;
+        });
+
+        return transformedObject;
     };
 
 
@@ -44,7 +58,7 @@ export const CategoryFilterProvider = ({ children }) => {
         };
     });
 
-    
+
     /**************************{ Funciones }**************************/
 
 

@@ -1,9 +1,10 @@
-import { offertsData, offertType, sortedLocationData } from '../utils/offertsUtils'; //TODO: DELETE ME
 import OffertModel from '@/models/Offert.model';
 import cloudinary from '@/lib/cloudinary';
 
 import { IS_DEVELOPMENT } from '@/config';
 
+
+/**************************{ Cloudinary }**************************/
 
 export const saveImageInCloudinary = async (images) => {
     try {
@@ -78,15 +79,6 @@ export const getOffertById_Service = async (offertId) => {
     } catch (error) {
         console.log(error);
     }
-};
-
-
-/*                         { Filter Data }                         */
-
-export const getOffertsLocationAndType_Service = async () => {
-    const data = { offertType, sortedLocationData };
-
-    return data;
 };
 
 

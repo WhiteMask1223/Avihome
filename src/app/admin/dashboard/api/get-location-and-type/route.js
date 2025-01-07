@@ -1,4 +1,4 @@
-import { getOffertsLocationAndType_Controller } from "@/controllers/offerts.controller";
+import { getOffertsLocationAndType_Controller } from "@/controllers/locationsAndType.controller";
 import dbConnect from "@/lib/db";
 
 export async function GET() {

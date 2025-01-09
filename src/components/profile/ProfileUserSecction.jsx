@@ -40,11 +40,7 @@ export default function ProfileUserSecction({ user, sameUser }) {
 
     const deleteUser = async () => {
         try {
-            console.log(user)
-
             const deleteResponse = await delete_user(user._id);
-
-            console.log(deleteResponse)
 
             await signOut({ redirect: false });
             logout();

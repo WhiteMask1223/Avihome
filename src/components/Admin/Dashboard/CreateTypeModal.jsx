@@ -9,7 +9,12 @@ import VariableInput from "@/components/UI/formElements/VariableInput";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import Button from "@/components/UI/utility/Button";
 
-export default function CreateTypeModal({ trigger, setTrigger }) {
+export default function CreateTypeModal({ 
+    trigger, 
+    setTrigger, 
+    getLocationsAndType, 
+    locationAndTypeFetch 
+}) {
 
     const typeTemplate = {
         text: "",
@@ -50,6 +55,10 @@ export default function CreateTypeModal({ trigger, setTrigger }) {
                 setUpdating(false);
                 return
             };
+
+            getLocationsAndType();
+            locationAndTypeFetch();
+
 
             setTrigger(!trigger);
             setNewType(typeTemplate);

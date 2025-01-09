@@ -110,6 +110,7 @@ export const CategoryFilterProvider = ({ children }) => {
                 offertsType,
                 offertsLocation,
 
+                locationAndTypeFetch,
                 handleCheckboxChange,
                 sortAndHiddenHandler,
                 resetFilters

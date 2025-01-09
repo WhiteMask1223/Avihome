@@ -17,10 +17,10 @@ export default function LocationAndTypesSection() {
     const [createTypesModal, setCreateTypesModal] = useState(false);
 
     useEffect(() => {
-        if (!locations) {
-            getLocationsAndType()
+        if (!locations || !types) {
+            getLocationsAndType();
         };
-    }, []);
+    });
 
     const getLocationsAndType = async () => {
         try {
@@ -28,9 +28,8 @@ export default function LocationAndTypesSection() {
 
             setLocation(fetchedLocationsAndType.locations);
             setTypes(fetchedLocationsAndType.types);
-            console.log(fetchedLocationsAndType);
         } catch (error) {
-            console.error("getLocationsAndType error: ", error);
+            console.error("getLocationsAndType error: ", error.message);
         };
     }
 
@@ -48,7 +47,10 @@ export default function LocationAndTypesSection() {
                     createModalTrigger={createLocationModal}
                     setCreateModalTrigger={setCreateLocationModal}
                     addButtonText={"Agregar Localidad"}
+
+                    getLocationsAndType={getLocationsAndType}
                 />
+                
                 <Tables
                     tittle={"Tipos de Ofertas:"}
                     TableData={types}
@@ -58,6 +60,8 @@ export default function LocationAndTypesSection() {
                     addButtonText={"Agregar Tipo de Oferta"}
 
                     isType={true}
+
+                    getLocationsAndType={getLocationsAndType}
                 />
             </div >
         </section>

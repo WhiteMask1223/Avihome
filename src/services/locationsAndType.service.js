@@ -1,13 +1,12 @@
 import LocationsModel from "@/models/Locations.model";
 import TypeModel from "@/models/Type.model";
-import { offertsData, offertType, sortedLocationData } from '../utils/offertsUtils'; //TODO: DELETE ME
 
 
 /**************************{ Read }**************************/
 
 export const getOffertsLocation_Service = async () => {
     try {
-        const locations = await LocationsModel.find().lean();
+        const locations = await LocationsModel.find().sort({ text: 1 }).lean();
 
         return locations;
     } catch (error) {
@@ -17,7 +16,7 @@ export const getOffertsLocation_Service = async () => {
 
 export const getOffertsTypes_Service = async () => {
     try {
-        const types = await TypeModel.find().lean();
+        const types = await TypeModel.find().sort({ text: 1 }).lean();
 
         return types;
     } catch (error) {
@@ -67,14 +66,30 @@ export const updateOffertsTypeById_Service = async (id, newData) => {
 
 /**************************{ Delete }**************************/
 
-export const deleteOffertsLocationById_Service = async (id) => {
-    console.log(id)
+export const deleteOffertsLocationById_Service = async (locationId) => {
+    try {
+        const result = await LocationsModel.deleteOne({ _id: locationId });
 
-    return true;
+        if (!result.deletedCount) {
+            return { error: true, status: 404, message: "Oferta no Encontrada" }
+        };
+
+        return result
+    } catch (error) {
+        console.log(error);
+    };
 };
 
-export const deleteOffertsTypeById_Service = async (id) => {
-    console.log(id)
+export const deleteOffertsTypeById_Service = async (typeId) => {
+    try {
+        const result = await TypeModel.deleteOne({ _id: typeId });
 
-    return true;
+        if (!result.deletedCount) {
+            return { error: true, status: 404, message: "Oferta no Encontrada" }
+        };
+
+        return result
+    } catch (error) {
+        console.log(error);
+    };
 };

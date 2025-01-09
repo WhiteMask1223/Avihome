@@ -9,7 +9,12 @@ import VariableInput from "@/components/UI/formElements/VariableInput";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import Button from "@/components/UI/utility/Button";
 
-export default function CreateLocationModal({ trigger, setTrigger }) {
+export default function CreateLocationModal({ 
+    trigger, 
+    setTrigger, 
+    getLocationsAndType, 
+    locationAndTypeFetch 
+}) {
 
     const locationTemplate = {
         text: ""
@@ -42,6 +47,9 @@ export default function CreateLocationModal({ trigger, setTrigger }) {
                 setUpdating(false);
                 return
             };
+            
+            getLocationsAndType();
+            locationAndTypeFetch();
 
             setTrigger(!trigger);
             setNewLocation(locationTemplate);

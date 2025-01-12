@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { delete_Comment } from "@/api/comments.api";
 
 export default function Comment({ comment, isSameUser, getComments }) {
@@ -5,13 +7,13 @@ export default function Comment({ comment, isSameUser, getComments }) {
     const deleteComment = async () => {
         try {
             const deleteResult = await delete_Comment(comment._id);
-            
+
             if (!deleteResult.error) {
                 await getComments();
             };
         } catch (error) {
             console.error("Error deleteComment: ", error);
-        }
+        };
     };
 
     return (
@@ -23,7 +25,12 @@ export default function Comment({ comment, isSameUser, getComments }) {
                 </div>
                 <div className="w-full">
                     <div className="flex justify-between w-full">
-                        <h2 className="font-bold text-nowrap">{comment.userId.name}:</h2>
+
+                        <Link href={`/profile/${comment.userId._id}`}>
+                            <h2 className="font-bold text-nowrap">
+                                {comment.userId.name}:
+                            </h2>
+                        </Link>
 
                         <div className="mr-5">
                             {Array(5).fill().map((_, index) => (

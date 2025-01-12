@@ -89,8 +89,14 @@ export default function Tables({
                             </th>
 
                             {isType ?
-                                <th className="font-normal py-1.5 px-4 border-sectionThemeBackground border-t-2 border-l-2">
-                                    {data.onlyOneRoom ? "True" : "False"}
+                                <th className="font-normal py-1.5 px-4 border-sectionThemeBackground border-t-2 border-l-2 text-xl">
+                                    {
+                                    data.onlyOneRoom 
+                                    ? 
+                                    <i className="ri-checkbox-circle-fill text-green-600"></i>
+                                    : 
+                                    <i className="ri-close-circle-fill text-[#ba0000]"></i>
+                                    }
                                 </th> : ""
                             }
 

@@ -39,7 +39,7 @@ export default function OffertCard({ id, imageSrc, title, location, rating, avai
           <div className="mx-2">
             {Array(5).fill().map((_, index) => (
               <span key={index}>
-                {index < rating ? <i className="ri-star-fill text-teal-950 text-lg"></i> : <i className="ri-star-line text-checkboxThemeSelected text-lg"></i>}
+                {index < rating ? <i className="ri-star-fill text-checkboxThemeSelected text-lg"></i> : <i className="ri-star-line text-checkboxThemeSelected text-lg"></i>}
               </span>
             ))}
           </div>

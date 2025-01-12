@@ -18,7 +18,7 @@ import Carrousel from "@/components/offerts/carrousel/ImageCarrousel";
 import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export default function OfferDetail() {
-   
+
     const offertId = useParams();
 
     const { userData } = useContext(UserContext);
@@ -41,7 +41,7 @@ export default function OfferDetail() {
 
     /**************************{ useEffect }**************************/
 
-    
+
     useEffect(() => {
         if (!offert) {
             getOffert();
@@ -65,8 +65,20 @@ export default function OfferDetail() {
 
                 {/**************************{ title }**************************/}
 
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold my-4 ml-2">
+                        {offert.title}
+                    </h1>
 
-                <h1 className="text-2xl font-bold my-4 ml-2">{offert.title}</h1>
+                    <div className="text-2xl">
+                        {Array(5).fill().map((_, index) => (
+                            <span key={index}>
+                                {index < offert.rating ? <i className="ri-star-fill text-checkboxThemeSelected"></i> : <i className="ri-star-line text-checkboxThemeSelected"></i>}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
 
                 <Carrousel offert={offert} isEdit={false} />
 
@@ -136,12 +148,12 @@ export default function OfferDetail() {
 
                         {/**************************{ Datos del propietario }**************************/}
 
-                        <Contact offert={offert}/>
+                        <Contact offert={offert} />
 
                         {/**************************{ Comments }**************************/}
 
-                        <CommentsAndStarsSection offert={offert} user={userData}/>
-                        
+                        <CommentsAndStarsSection offert={offert} user={userData} />
+
                     </div>
                     :
                     <div className="bg-subSectionThemeBackground p-4 h-24 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 flex">

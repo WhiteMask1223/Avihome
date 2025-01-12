@@ -1,6 +1,8 @@
 import OffertModel from '@/models/Offert.model';
 import cloudinary from '@/lib/cloudinary';
 
+import { getOffertsCommentById_Service } from './comment.service';
+
 import { IS_DEVELOPMENT } from '@/config';
 
 

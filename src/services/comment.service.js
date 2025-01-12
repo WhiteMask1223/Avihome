@@ -2,13 +2,13 @@ import CommentModel from "@/models/Comment.model";
 
 
 
+
 /**************************{ Read }**************************/
 
 export const getOffertsCommentById_Service = async (offertId) => {
     try {
-        console.log(offertId)
         const comments = await CommentModel.find({ offertId: offertId }).populate({ path: 'userId', select: 'name' }).lean();
-
+        
         return comments;
     } catch (error) {
         throw new Error('Error getOffertsCommentAndType_Service: ' + error.message);

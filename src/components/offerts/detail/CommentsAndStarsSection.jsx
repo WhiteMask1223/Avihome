@@ -55,7 +55,7 @@ export default function CommentsAndStarsSection({ offert, user }) {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
-
+            getComments()
             if (!commentForm.message || commentForm.stars === null) return;
 
             const saveResponse = await save_Comment(commentForm);

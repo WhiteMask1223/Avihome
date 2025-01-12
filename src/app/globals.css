@@ -24,7 +24,7 @@
   /*Estilos para CheckBoxes*/
   --theme-checkbox-background-color: 200, 200, 200;
   --theme-checkbox-border-color: 180, 180, 180;
-  --theme-checkbox-selected-color: 64, 84, 83;
+  --theme-checkbox-selected-color: 4, 47, 46;
 
   /*Estilos para elementos*/
   --theme-element-background-color: 200, 200, 200;
@@ -68,7 +68,7 @@
     /*Estilos para CheckBoxes*/
     --theme-checkbox-background-color: 5, 5, 5;
     --theme-checkbox-border-color: 60, 60, 60;
-    --theme-checkbox-selected-color: 11, 138, 127;
+    --theme-checkbox-selected-color: 13, 148, 136;
 
     /*Estilos para elementos*/
     --theme-element-background-color: 60, 60, 60;

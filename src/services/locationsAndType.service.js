@@ -71,7 +71,7 @@ export const deleteOffertsLocationById_Service = async (locationId) => {
         const result = await LocationsModel.deleteOne({ _id: locationId });
 
         if (!result.deletedCount) {
-            return { error: true, status: 404, message: "Oferta no Encontrada" }
+            return { error: true, status: 404, message: "Localidad no Encontrada" }
         };
 
         return result
@@ -85,7 +85,7 @@ export const deleteOffertsTypeById_Service = async (typeId) => {
         const result = await TypeModel.deleteOne({ _id: typeId });
 
         if (!result.deletedCount) {
-            return { error: true, status: 404, message: "Oferta no Encontrada" }
+            return { error: true, status: 404, message: "Tipo no Encontrado" }
         };
 
         return result

@@ -272,7 +272,7 @@ export default function OffertsForm({
 
                 <DangerButton styles={"w-full mt-5"} text={isOffertEdit ? "Revertir Cambios" : "Limpiar Formulario"} buttonFunction={clearForm} />
 
-                <SubmitButton styles={"w-full mt-5 ml-5"} text={isOffertEdit ? "Actualizar Oferta" : "Crear Oferta"} disabled={saving} />
+                <SubmitButton styles={"w-full mt-5 sm:ml-5 py-2"} text={isOffertEdit ? "Actualizar Oferta" : "Crear Oferta"} disabled={saving} />
 
             </div>
         </form>

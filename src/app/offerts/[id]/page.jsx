@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, use } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
@@ -9,14 +9,16 @@ import { get_OffertById } from "@/api/offerts.api";
 import { UserContext } from "@/contexts/User.context";
 import { UtilityContex } from "@/contexts/Utility.context";
 
-import SubmitButton from "@/components/UI/formElements/SubmitButton";
+import CommentsAndStarsSection from "@/components/offerts/detail/CommentsAndStarsSection";
+import Contact from "@/components/offerts/detail/Contact";
 import DetailCheckBox from "@/components/offerts/detail/DetailCheckBox";
 import Carrousel from "@/components/offerts/carrousel/ImageCarrousel";
+
 
 import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export default function OfferDetail() {
-
+   
     const offertId = useParams();
 
     const { userData } = useContext(UserContext);
@@ -37,9 +39,9 @@ export default function OfferDetail() {
         };
     }, [offertId]);
 
-
     /**************************{ useEffect }**************************/
 
+    
     useEffect(() => {
         if (!offert) {
             getOffert();
@@ -48,7 +50,7 @@ export default function OfferDetail() {
         if (loading) {
             setLoading(!loading);
         };
-    }, []);
+    }, [offert]);
 
 
     /**************************{ Return }**************************/
@@ -64,7 +66,7 @@ export default function OfferDetail() {
                 {/**************************{ title }**************************/}
 
 
-                <h1 className="text-2xl font-bold my-4">{offert.title}</h1>
+                <h1 className="text-2xl font-bold my-4 ml-2">{offert.title}</h1>
 
                 <Carrousel offert={offert} isEdit={false} />
 
@@ -122,42 +124,24 @@ export default function OfferDetail() {
                             })
                         }
                     </div>
-
-
-                    {/**************************{ Contact }**************************/}
-
-                    <h2 className="text-lg font-semibold mt-6">Medio de contactos del Propietario:</h2>
-
                 </div>
+
+                {/**************************{ Contact }**************************/}
+
+                <h2 className="text-lg font-semibold mt-6">Medio de contactos del Propietario:</h2>
 
                 {userData ?
 
-                    <div className="bg-subSectionThemeBackground p-4 sm:rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 mb-6 sm:flex">
+                    <div>
 
                         {/**************************{ Datos del propietario }**************************/}
 
-                        <div className="mr-2">
-                            <h2 className="font-semibold">Propietario:</h2>
-                            <div className="mt-2">
-                                <Link href={`/profile/${offert.user._id}`} className="flex items-center">
-                                    <i className="ri-account-circle-line text-4xl"></i>
-                                    <p className="font-semibold">{offert.user.name}</p>
-                                </Link>
-                            </div>
-                            <h2 className="mt-2 font-semibold">Teléfono de contacto:</h2>
-                            <p>{offert.user?.phone}</p>
-                        </div>
+                        <Contact offert={offert}/>
 
-                        <form className="space-y-4 mt-5 sm:mt-0">
-                            <h2 className="font-semibold">Enviar un Correo Electrónico:</h2>
-                            <div className="flex space-x-4">
-                                <input type="text" placeholder="Correo" className="p-2 w-full bg-elementThemeColor rounded" />
-                                <input type="text" placeholder="Asunto" className="p-2 w-full bg-elementThemeColor rounded" />
-                            </div>
-                            <textarea placeholder="Mensaje" className="p-2 w-full bg-elementThemeColor rounded h-24"></textarea>
-                            <SubmitButton text={'Enviar Correo'} />
-                        </form>
+                        {/**************************{ Comments }**************************/}
 
+                        <CommentsAndStarsSection offert={offert} user={userData}/>
+                        
                     </div>
                     :
                     <div className="bg-subSectionThemeBackground p-4 h-24 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 flex">

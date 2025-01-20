@@ -243,7 +243,7 @@ export default function SingInPage() {
 
                 {/* SingIn Button */}
                 <div className="mt-6">
-                    <SubmitButton text={'Registrarse'} styles={"w-full"} disabled={saving} />
+                    <SubmitButton text={'Registrarse'} styles={"w-full py-2"} disabled={saving} />
                 </div>
             </form>
 

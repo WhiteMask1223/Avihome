@@ -17,7 +17,7 @@ export default function NewOffertForm() {
 
     /**************************{ Declaraciones }**************************/
 
-    const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
+    const { rawType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
     const { fetchOfferts } = useContext(MainPageContext)
 
@@ -63,7 +63,8 @@ export default function NewOffertForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
+        console.log(offertsFormData)
         setSaving(true);
 
         if (
@@ -112,7 +113,7 @@ export default function NewOffertForm() {
                 offertsFormData={offertsFormData}
                 setOffertsFormData={setOffertsFormData}
                 offertsLocation={offertsLocation}
-                offertsType={offertsType}
+                offertsType={rawType}
 
                 handleSubmit={handleSubmit}
                 

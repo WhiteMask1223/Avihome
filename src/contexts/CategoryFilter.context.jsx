@@ -17,6 +17,9 @@ export const CategoryFilterProvider = ({ children }) => {
     const [offertsType, setOffertsType] = useState({});
     const [offertsLocation, setOffertsLocation] = useState({});
 
+    const [rawType, setRawType] = useState([]);
+    const [rawLocation, setRawLocation] = useState([]);
+
     const [filterObj, setFilterObj] = useState(filterObjTemplate(offertsType, offertsLocation));
 
     const locationAndTypeFetch = async () => {
@@ -25,6 +28,9 @@ export const CategoryFilterProvider = ({ children }) => {
 
             setOffertsLocation(dbArrayToObject(data.locations));
             setOffertsType(dbArrayToObject(data.types));
+
+            setRawType(data.types);
+            setRawLocation(data.locations);
 
             setFilterObj(filterObjTemplate(dbArrayToObject(data.types), dbArrayToObject(data.locations)));
         } catch (error) {
@@ -109,6 +115,9 @@ export const CategoryFilterProvider = ({ children }) => {
                 filterObj,
                 offertsType,
                 offertsLocation,
+
+                rawType,
+                rawLocation,
 
                 locationAndTypeFetch,
                 handleCheckboxChange,

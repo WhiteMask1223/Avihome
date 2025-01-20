@@ -22,7 +22,7 @@ export default function EditOffertForm() {
     const router = useRouter();
     const offertId = useParams();
 
-    const { offertsType, offertsLocation } = useContext(CategoryFilterContext);
+    const { rawType, offertsLocation } = useContext(CategoryFilterContext);
     const { userData } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex);
 
@@ -194,7 +194,7 @@ export default function EditOffertForm() {
                 offertsFormData={offertsFormData}
                 setOffertsFormData={setOffertsFormData}
                 offertsLocation={offertsLocation}
-                offertsType={offertsType}
+                offertsType={rawType}
 
                 handleSubmit={handleSubmit}
 

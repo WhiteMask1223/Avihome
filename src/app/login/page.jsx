@@ -119,7 +119,7 @@ export default function LoginPage() {
 
                 {/* Login Button */}
                 <div className="mt-6">
-                    <SubmitButton text={'Iniciar Sesión'} styles={"w-full"} />
+                    <SubmitButton text={'Iniciar Sesión'} styles={"w-full py-2"} />
                 </div>
             </form>
 

@@ -1,6 +1,6 @@
 import SelectOption from "@/components/UI/formElements/SelectOption";
 
-export default function OffertsFormDropList({ id, selectKey, value, obj, handlerFunction, error }) {
+export default function OffertsFormDropList({ id, selectKey, value, obj, handlerFunction, error, type }) {
     return (
         <select
             id={id}
@@ -11,9 +11,17 @@ export default function OffertsFormDropList({ id, selectKey, value, obj, handler
 
             <option value="" className="text-grayFontThemeColor" disabled>Seleccione una opción:</option>
 
-            {Object.entries(obj).map(([key]) => (
+            {
+            type 
+            ?
+            Object.entries(obj).map(([key, value]) => (
+                <SelectOption key={key} value={value.text} text={value.text} />
+            ))
+            :
+            Object.entries(obj).map(([key]) => (
                 <SelectOption key={key} value={key} text={key} />
-            ))}
+            ))
+            }
 
         </select>
     );

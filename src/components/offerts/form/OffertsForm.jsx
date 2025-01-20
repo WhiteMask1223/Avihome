@@ -7,6 +7,7 @@ import VariableInput from "@/components/UI/formElements/VariableInput";
 import Asterisk from "@/components/UI/formElements/Asterisk";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import DangerButton from "@/components/UI/utility/DangerButton";
+import NumberSelector from "./OffertsFormNumberSelector";
 
 export default function OffertsForm({
 
@@ -132,6 +133,7 @@ export default function OffertsForm({
                         obj={offertsType}
                         handlerFunction={updateField}
                         error={formError}
+                        type={true}
                     />
 
                 </div>
@@ -146,14 +148,15 @@ export default function OffertsForm({
                                 <label htmlFor="availability" className="flex text-lg font-bold">
                                     Número de total habitaciones <Asterisk />
                                 </label>
-                                <VariableInput
-                                    type={'number'}
-                                    id={'availability'}
+
+                                <NumberSelector
+                                    objKey={'availability'}
+                                    objSubKey={'capacity'}
                                     value={offertsFormData.availability.capacity}
-                                    autoComplete={"off"}
-                                    error={formError[0]}
-                                    onChange={(e) => updateSubObj('availability', 'capacity', false, e.target.value)}
-                                    onKeyDown={(e) => e.preventDefault()}
+                                    maxNumber={Infinity}
+                                    setStateFunction={updateSubObj}
+                                    typeValue={offertsFormData.type}
+                                    typeArray={offertsType}
                                 />
 
                             </div>
@@ -162,31 +165,32 @@ export default function OffertsForm({
                                 <label htmlFor="rooms" className="flex text-lg font-bold">
                                     Número de habitaciones disponibles <Asterisk />
                                 </label>
-                                <VariableInput
-                                    type={'number'}
-                                    id={'availability'}
+
+                                <NumberSelector
+                                    objKey={'availability'}
+                                    objSubKey={'roomsAvailable'}
                                     value={offertsFormData.availability.roomsAvailable}
-                                    autoComplete={"off"}
-                                    error={formError[0]}
-                                    onChange={(e) => updateSubObj('availability', 'roomsAvailable', false, e.target.value)}
-                                    onKeyDown={(e) => e.preventDefault()}
+                                    maxNumber={offertsFormData.availability.capacity}
+                                    setStateFunction={updateSubObj}
+                                    typeValue={offertsFormData.type}
+                                    typeArray={offertsType}
                                 />
 
                             </div>
                         </div>
                         :
                         <div>
-                            <label htmlFor="rooms" className="flex text-lg font-bold">
+                            <label htmlFor="availability" className="flex text-lg font-bold">
                                 Número de habitaciones <Asterisk />
                             </label>
-                            <VariableInput
-                                type={'number'}
-                                id={'availability'}
+
+                            <NumberSelector
+                                objKey={'availability'}
                                 value={offertsFormData.availability}
+                                maxNumber={Infinity}
                                 setStateFunction={updateField}
-                                autoComplete={"off"}
-                                error={formError[0]}
-                                onKeyDown={(e) => e.preventDefault()}
+                                typeValue={offertsFormData.type}
+                                typeArray={offertsType}
                             />
                         </div>
                 }

@@ -6,6 +6,7 @@ export default function NumberSelector({ objKey, objSubKey, value, maxNumber, se
     
 
     const [disableHandler, setDisableHandler] = useState(false);
+    const [maxNumberState, setMaxNumberState] = useState(maxNumber);
 
     const changeRoomsAvailableHandler = async (action) => {
 
@@ -23,7 +24,7 @@ export default function NumberSelector({ objKey, objSubKey, value, maxNumber, se
     const updateRoomsAvailable = (action) => {
 
         if (action === 'up') {
-            if (value < maxNumber) {
+            if (value < maxNumberState) {
                 return 1;
             } else {
                 return null
@@ -38,7 +39,7 @@ export default function NumberSelector({ objKey, objSubKey, value, maxNumber, se
     };
 
     const disabledHandler = (direction) => {
-        if (direction === "up" && value === maxNumber) return true
+        if (direction === "up" && value === maxNumberState) return true
         if (direction === "down" && value === 0) return true
         return false
     };
@@ -51,22 +52,26 @@ export default function NumberSelector({ objKey, objSubKey, value, maxNumber, se
 
         typeArray.map((data) => {
             if (typeValue === data.text && data.onlyOneRoom) {
-                setDisableHandler(true);
+                
+                if(maxNumber == Infinity) setDisableHandler(true);
 
                 if (objSubKey) {
-                    setStateFunction(objKey, objSubKey, false, 1)
+                    setStateFunction(objKey, objSubKey, false, 1);
+                    setMaxNumberState(1);
                     return;
                 };
 
                 setStateFunction(objKey, 1);
+                setMaxNumberState(1);
 
                 return;
             };
-            console.log(disableHandler);
-            console.log(typeArray, typeValue);
-
         });
     }, [typeValue]);
+
+    useEffect(() => {
+        setMaxNumberState(maxNumber);
+    }, [maxNumber, typeValue])
 
     return (
         <div className="flex items-center space-x-2 mt-3 mx-auto w-fit">

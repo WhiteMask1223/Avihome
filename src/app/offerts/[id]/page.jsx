@@ -1,18 +1,21 @@
 'use client'
 
-import { useState, useEffect, useContext, useCallback, use } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import { get_OffertById } from "@/api/offerts.api";
+import { get_OffertById, delete_offert } from "@/api/offerts.api";
 
 import { UserContext } from "@/contexts/User.context";
 import { UtilityContex } from "@/contexts/Utility.context";
+import { MainPageContext } from "@/contexts/MainPage.context";
 
 import CommentsAndStarsSection from "@/components/offerts/detail/CommentsAndStarsSection";
 import Contact from "@/components/offerts/detail/Contact";
 import DetailCheckBox from "@/components/offerts/detail/DetailCheckBox";
 import Carrousel from "@/components/offerts/carrousel/ImageCarrousel";
+import LoadingSpinners from "@/components/UI/utility/LoadingSpinners";
 
 
 import LoadingBg from "@/components/UI/utility/LoadingBg";
@@ -21,15 +24,20 @@ export default function OfferDetail() {
 
     const offertId = useParams();
 
+    const router = useRouter();
+
     const { userData } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex);
+    const { fetchOfferts } = useContext(MainPageContext);
 
     const [offert, setOffert] = useState(null);
-
+    const [deleting, setDeleting] = useState(false);
 
     const getOffert = useCallback(async () => {
         try {
             const dbOffert = await get_OffertById(offertId);
+            console.log(dbOffert);
+            
 
             if (dbOffert) {
                 setOffert(dbOffert);
@@ -38,6 +46,21 @@ export default function OfferDetail() {
             console.error("getOffert error: ", error);
         };
     }, [offertId]);
+
+    const deleteOffertHandeler = async () => {
+        try {
+            setDeleting(true);
+            const res = await delete_offert(offert._id);
+
+            if (!res.error) {
+                fetchOfferts();
+                router.push("/");
+                setDeleting(false);
+            };
+        } catch (error) {
+            console.log("deleteOffertHandeler error: ", error);
+        };
+    };
 
     /**************************{ useEffect }**************************/
 
@@ -59,6 +82,12 @@ export default function OfferDetail() {
         return <LoadingBg conditional={true} />
     };
 
+    if (offert.error) {
+        return (
+            <div className="mt-28 text-center">Oferta no Encontrada.</div>
+        );
+    };
+
     return (
         <div className="py-6 sm:px-6 min-h-screen flex justify-center items-center">
             <div className="bg-sectionThemeBackground sm:px-6 mt-14 sm:mt-20 sm:rounded-2xl shadow-lg shadow-sectionThemeShadow w-full sm:max-w-4xl">
@@ -76,6 +105,23 @@ export default function OfferDetail() {
                                 {index < offert.rating ? <i className="ri-star-fill text-checkboxThemeSelected"></i> : <i className="ri-star-line text-checkboxThemeSelected"></i>}
                             </span>
                         ))}
+                        {userData?.role === "Admin" || userData?.role === "Root" ?
+                            <button
+                                className="ml-2 px-1 bg-dangerButtonThemeColor rounded"
+                                type="button"
+                                onClick={deleteOffertHandeler}
+                            >
+                                {
+                                    deleting
+                                        ?
+                                        <LoadingSpinners size={"very small"} />
+                                        :
+                                        <i className="ri-delete-bin-2-fill text-white" />
+                                }
+                            </button>
+                            :
+                            ""
+                        }
                     </div>
                 </div>
 
@@ -157,11 +203,9 @@ export default function OfferDetail() {
                     </div>
                     :
                     <div className="bg-subSectionThemeBackground p-4 h-24 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 flex">
-                        <p className="m-auto"><Link href={"/login"} className="text-blue-500 font-bold">Inicia Sesión</Link> para poder ver los datos de contacto del propietario.</p>
+                        <p className="m-auto"><Link href={"/login"} className="text-blue-500 font-bold">Inicia Sesión</Link> para poder ver los datos de contacto del propietario y comentarios de los demás usuarios.</p>
                     </div>
-
                 }
-
             </div>
         </div>
     );

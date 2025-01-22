@@ -44,7 +44,8 @@ export default function ProfileOffertsCard({ offert, sameUser, setUserOfferts })
 
             setDisableChangeAvailability(false);
         } catch (error) {
-            console.log(error)
+            console.log("changeRoomsAvailableHandler error: ", error);
+            setDisableChangeAvailability(false);
         }
     };
 
@@ -72,11 +73,15 @@ export default function ProfileOffertsCard({ offert, sameUser, setUserOfferts })
     };
 
     const deleteOffertHandeler = async () => {
-        const res = await delete_offert(offert._id);
+        try {
+            const res = await delete_offert(offert._id);
 
-        if (!res.error) {
-            setUserOfferts(null);
-            fetchOfferts();
+            if (!res.error) {
+                setUserOfferts(null);
+                fetchOfferts();
+            };
+        } catch (error) {
+            console.log("deleteOffertHandeler error: ", error);
         };
     };
 
@@ -104,7 +109,7 @@ export default function ProfileOffertsCard({ offert, sameUser, setUserOfferts })
                         <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.location}</p>
                         <p className="text-sm text-grayFontThemeColor h-fit line-clamp-1">{cardOffert.address}</p>
                     </Link>
-                    
+
                     <p className="text-sm mt-2 h-fit line-clamp-5">{cardOffert.description}</p>
                 </div>
 

@@ -1,18 +1,29 @@
+"use client"
+
+import { useState } from "react";
 import Link from "next/link";
 
 import { delete_Comment } from "@/api/comments.api";
 
-export default function Comment({ comment, isSameUser, getComments }) {
+import LoadingSpinners from "@/components/UI/utility/LoadingSpinners";
+
+export default function Comment({ comment, user, getComments }) {
+
+    const [deleting, setDeleting] = useState(false)
 
     const deleteComment = async () => {
         try {
+            setDeleting(true);
+            
             const deleteResult = await delete_Comment(comment._id);
 
             if (!deleteResult.error) {
                 await getComments();
+                setDeleting(false);
             };
         } catch (error) {
             console.error("Error deleteComment: ", error);
+            setDeleting(false);
         };
     };
 
@@ -38,14 +49,22 @@ export default function Comment({ comment, isSameUser, getComments }) {
                                     {index < comment.stars ? <i className="ri-star-fill text-checkboxThemeSelected text-lg"></i> : <i className="ri-star-line text-checkboxThemeSelected text-lg"></i>}
                                 </span>
                             ))}
-                            {isSameUser &&
+                            {user._id === comment.userId._id || user.role === "Admin" || user.role === "Root" ?
                                 <button
                                     className="ml-2 px-1 bg-dangerButtonThemeColor rounded"
                                     type="button"
                                     onClick={deleteComment}
                                 >
-                                    <i className="ri-delete-bin-2-fill text-white"></i>
+                                    {
+                                    deleting
+                                    ?
+                                    <LoadingSpinners size={"very small"}/>
+                                    :
+                                    <i className="ri-delete-bin-2-fill text-white"/>
+                                    }
                                 </button>
+                                :
+                                ""
                             }
                         </div>
                     </div>

@@ -34,6 +34,16 @@ export const update_userPassword = async (id, data) => {
     };
 };
 
+export const update_userInfo = async (id, data) => {
+    try {
+        const response = await axios.put('/profile/api/update-user-info', { id, data });
+        
+        return response.data
+    } catch (error) {
+        console.error(error)
+    };
+};
+
 
 /**************************{ Delete }**************************/
 

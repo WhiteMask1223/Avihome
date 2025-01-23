@@ -4,18 +4,18 @@ import { useState, useContext } from "react"
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
-//import EditInfoModal from "./EditInfoModal"
-import EditPasswordModal from "./EditPasswordModal"
-import Button from "../UI/utility/Button"
-import DangerButton from "../UI/utility/DangerButton"
-import DeleteConfirm from "../UI/utility/DeleteConfirm"
+import EditInfoModal from "./EditInfoModal";
+import EditPasswordModal from "./EditPasswordModal";
+import Button from "../UI/utility/Button";
+import DangerButton from "../UI/utility/DangerButton";
+import DeleteConfirm from "../UI/utility/DeleteConfirm";
 
 import { UserContext } from "@/contexts/User.context";
 import { MainPageContext } from "@/contexts/MainPage.context";
 
 import { delete_user } from "@/api/user.api"
 
-export default function ProfileUserSecction({ user, sameUser }) {
+export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
     const router = useRouter();
 
@@ -23,16 +23,16 @@ export default function ProfileUserSecction({ user, sameUser }) {
     const { fetchOfferts } = useContext(MainPageContext);
 
     const [editPswModal, setEditPswModal] = useState(false);
-    //const [triggerEditInfo, setTriggerEditInfo] = useState(false);
+    const [triggerEditInfo, setTriggerEditInfo] = useState(false);
     const [deletePopUp, setDeletePopUp] = useState(false);
 
     const triggerEditPswFunction = () => {
         setEditPswModal(!editPswModal)
     };
 
-    /*const triggerEditInfoFunction = () => {
+    const triggerEditInfoFunction = () => {
         setTriggerEditInfo(!triggerEditInfo)
-    };*/
+    };
 
     const triggerDelete = () => {
         setDeletePopUp(!deletePopUp);
@@ -82,12 +82,29 @@ export default function ProfileUserSecction({ user, sameUser }) {
                 {sameUser &&
                     <div className="mt-4 flex items-center justify-between space-x-4">
                         <div className="flex flex-col">
-                            <Button styles={"w-full px-4 py-2"} text={"Cambiar contraseña"} buttonFunction={triggerEditPswFunction} />
-                            <EditPasswordModal trigger={editPswModal} setTrigger={setEditPswModal} user={user} />
+                            <Button
+                                styles={"w-full px-4 py-2"}
+                                text={"Cambiar contraseña"}
+                                buttonFunction={triggerEditPswFunction}
+                            />
+                            <EditPasswordModal
+                                trigger={editPswModal}
+                                setTrigger={setEditPswModal}
+                                user={user}
+                            />
 
 
-                            {/*<Button styles={"w-full mt-2"} text={"Cambiar Medios de Contacto"} buttonFunction={triggerEditInfoFunction} />
-                            <EditInfoModal trigger={triggerEditInfo} setTrigger={setTriggerEditInfo} />*/}
+                            <Button
+                                styles={"w-full px-4 py-2 mt-2"}
+                                text={"Cambiar Información del Perfil"}
+                                buttonFunction={triggerEditInfoFunction}
+                            />
+                            <EditInfoModal
+                                trigger={triggerEditInfo}
+                                setTrigger={setTriggerEditInfo}
+                                user={user}
+                                setUser={setUser}
+                            />
                         </div>
 
                         {user.role === "Root" || user.role === "Admin" ?

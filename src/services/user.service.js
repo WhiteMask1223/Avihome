@@ -69,10 +69,25 @@ export const updateUserPassword_Service = async (userId, data) => {
 
         return { error: false, status: 200 };
     } catch (error) {
-        console.log(error)
+        console.log(error);
     };
 };
 
+export const updateUserInfo_Service = async (userId, data) => {
+    try {
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            data,
+            { new: true, runVailidators: true }
+        );
+
+        if (!updatedUser) return { error: true, status: 404, message: "Usuario no encontrado." };
+
+        return updatedUser;
+    } catch (error) {
+        console.log(error);
+    };
+};
 
 /**************************{ Delete }**************************/
 

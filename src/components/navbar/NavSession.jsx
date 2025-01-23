@@ -8,17 +8,17 @@ import LoadingBg from "../UI/utility/LoadingBg";
 export default function NavSession() {
 
     const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex);
-    const { userSession } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
 
-    if (!userSession) {
+    if (!userData) {
         return (
-            <LoadingBg conditional={true}/>
+            <LoadingBg conditional={true} />
         );
     };
- 
-    return(
+
+    return (
         <div className="right-0 space-x-4 flex text-right">
-            <h2 className="m-auto text-white text-lg font-semibold cursor-pointer" onClick={toggleSessionSidebar}>{userSession.user?.name}</h2>
+            <h2 className="m-auto text-white text-lg font-semibold cursor-pointer" onClick={toggleSessionSidebar}>{userData?.name}</h2>
             <button onClick={toggleSessionSidebar}>
                 <i className={`ri-account-circle-fill text-5xl mr-2 transition-all sm:text-6xl ${sessionSidebar ? "text-[#13d6c3]" : "text-white"}`}></i>
             </button>

@@ -34,8 +34,8 @@ export default function CommentsAndStarsSection({ offert, user }) {
     const getComments = async () => {
         try {
             if (!offert._id) return;
-            console.log(user)
-            const id = { _id: offert._id }
+
+            const id = { _id: offert._id };
 
             const fetchedComments = await get_CommentById(id);
 

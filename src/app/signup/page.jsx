@@ -84,14 +84,14 @@ export default function SingInPage() {
         };
 
         if (registrationData.password !== registrationData.passwordRepeat || registrationData.password < 6) {
-            setCredentialsError([true, 'Las Contraseñas no coinciden.']);
+            setCredentialsError([true, 'Las contraseñas no coinciden.']);
             updateRegistrationData("password", '');
             updateRegistrationData("passwordRepeat", '');
             return
         };
 
         if (!phoneNumberValidator(registrationData.phone)) {
-            setCredentialsError([true, 'Ingrese un número de teléfono valido']);
+            setCredentialsError([true, 'Ingrese un número de teléfono válido.']);
             updateRegistrationData("phone", '');
             return
         }

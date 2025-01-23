@@ -95,19 +95,19 @@ export default function UserProfile() {
         if (loading) {
             setLoading(!loading);
         };
-    }, []);
+    }, [user, userData, userOfferts]);
 
 
     /**************************{ Return }**************************/
 
-    if (!user && !userOfferts) {
+    if (!user || !userOfferts) {
         return <LoadingBg conditional={true} />
     };
 
     return (
         <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
 
-            <ProfileUserSecction user={user} sameUser={sameUser} />
+            <ProfileUserSecction user={user} sameUser={sameUser} setUser={setUser}/>
 
             {user.role === "Admin" || user.role === "Root" ? "" :
                 <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} />

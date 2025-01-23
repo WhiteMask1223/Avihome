@@ -36,9 +36,7 @@ export default function OfferDetail() {
     const getOffert = useCallback(async () => {
         try {
             const dbOffert = await get_OffertById(offertId);
-            console.log(dbOffert);
             
-
             if (dbOffert) {
                 setOffert(dbOffert);
             };

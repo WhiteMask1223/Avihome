@@ -10,19 +10,25 @@ import { updateOffert_Service } from "@/services/offerts.service";
 /**************************{ Read }**************************/
 
 export const getOffertsCommentById_Controller = async (offertId) => {
-    const comment = await getOffertsCommentById_Service(offertId);
+    try {
+        const comment = await getOffertsCommentById_Service(offertId);
 
-    const offertStars = comment.map((comment) => {
-        return comment.stars
-    });
+        if (comment.length) {
+            const offertStars = comment.map((comment) => {
+                return comment.stars
+            });
+    
+            const sum = offertStars.reduce((totalStars, stars) => totalStars + stars, 0);
+    
+            const average = Math.round(sum / offertStars.length);
+    
+            await updateOffert_Service(offertId, { rating: average })
+        };
 
-    const sum = offertStars.reduce((totalStars, stars) => totalStars + stars, 0);
-
-    const average = Math.round(sum / offertStars.length);
-
-    await updateOffert_Service(offertId, { rating: average })
-
-    return comment;
+        return comment;
+    } catch (error) {
+        console.log("getOffertsCommentById_Controller error: ", error);
+    };
 };
 
 

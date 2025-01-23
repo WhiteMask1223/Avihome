@@ -74,7 +74,7 @@ export const MainPageProvider = ({ children }) => {
 
             const offerts = await get_MainPageOfferts();
 
-            console.log("FetchOfferts", offertsData, offerts)
+            console.log("FetchOfferts", offerts);
 
             //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
             if (areArraysEqual(offertsData, offerts)) {
@@ -201,15 +201,13 @@ export const MainPageProvider = ({ children }) => {
                 case 'worstRated':
                     return a.rating - b.rating;
                 case 'higherAvailability':
-                    return b.availability - a.availability;
+                    return b.availability.roomsAvailable - a.availability.roomsAvailable;
                 case 'lowerAvailability':
-                    return a.availability - b.availability;
-
-                //TODO: orden por fechas
+                    return a.availability.roomsAvailable - b.availability.roomsAvailable;
                 case 'latest':
-                    return b.rating - a.rating;
+                    return new Date(b.createdAt) - new Date(a.createdAt);
                 case 'older':
-                    return b.rating - a.rating;
+                    return new Date(a.createdAt) - new Date(b.createdAt);
                 default:
                     return b.rating - a.rating;
             };

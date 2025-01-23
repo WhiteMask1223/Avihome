@@ -3,6 +3,7 @@ import {
     getUserById_Service,
     getUserByEmail_Service,
     updateUserPassword_Service,
+    updateUserInfo_Service,
     deleteUserById_Service
 } from "@/services/user.service";
 
@@ -92,6 +93,17 @@ export const updateUserPassword_Controller = async (userId, data) => {
         console.log(error)
     };
 };
+
+export const updateUserInfo_Controller = async (userId, data) => {
+    try {
+        const res = await updateUserInfo_Service(userId, data);
+
+        return res;
+    } catch (error) {
+        console.log(error)
+    };
+};
+
 
 
 /**************************{ Delete }**************************/

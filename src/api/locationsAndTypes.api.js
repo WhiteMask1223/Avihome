@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = '/admin/dashboard/api/'
+const url = '/admin/api/'
 
 
 /**************************{ Read }**************************/

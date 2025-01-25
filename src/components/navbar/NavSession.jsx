@@ -8,9 +8,9 @@ import LoadingBg from "../UI/utility/LoadingBg";
 export default function NavSession() {
 
     const { sessionSidebar, toggleSessionSidebar } = useContext(UtilityContex);
-    const { userData } = useContext(UserContext);
+    const { userData, userSession } = useContext(UserContext);
 
-    if (!userData) {
+    if (!userSession) {
         return (
             <LoadingBg conditional={true} />
         );

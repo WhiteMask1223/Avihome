@@ -2,7 +2,6 @@ import {
     saveOffert_Service,
     getOffertById_Service,
     getOffertsByUserId_Service,
-    getOffertsLocationAndType_Service,
     getMainPageOfferts_Service,
     updateOffert_Service,
     changeRoomsAvailable_Service,
@@ -12,6 +11,8 @@ import {
     saveImageInCloudinary,
     eliminateCdnryImg
 } from "@/services/offerts.service";
+
+import { saveLogEntrie_Service } from "@/services/log.service";
 
 import { IS_DEVELOPMENT } from "@/config"; //TODO: DELTE ME
 
@@ -150,6 +151,12 @@ export const saveOffert_Controller = async (formData) => {
 
     const res = await saveOffert_Service(offertData);
 
+    await saveLogEntrie_Service({
+        action: "creó una Oferta de nombre",
+        text: formData.title,
+        user: formData.user
+    })
+
     return res;
 };
 
@@ -222,6 +229,20 @@ export const updateOffert_Controller = async (offertId, newOffertData) => {
 
         updatedOffert = await hiddenHandeler(offertId.id, updatedOffert);
 
+        const logAction = () => {
+            if (newOffertData.title === originalOffertData.title) {
+                return "actualizó una Oferta de nombre"
+            } else {
+                return `actualizó una Oferta de nombre ${originalOffertData.title} a`
+            }
+        }
+
+        await saveLogEntrie_Service({
+            action: logAction(),
+            text: newOffertData.title,
+            user: originalOffertData.user
+        });
+
         return updatedOffert;
     } catch (error) {
         console.log(error)
@@ -238,6 +259,12 @@ export const deleteOffertById_Controller = async (offertId) => {
     offert.images.map((image) => eliminateCdnryImg(image.public_id));
 
     const res = await deleteOffertById_Service(offertId);
+
+    await saveLogEntrie_Service({
+        action: "eliminó una Oferta de nombre",
+        text: offert.title,
+        user: offert.user
+    });
 
     return res;
 };

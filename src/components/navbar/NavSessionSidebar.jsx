@@ -35,7 +35,11 @@ export default function NavSessionSidebar() {
                             <SidebarMenuLi text={"Perfil de Usuario"} href={`/profile/${userData?._id}`} onClick={toggleSessionSidebar} />
 
                             {userData?.role === "Admin" || userData?.role === "Root" ?
-                                <SidebarMenuLi text={"Panel de Administrador"} href={'/admin/dashboard'} onClick={toggleSessionSidebar}/>
+                                <div>
+                                    <SidebarMenuLi text={"Panel de Administrador"} href={'/admin/dashboard'} onClick={toggleSessionSidebar} />
+
+                                    <SidebarMenuLi text={"Log"} href={'/admin/dashboard/log-page'} onClick={toggleSessionSidebar} />
+                                </div>
                                 :
                                 ""
                             }

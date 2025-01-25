@@ -26,6 +26,6 @@ export const config = {
         "/profile/:path*", 
         "/offerts/offertsForm", 
         "/offerts/edit", 
-        "/admin/:path*", 
+        "/admin/dashboard/:path*", 
     ],
 };

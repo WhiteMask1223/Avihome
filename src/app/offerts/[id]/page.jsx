@@ -200,7 +200,7 @@ export default function OfferDetail() {
 
                     </div>
                     :
-                    <div className="bg-subSectionThemeBackground p-4 h-24 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 flex">
+                    <div className="bg-subSectionThemeBackground p-4 h-24 rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 mb-5 flex">
                         <p className="m-auto"><Link href={"/login"} className="text-blue-500 font-bold">Inicia Sesión</Link> para poder ver los datos de contacto del propietario y comentarios de los demás usuarios.</p>
                     </div>
                 }

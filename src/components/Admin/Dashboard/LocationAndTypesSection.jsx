@@ -39,30 +39,35 @@ export default function LocationAndTypesSection() {
 
     return (
         <section className="w-full">
-            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8 flex justify-evenly" >
-                <Tables
-                    tittle={"Localidades:"}
-                    TableData={locations}
+            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
 
-                    createModalTrigger={createLocationModal}
-                    setCreateModalTrigger={setCreateLocationModal}
-                    addButtonText={"Agregar Localidad"}
+                <h1 className="w-fit p-2 text-2xl font-bold mb-5">Editar Localidades y Tipos de Ofertas</h1>
 
-                    getLocationsAndType={getLocationsAndType}
-                />
-                
-                <Tables
-                    tittle={"Tipos de Ofertas:"}
-                    TableData={types}
+                <div className="flex justify-evenly">
+                    <Tables
+                        tittle={"Localidades:"}
+                        TableData={locations}
 
-                    createModalTrigger={createTypesModal}
-                    setCreateModalTrigger={setCreateTypesModal}
-                    addButtonText={"Agregar Tipo de Oferta"}
+                        createModalTrigger={createLocationModal}
+                        setCreateModalTrigger={setCreateLocationModal}
+                        addButtonText={"Agregar Localidad"}
 
-                    isType={true}
+                        getLocationsAndType={getLocationsAndType}
+                    />
 
-                    getLocationsAndType={getLocationsAndType}
-                />
+                    <Tables
+                        tittle={"Tipos de Ofertas:"}
+                        TableData={types}
+
+                        createModalTrigger={createTypesModal}
+                        setCreateModalTrigger={setCreateTypesModal}
+                        addButtonText={"Agregar Tipo de Oferta"}
+
+                        isType={true}
+
+                        getLocationsAndType={getLocationsAndType}
+                    />
+                </div>
             </div >
         </section>
     )

@@ -84,15 +84,15 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
 
     return (
         <ModalSection trigger={trigger} setTrigger={setTrigger}>
-            <div className="w-full sm:max-w-md h-fit m-auto bg-sectionThemeBackground p-5 rounded-2xl shadow-lg inset-0 fixed z-50 mt-32">
+            <div className="w-full sm:max-w-lg h-fit m-auto bg-sectionThemeBackground p-5 sm:rounded-2xl shadow-lg inset-0 fixed z-50 mt-24">
 
-                <h1 className="m-auto w-fit p-2 text-2xl font-bold">Editar Información del Perfil</h1>
+                <h1 className="m-auto w-fit p-2 text-xl font-bold">Editar Información del Perfil</h1>
 
                 <h2 className="text-center font-bold text-red-500">{formError[1]}</h2>
 
                 <form onSubmit={handleSubmit}>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="name" className="font-bold flex">
                             Nombre de Usuario: <Asterisk />
                         </label>
@@ -108,7 +108,7 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
                         />
                     </div>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="phone" className="font-bold flex">
                             Número de Teléfono: <Asterisk />
                         </label>
@@ -126,7 +126,7 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
                         />
                     </div>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="contEmail" className="font-bold">
                             Correo Electrónico de Contacto:
                         </label>
@@ -141,7 +141,7 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
                         />
                     </div>
 
-                    <div className="flex justify-evenly mt-10">
+                    <div className="flex justify-evenly mt-5">
                         <SubmitButton
                             text={"Editar Perfil"}
                             disabled={updating}

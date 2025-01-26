@@ -12,6 +12,7 @@ import {
     eliminateCdnryImg
 } from "@/services/offerts.service";
 
+import { getSession_Controller } from "./auth.controller";
 import { saveLogEntrie_Service } from "@/services/log.service";
 
 import { IS_DEVELOPMENT } from "@/config"; //TODO: DELTE ME
@@ -151,10 +152,15 @@ export const saveOffert_Controller = async (formData) => {
 
     const res = await saveOffert_Service(offertData);
 
+    const userData = await getSession_Controller(formData.user);
+
     await saveLogEntrie_Service({
         action: "creó una Oferta de nombre",
-        text: formData.title,
-        user: formData.user
+        text: `"${formData.title}"`,
+        user: {
+            _id: userData.user.id,
+            name: userData.user.name
+        }
     })
 
     return res;
@@ -240,7 +246,10 @@ export const updateOffert_Controller = async (offertId, newOffertData) => {
         await saveLogEntrie_Service({
             action: logAction(),
             text: newOffertData.title,
-            user: originalOffertData.user
+            user: {
+                _id: originalOffertData.user._id,
+                name: originalOffertData.user.name
+            }
         });
 
         return updatedOffert;
@@ -260,10 +269,16 @@ export const deleteOffertById_Controller = async (offertId) => {
 
     const res = await deleteOffertById_Service(offertId);
 
+
+    const userData = await getSession_Controller();
+
     await saveLogEntrie_Service({
         action: "eliminó una Oferta de nombre",
-        text: offert.title,
-        user: offert.user
+        text: `"${offert.title}"`,
+        user: {
+            _id: userData.user.id,
+            name: userData.user.name
+        }
     });
 
     return res;

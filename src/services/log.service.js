@@ -5,7 +5,7 @@ import LogEntrieModel from "@/models/LogEntrie.model";
 
 export const getLogEntries_Service = async () => {
     try {
-        const entries = await LogEntrieModel.find().sort({ createdAt: 1 }).populate({ path: 'user', select: 'name' }).lean();
+        const entries = await LogEntrieModel.find().sort({ createdAt: -1 }).populate({ path: 'user', select: 'name' }).lean();
 
         return entries;
     } catch (error) {

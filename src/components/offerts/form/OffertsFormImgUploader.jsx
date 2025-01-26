@@ -23,8 +23,6 @@ export default function ImgUploader({
     }
 
     const handleFilesChange = async (event) => {
-        console.log(offertsFormData)
-
         setSaving(true);
 
         if (offertsFormData.images.length === 5) {
@@ -101,7 +99,7 @@ export default function ImgUploader({
 
     return (
         <div className="mt-5">
-            <div className="flex justify-between">
+            <div className="sm:flex justify-between mx-2">
                 <div>
                     <h3 className="flex text-lg font-bold">
                         Imagenes de la Residencia <Asterisk />
@@ -109,18 +107,20 @@ export default function ImgUploader({
 
                     <p className="text-grayFontThemeColor text-sm">Minimo 3 imágenes, maximo 5 imágenes</p>
                 </div>
-                <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
-                    {saving ? <LoadingSpinners /> : "Subir Imagen"}
-                </label>
-                <input
-                    id="imgUploader"
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleFilesChange}
-                    disabled={saving || offertsFormData.images.length >= 5}
-                    className={"hidden"}
-                />
+                <div className="w-fit mt-5 sm:mt-0">
+                    <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
+                        {saving ? <LoadingSpinners /> : "Subir Imagen"}
+                    </label>
+                    <input
+                        id="imgUploader"
+                        type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleFilesChange}
+                        disabled={saving || offertsFormData.images.length >= 5}
+                        className={"hidden"}
+                    />
+                </div>
             </div>
 
             {offertsFormData.images.length ?
@@ -131,7 +131,7 @@ export default function ImgUploader({
                     saving={saving}
                 />
                 :
-                <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4" />
+                <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground sm:rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4" />
             }
         </div>
     );

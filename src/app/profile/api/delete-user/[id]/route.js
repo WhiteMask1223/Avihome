@@ -8,13 +8,13 @@ export async function DELETE(request) {
         const { pathname } = new URL(request.url);
         const parts = pathname.split("/");
 
-        const id = parts[parts.length - 1];
+        const id = parts[parts.length -1];
 
         if (!id) {
             return new Response(JSON.stringify({ message: "ID es requerido" }), { status: 400 });
-        }
-
-        const response = await deleteUserById_Controller(id);
+        };
+        
+        const response = await deleteUserById_Controller( id );
 
         return Response.json(response);
     } catch (error) {

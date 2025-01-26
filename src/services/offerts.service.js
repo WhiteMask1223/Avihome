@@ -193,7 +193,7 @@ export const deleteOffertsByUserId_Service = async (userId) => {
     try {
         const result = await OffertModel.deleteMany({ user: userId });
 
-        if (!result.deletedCount) {
+        if (!result.acknowledged) {
             return { error: true, status: 404, message: "Oferta no Encontrada" }
         };
 

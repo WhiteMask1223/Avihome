@@ -48,7 +48,7 @@ export default function UserProfile() {
             setUser(userData);
             setSameUser(true);
         } catch (error) {
-            console.erro("fetchUserData error: ", error);
+            console.error("fetchUserData error: ", error);
         }
     };
 
@@ -58,6 +58,8 @@ export default function UserProfile() {
     const fetchUser = async (id) => {
         try {
             const user = await get_UserById(id)
+
+            console.log(user)
             return user
         } catch (error) {
             console.error("fetchUser error: ", error);
@@ -105,7 +107,7 @@ export default function UserProfile() {
     };
 
     return (
-        <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
+        <section className="pt-24 sm:px-6 min-h-screen flex flex-col items-center">
 
             <ProfileUserSecction user={user} sameUser={sameUser} setUser={setUser}/>
 

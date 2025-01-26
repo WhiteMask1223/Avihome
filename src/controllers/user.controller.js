@@ -9,6 +9,10 @@ import {
 
 import { deleteOffertsByUserId_Service } from "@/services/offerts.service";
 
+import { saveLogEntrie_Service } from "@/services/log.service";
+
+import { getSession_Controller } from "./auth.controller";
+
 const bcrypt = require('bcrypt');
 
 /**************************{ Create }**************************/
@@ -30,6 +34,15 @@ export const registerUser_Controller = async (userData) => {
         active: res.active,
         _id: res._id,
     };
+
+    await saveLogEntrie_Service({
+        action: "",
+        text: "Se ha registrado en el sistema exitosamente",
+        user: {
+            _id: res._id,
+            name: res.name
+        }
+    });
 
     return data
 };
@@ -98,6 +111,28 @@ export const updateUserInfo_Controller = async (userId, data) => {
     try {
         const res = await updateUserInfo_Service(userId, data);
 
+        const userData = await getSession_Controller();
+        
+        if ( res.name !== userData.user.name) {
+            await saveLogEntrie_Service({
+                action: "actualizó su usuario, cambiando su nombre a",
+                text: `${res.name}`,
+                user: {
+                    _id: res._id,
+                    name: userData.user.name 
+                }
+            });
+        } else {
+            await saveLogEntrie_Service({
+                action: "",
+                text: "actualizó su usuario",
+                user: {
+                    _id: res._id,
+                    name: res.name
+                }
+            });
+        };
+
         return res;
     } catch (error) {
         console.log(error)
@@ -109,13 +144,36 @@ export const updateUserInfo_Controller = async (userId, data) => {
 /**************************{ Delete }**************************/
 
 export const deleteUserById_Controller = async (userId) => {
-
     try {
+        const userData = await getSession_Controller();
+
         const deleteOffertsResponse = await deleteOffertsByUserId_Service(userId);
 
         if (!deleteOffertsResponse.error) {
+            const userDeleted = await getUserById_Controller(userId);
+
             const res = await deleteUserById_Service(userId);
 
+            if ( userId !== userData.user.id) {
+                await saveLogEntrie_Service({
+                    action: "eliminó al usuario de nombre",
+                    text: `"${userDeleted.name}", junto con todas sus ofertas`,
+                    user: {
+                        _id: userData.user.id,
+                        name: userData.user.name 
+                    }
+                });
+            } else {
+                await saveLogEntrie_Service({
+                    action: "",
+                    text: "eliminó su usuario y todas sus ofertas del sistema",
+                    user: {
+                        _id: userDeleted._id,
+                        name: userDeleted.name
+                    }
+                });
+            };
+            
             return res;
         };
     } catch (error) {

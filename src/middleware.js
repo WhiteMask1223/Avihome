@@ -24,8 +24,11 @@ export async function middleware(request) {
 export const config = {
     matcher: [
         "/profile/:path*", 
-        "/offerts/offertsForm", 
-        "/offerts/edit", 
+        "/offerts/offertsForm",
+        "/offerts/edit",
+        "/offerts/api/delete-offert",
+        "/offerts/api/save-offert",
+        "/offerts/api/update-offert",
         "/admin/dashboard/:path*", 
     ],
 };

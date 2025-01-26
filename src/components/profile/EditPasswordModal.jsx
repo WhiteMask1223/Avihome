@@ -65,15 +65,15 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
 
     return (
         <ModalSection trigger={trigger} setTrigger={setTrigger}>
-            <div className="w-full sm:max-w-md h-fit m-auto bg-sectionThemeBackground p-5 rounded-2xl shadow-lg inset-0 fixed z-50 mt-32">
+            <div className="w-full sm:max-w-md h-fit m-auto bg-sectionThemeBackground p-5 sm:rounded-2xl shadow-lg inset-0 fixed z-50 mt-24">
 
-                <h1 className="m-auto w-fit p-2 text-2xl font-bold">Cambiar Contraseña</h1>
+                <h1 className="m-auto w-fit p-2 text-xl font-bold">Cambiar Contraseña</h1>
 
                 <h2 className="text-center font-bold text-red-500">{formError[1]}</h2>
 
                 <form onSubmit={handleSubmit}>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="oldPassword" className="font-bold">
                             Introduzca su antigua contraseña:
                         </label>
@@ -88,7 +88,7 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
                         />
                     </div>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="newPassword" className="font-bold">
                             Introduzca su nueva contraseña:
                         </label>
@@ -103,7 +103,7 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
                         />
                     </div>
 
-                    <div className="mt-6">
+                    <div className="mt-2">
                         <label htmlFor="repNewPassword" className="font-bold">
                             Repita su contraseña:
                         </label>
@@ -126,11 +126,11 @@ export default function EditPasswordModal({ trigger, setTrigger, user }) {
                         </button>
                     </div>
 
-                    <div className="flex justify-evenly mt-10">
+                    <div className="flex justify-evenly mt-5">
                         <SubmitButton
                             text={"Cambiar Contraseña"}
                             disabled={updating}
-                            styles={'min-w-44'}
+                            styles={'min-w-44 px-2'}
                         />
 
                         <Button

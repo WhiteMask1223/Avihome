@@ -13,7 +13,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser, setUserO
 
     return (
         <section className="w-full">
-            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto">
+            <div className="bg-sectionThemeBackground p-6 sm:rounded-2xl shadow-lg shadow-sectionThemeShadow w-full sm:w-11/12 my-5 mx-auto">
 
                 <div className="flex justify-between mb-4">
 

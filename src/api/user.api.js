@@ -53,6 +53,6 @@ export const delete_user = async (id) => {
         
         return response.data
     } catch (error) {
-        console.error(error)
+        console.error(error);
     };
 };

@@ -19,7 +19,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
     const router = useRouter();
 
-    const { logout } = useContext(UserContext);
+    const { userData, logout } = useContext(UserContext);
     const { fetchOfferts } = useContext(MainPageContext);
 
     const [editPswModal, setEditPswModal] = useState(false);
@@ -40,12 +40,16 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
     const deleteUser = async () => {
         try {
-            const deleteResponse = await delete_user(user._id);
+            const deleteResponse = await delete_user(user._id, userData._id);
 
-            await signOut({ redirect: false });
-            logout();
-            fetchOfferts();
-            router.push("/");
+            if (!deleteResponse.error) {
+                triggerDelete();
+
+                await signOut({ redirect: false });
+                logout();
+                fetchOfferts();
+                router.push("/");
+            };
         } catch (error) {
             console.error(error)
         }
@@ -55,7 +59,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
     return (
         <section className="w-full">
-            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
+            <div className="bg-sectionThemeBackground p-6 sm:rounded-2xl shadow-lg shadow-sectionThemeShadow w-full sm:w-11/12 mb-8 sm:m-auto" >
 
                 <h2 className="text-xl font-bold mb-4">{
                     user.role === "User" ?
@@ -65,7 +69,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                 }</h2>
 
                 <div className="sm:flex items-center justify-between">
-                    <div className="sm:flex">
+                    <div className="flex">
                         <i className="ri-account-circle-line text-6xl"></i>
                         <div className="my-auto">
                             <h3 className="text-lg font-semibold">{user.name}</h3>
@@ -80,7 +84,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                     </div>
                 </div>
                 {sameUser &&
-                    <div className="mt-4 flex items-center justify-between space-x-4">
+                    <div className="mt-4 sm:flex items-center justify-between sm:space-x-4">
                         <div className="flex flex-col">
                             <Button
                                 styles={"w-full px-4 py-2"}
@@ -96,7 +100,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
                             <Button
                                 styles={"w-full px-4 py-2 mt-2"}
-                                text={"Cambiar Información del Perfil"}
+                                text={"Cambiar Información"}
                                 buttonFunction={triggerEditInfoFunction}
                             />
                             <EditInfoModal
@@ -110,7 +114,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                         {user.role === "Root" || user.role === "Admin" ?
                             ""
                             :
-                            <DangerButton styles={"w-fit"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
+                            <DangerButton styles={"w-full sm:w-fit mt-5 sm:mt-0"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
                         }
 
                         <DeleteConfirm
@@ -121,6 +125,22 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                             deleteFunction={deleteUser}
                         />
                     </div>
+                }
+
+                {userData.role === "Root" || userData.role === "Admin" && !sameUser ?
+                    <div>
+                        <DangerButton styles={"w-full sm:w-fit mt-5 sm:mt-0"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
+
+                        <DeleteConfirm
+                            text={"esta cuenta de Usuario"}
+                            otherText={"Todas las Ofertas creadas serán eliminadas, al igual que toda su información personal."}
+                            trigger={deletePopUp}
+                            setTrigger={setDeletePopUp}
+                            deleteFunction={deleteUser}
+                        />
+                    </div>
+                    :
+                    ""
                 }
             </div >
         </section>

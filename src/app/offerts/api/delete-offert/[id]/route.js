@@ -12,7 +12,7 @@ export async function DELETE(request) {
 
         if (!id) {
             return new Response(JSON.stringify({ message: "ID es requerido" }), { status: 400 });
-        }
+        };
         
         const response = await deleteOffertById_Controller( id );
 

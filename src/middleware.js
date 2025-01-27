@@ -29,6 +29,6 @@ export const config = {
         "/offerts/api/delete-offert",
         "/offerts/api/save-offert",
         "/offerts/api/update-offert",
-        "/admin/dashboard/:path*", 
+        "/admin/:path*", 
     ],
 };

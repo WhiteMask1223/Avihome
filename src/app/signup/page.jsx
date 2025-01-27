@@ -33,7 +33,7 @@ export default function SingInPage() {
     };
 
     const [registrationData, setRegistrationData] = useState(registrationDataObjTemplate);
-    const [showPassword, setShowPassword] = useState({ psw: false, pswR: false });
+    const [showPassword, setShowPassword] = useState(false);
     const [credentialsError, setCredentialsError] = useState([false, '']);
     const [saving, setSaving] = useState(false);
 
@@ -63,11 +63,8 @@ export default function SingInPage() {
         }));
     }
 
-    const handleShowPassword = (key, newValue) => {
-        setShowPassword((prevValue) => ({
-            ...prevValue,
-            [key]: newValue
-        }));
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleSubmit = async (e) => {
@@ -178,7 +175,7 @@ export default function SingInPage() {
                         Contraseña <Asterisk />
                     </label>
                     <VariableInput
-                        type={`${showPassword.psw ? "text" : "password"}`}
+                        type={`${showPassword ? "text" : "password"}`}
                         id={"password"}
                         value={registrationData.password}
                         setStateFunction={updateRegistrationData}
@@ -186,8 +183,6 @@ export default function SingInPage() {
                         autoComplete={"off"}
                         error={credentialsError[0]}
                     />
-
-                    <button type="button" onClick={() => { handleShowPassword('psw', !showPassword.psw) }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
                 </div>
 
                 <div>
@@ -195,7 +190,7 @@ export default function SingInPage() {
                         Repita su Contraseña <Asterisk />
                     </label>
                     <VariableInput
-                        type={`${showPassword.pswR ? "text" : "password"}`}
+                        type={`${showPassword ? "text" : "password"}`}
                         id={"passwordRepeat"}
                         value={registrationData.passwordRepeat} setStateFunction={updateRegistrationData}
                         required
@@ -203,7 +198,7 @@ export default function SingInPage() {
                         error={credentialsError[0]}
                     />
 
-                    <button type="button" onClick={() => { handleShowPassword('pswR', !showPassword.pswR) }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
+                    <button type="button" onClick={() => { handleShowPassword() }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
                 </div>
 
                 {/* altEmail Input */}

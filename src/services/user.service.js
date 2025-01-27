@@ -31,6 +31,17 @@ export const registerUser_Service = async (data) => {
 
 /**************************{ Read }**************************/
 
+export const getAdmins_Service = async () => {
+    try {
+        const admins = await UserModel.find({ role: "Admin" }).lean();
+
+        return admins;
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "Error interno" };
+    }
+};
+
 export const getUserById_Service = async (_id) => {
     try {
         const user = await UserModel.findOne({ _id });

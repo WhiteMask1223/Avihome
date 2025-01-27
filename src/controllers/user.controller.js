@@ -4,7 +4,8 @@ import {
     getUserByEmail_Service,
     updateUserPassword_Service,
     updateUserInfo_Service,
-    deleteUserById_Service
+    deleteUserById_Service,
+    getAdmins_Service
 } from "@/services/user.service";
 
 import { deleteOffertsByUserId_Service } from "@/services/offerts.service";
@@ -36,8 +37,15 @@ export const registerUser_Controller = async (userData) => {
     };
 
     await saveLogEntrie_Service({
-        action: "",
-        text: "Se ha registrado en el sistema exitosamente",
+        action: {
+            actionId: "CREATE",
+            actionText: "Se ha registrado en el sistema exitosamente",
+        },
+        item:{
+            _id: res._id,
+            type: "USER",
+            name: "",
+        },
         user: {
             _id: res._id,
             name: res.name
@@ -49,6 +57,28 @@ export const registerUser_Controller = async (userData) => {
 
 
 /**************************{ Read }**************************/
+
+export const getAdmins_Controller = async () => {
+    const res = await getAdmins_Service();
+
+    let data = [];
+
+    if (res.length) {
+        res.map((admin) => {
+            data.push({
+                name: admin.name,
+                email: admin.email,
+                contEmail: admin.contEmail,
+                phone: admin.phone,
+                role: admin.role,
+                active: admin.active,
+                _id: admin._id,
+            });
+        });
+    };
+
+    return data;
+};
 
 export const getUserById_Controller = async (id) => {
     const res = await getUserById_Service(id);
@@ -114,18 +144,34 @@ export const updateUserInfo_Controller = async (userId, data) => {
         const userData = await getSession_Controller();
         
         if ( res.name !== userData.user.name) {
+
             await saveLogEntrie_Service({
-                action: "actualizó su usuario, cambiando su nombre a",
-                text: `${res.name}`,
+                action: {
+                    actionId: "UPDATE",
+                    actionText: "actualizó su usuario, cambiando su nombre a:",
+                },
+                item: {
+                    _id: res._id,
+                    type: "USER",
+                    name: `"${res.name}"`,
+                },
                 user: {
                     _id: res._id,
                     name: userData.user.name 
                 }
             });
+
         } else {
             await saveLogEntrie_Service({
-                action: "",
-                text: "actualizó su usuario",
+                action: {
+                    actionId: "UPDATE",
+                    actionText: "actualizó su usuario",
+                },
+                item: {
+                    _id: res._id,
+                    type: "USER",
+                    name: "",
+                },
                 user: {
                     _id: res._id,
                     name: res.name
@@ -156,8 +202,15 @@ export const deleteUserById_Controller = async (userId) => {
 
             if ( userId !== userData.user.id) {
                 await saveLogEntrie_Service({
-                    action: "eliminó al usuario de nombre",
-                    text: `"${userDeleted.name}", junto con todas sus ofertas`,
+                    action: {
+                        actionId: "DELETE",
+                        actionText: "eliminó al usuario de nombre",
+                    },
+                    item:  {
+                        _id: userDeleted._id,
+                        type: "USER",
+                        name: `"${userDeleted.name}", junto con todas sus ofertas`,
+                    },
                     user: {
                         _id: userData.user.id,
                         name: userData.user.name 
@@ -165,8 +218,15 @@ export const deleteUserById_Controller = async (userId) => {
                 });
             } else {
                 await saveLogEntrie_Service({
-                    action: "",
-                    text: "eliminó su usuario y todas sus ofertas del sistema",
+                    action: {
+                        actionId: "DELETE",
+                        actionText: "eliminó su usuario y todas sus ofertas del sistema.",
+                    },
+                    item: {
+                        _id: userDeleted._id,
+                        type: "USER",
+                        name: "",
+                    },
                     user: {
                         _id: userDeleted._id,
                         name: userDeleted.name

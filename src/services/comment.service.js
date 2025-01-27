@@ -15,6 +15,16 @@ export const getOffertsCommentById_Service = async (offertId) => {
     }
 };
 
+export const getCommentById_Service = async (commentId) => {
+    try {
+        const comment = await CommentModel.findById(commentId).populate({ path: 'userId', select: 'name' }).lean();
+        
+        return comment;
+    } catch (error) {
+        throw new Error('Error getOffertsCommentAndType_Service: ' + error.message);
+    }
+};
+
 
 /**************************{ Create }**************************/
 

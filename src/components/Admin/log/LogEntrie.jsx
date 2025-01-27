@@ -16,11 +16,25 @@ export default function LogEntrie({ entrie }) {
             second: "2-digit",
         })
     };
-    
+
 
     return (
         <div>
-            <p><strong>{formatDate(entrie.createdAt)} | <Link href={`/profile/${entrie.user._id}`}>{entrie.user.name}</Link></strong> {entrie.action}: {entrie.text}</p>
+            <p>
+                <strong>{formatDate(entrie.createdAt)} |
+                    <Link href={`/profile/${entrie.user._id}`}>
+                        {` ${entrie.user.name} `}
+                    </Link>
+                </strong>
+
+                {entrie.action.actionText}
+
+                <Link href={`/${entrie.item.type === "USER" ? "profile" : "offerts"}/${entrie.item._id}`}>
+                    <strong>
+                        {` ${entrie.item.name}`}
+                    </strong>
+                </Link>
+            </p>
         </div>
     );
 };

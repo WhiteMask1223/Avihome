@@ -17,7 +17,7 @@ export default function AdminDashboard() {
     }, []);
 
     return (
-        <section className="p-6 pt-24 min-h-screen flex flex-col items-center">
+        <section className="pt-24 min-h-screen flex flex-col items-center">
             <LocationAndTypesSection />
         </section>
     );

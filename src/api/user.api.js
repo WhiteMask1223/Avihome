@@ -3,6 +3,13 @@ import axios from "axios";
 
 /**************************{ Get }**************************/
 
+export const get_Admins = async () => {
+    const response = await axios.get('/admin/api/get-admins');
+
+    return response.data
+};
+
+
 export const get_UserById = async (data) => {
     const response = await axios.post('/login/api/get-user-by-id', data);
     return response.data

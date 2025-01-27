@@ -7,7 +7,7 @@ const url = '/admin/api/'
 
 export const get_OffertsLocationAndType = async () => {
     try {
-        const response = await axios.get(`${url}get-location-and-type`);
+        const response = await axios.get(`/offerts/api/get-location-and-type`);
 
         return response.data
     } catch (error) {

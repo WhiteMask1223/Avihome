@@ -108,7 +108,7 @@ export default function ImgUploader({
                     <p className="text-grayFontThemeColor text-sm">Minimo 3 imágenes, maximo 5 imágenes</p>
                 </div>
                 <div className="w-fit mt-5 sm:mt-0">
-                    <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
+                    <label htmlFor="imgUploader" className={`${saving ? "bg-submitButtonDisabledColor cursor-wait" : offertsFormData.images.length >= 5 ? "bg-submitButtonDisabledColor" : "bg-submitButtonColor hover:bg-submitButtonHoverColor"} w-40 h-full text-lg text-white font-bold rounded-lg sm:text-base transition duration-300 ease-in-out  focus:outline-none border-0 flex items-center place-content-center`}>
                         {saving ? <LoadingSpinners /> : "Subir Imagen"}
                     </label>
                     <input

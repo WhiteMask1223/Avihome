@@ -34,16 +34,16 @@ export default function LocationAndTypesSection() {
     }
 
     if (!locations || !types) return (
-        <LoadingBg conditional={false} />
+        <LoadingBg conditional={true} />
     )
 
     return (
         <section className="w-full">
-            <div className="bg-sectionThemeBackground p-6 rounded-2xl shadow-lg shadow-sectionThemeShadow w-11/12 m-auto mb-8" >
+            <div className="bg-sectionThemeBackground sm:px-6 sm:rounded-2xl shadow-lg shadow-sectionThemeShadow w-full sm:w-11/12 m-auto mb-8 py-5" >
 
                 <h1 className="w-fit p-2 text-2xl font-bold mb-5">Editar Localidades y Tipos de Ofertas</h1>
 
-                <div className="flex justify-evenly">
+                <div className="xl:flex justify-evenly">
                     <Tables
                         tittle={"Localidades:"}
                         TableData={locations}

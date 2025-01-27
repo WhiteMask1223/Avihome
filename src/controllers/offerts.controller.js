@@ -155,8 +155,15 @@ export const saveOffert_Controller = async (formData) => {
     const userData = await getSession_Controller(formData.user);
 
     await saveLogEntrie_Service({
-        action: "creó una Oferta de nombre",
-        text: `"${formData.title}"`,
+        action: {
+            actionId: "CREATE",
+            actionText: "creó una Oferta de nombre:",
+        },
+        item: {
+            _id: res._id,
+            type: "OFFERT",
+            name: `"${res.title}"`,
+        },
         user: {
             _id: userData.user.id,
             name: userData.user.name
@@ -237,15 +244,22 @@ export const updateOffert_Controller = async (offertId, newOffertData) => {
 
         const logAction = () => {
             if (newOffertData.title === originalOffertData.title) {
-                return "actualizó una Oferta de nombre"
+                return "actualizó una Oferta de nombre:"
             } else {
-                return `actualizó una Oferta de nombre ${originalOffertData.title} a`
+                return `actualizó una Oferta de nombre: ${originalOffertData.title} a:`
             }
         }
 
         await saveLogEntrie_Service({
-            action: logAction(),
-            text: newOffertData.title,
+            action: {
+                actionId: "UPDATE",
+                actionText: logAction(),
+            },
+            item: {
+                _id: updatedOffert._id,
+                type: "OFFERT",
+                name: `"${updatedOffert.title}"`,
+            },
             user: {
                 _id: originalOffertData.user._id,
                 name: originalOffertData.user.name
@@ -273,8 +287,15 @@ export const deleteOffertById_Controller = async (offertId) => {
     const userData = await getSession_Controller();
 
     await saveLogEntrie_Service({
-        action: "eliminó una Oferta de nombre",
-        text: `"${offert.title}"`,
+        action: {
+            actionId: "DELETE",
+            actionText: "eliminó una Oferta de nombre:",
+        },
+        item: {
+            _id: offert._id,
+            type: "OFFERT",
+            name: `"${offert.title}"`,
+        },
         user: {
             _id: userData.user.id,
             name: userData.user.name

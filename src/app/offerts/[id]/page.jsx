@@ -36,7 +36,7 @@ export default function OfferDetail() {
     const getOffert = useCallback(async () => {
         try {
             const dbOffert = await get_OffertById(offertId);
-            
+
             if (dbOffert) {
                 setOffert(dbOffert);
             };
@@ -112,7 +112,7 @@ export default function OfferDetail() {
                                 {
                                     deleting
                                         ?
-                                        <LoadingSpinners size={"very small"} />
+                                        <LoadingSpinners />
                                         :
                                         <i className="ri-delete-bin-2-fill text-white" />
                                 }

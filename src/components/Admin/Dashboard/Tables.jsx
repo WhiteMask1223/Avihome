@@ -49,8 +49,8 @@ export default function Tables({
 
 
     return (
-        <div className="w-2/5">
-            <div className="flex justify-between">
+        <div className="w-3/4 xl:w-2/5 mt-5 2xl:mt-0 mx-auto">
+            <div className="lg:flex justify-between">
                 <h1 className="text-xl font-bold mb-4">{tittle}</h1>
 
                 <button

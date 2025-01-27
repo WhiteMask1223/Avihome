@@ -38,7 +38,13 @@ export default function NavSessionSidebar() {
                                 <div>
                                     <SidebarMenuLi text={"Panel de Administrador"} href={'/admin/dashboard'} onClick={toggleSessionSidebar} />
 
-                                    <SidebarMenuLi text={"Log"} href={'/admin/dashboard/log-page'} onClick={toggleSessionSidebar} />
+                                    {userData?.role === "Root" ?
+                                        <SidebarMenuLi text={"Registro de administrador"} href={'/admin/admin-register'} onClick={toggleSessionSidebar} />
+                                        :
+                                        ""
+                                    }
+
+                                    <SidebarMenuLi text={"Historial de Registro"} href={'/admin/dashboard/log-page'} onClick={toggleSessionSidebar} />
                                 </div>
                                 :
                                 ""

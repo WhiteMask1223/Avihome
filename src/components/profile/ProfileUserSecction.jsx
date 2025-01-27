@@ -55,7 +55,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
         }
     };
 
-    if (!user) return
+    if (!user || !userData) return
 
     return (
         <section className="w-full">

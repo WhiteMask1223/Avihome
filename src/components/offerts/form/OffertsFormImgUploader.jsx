@@ -13,7 +13,8 @@ export default function ImgUploader({
     setSaving,
     formError,
     setFormError,
-    isOffertEdit
+    isOffertEdit,
+    isOffertCreate
 }) {
 
     const compressionOptions = {
@@ -59,19 +60,12 @@ export default function ImgUploader({
         });
 
         Promise.all(fileReaders)
-            .then((selectedImages) => selectedImages.map((selectedImage) => {
+            .then((selectedImages) => selectedImages.map((image) => {
                 setOffertsFormData(prevFormData => ({
                     ...prevFormData,
-                    images: [...prevFormData.images, selectedImage]
+                    images: [...prevFormData.images, image],
+                    ...(isOffertEdit && { localImages: [...prevFormData.localImages, image]})
                 }));
-
-                if (isOffertEdit) {
-                    setOffertsFormData(prevFormData => ({
-                        ...prevFormData,
-                        localImages: [...prevFormData.localImages, selectedImage]
-                    }));
-                };
-
                 setSaving(false);
             }))
             .catch((err) => console.error("Error al leer las imágenes:", err));
@@ -123,12 +117,13 @@ export default function ImgUploader({
                 </div>
             </div>
 
-            {offertsFormData.images.length ?
+            {offertsFormData.images.length || offertsFormData.localImages?.length  ? //TODO:DELETE ME
                 <Carrousel
                     offert={offertsFormData}
                     isEdit={true}
                     deleteImg={deleteImage}
                     saving={saving}
+                    isCreating={isOffertCreate}
                 />
                 :
                 <div className="flex justify-center gap-4 py-3 h-80 bg-subSectionThemeBackground sm:rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4" />

@@ -9,19 +9,14 @@ import Asterisk from "@/components/UI/formElements/Asterisk";
 import { registerUser } from "@/api/user.api";
 import { get_Admins } from "@/api/user.api";
 
-import { validateEmail, phoneNumberValidator } from "@/validations/user.validation";
+import { validateSignUpData } from "@/validations/user.validation";
 import AdminsTable from "@/components/Admin/register/AdminsTable";
+import { phoneNumberFormater } from "@/utils/offertsUtils";
 
 export default function AdminRegister() {
 
 
     /**************************{ Declaraciones }**************************/
-
-    const [admins, setAdmins] = useState(null);
-
-    
-
-    
 
     const registrationDataObjTemplate = {
         name: '',
@@ -33,6 +28,8 @@ export default function AdminRegister() {
         role: 'Admin',
         active: true
     };
+
+    const [admins, setAdmins] = useState(null);
 
     const [registrationData, setRegistrationData] = useState(registrationDataObjTemplate);
     const [showPassword, setShowPassword] = useState(false);
@@ -57,14 +54,9 @@ export default function AdminRegister() {
 
     const updateRegistrationData = (key, newValue) => {
 
-        //Formatea los numeros telefonicos
         if (key === "phone") {
-            newValue = newValue.replace(/[^0-9]/g, "");
-
-            if (newValue.length > 4) {
-                newValue = newValue.slice(0, 4) + "-" + newValue.slice(4);
-            }
-        }
+            newValue = phoneNumberFormater(newValue);
+        };
 
         setRegistrationData((prevRegistrationData) => ({
             ...prevRegistrationData,
@@ -80,25 +72,8 @@ export default function AdminRegister() {
 
         e.preventDefault();
 
-        if (!validateEmail(registrationData.email)) {
-            setCredentialsError([true, 'Ingrese un correo válido.']);
-            updateRegistrationData("email", '');
-            return
-        };
-
-        if (registrationData.password !== registrationData.passwordRepeat || registrationData.password < 6) {
-            setCredentialsError([true, 'Las contraseñas no coinciden.']);
-            updateRegistrationData("password", '');
-            updateRegistrationData("passwordRepeat", '');
-            return
-        };
-
-        if (!phoneNumberValidator(registrationData.phone)) {
-            setCredentialsError([true, 'Ingrese un número de teléfono válido.']);
-            updateRegistrationData("phone", '');
-            return
-        }
-
+        if (!validateSignUpData()) return;
+        
         setSaving(true);
 
         const registerResponse = await registerUser(registrationData);

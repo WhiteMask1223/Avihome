@@ -6,19 +6,27 @@ import { CategoryFilterContext } from './CategoryFilter.context';
 
 import { get_MainPageOfferts } from '@/api/offerts.api';
 
+import { 
+    admitsValidator,
+    availabilityValidator,
+    categoryValidator, 
+    serviceFilterValidator,
+    sortedValidator,
+    areArraysEqual
+} from '@/validations/filters.validation';
+
 export const MainPageContext = createContext();
 
 export const MainPageProvider = ({ children }) => {
 
     /**************************{ Declaraciones }**************************/
 
-    const MAX_ITEMS_PER_PAGE = 15;
+    const MAX_ITEMS_PER_PAGE = 9;
 
 
     const { filterObj } = useContext(CategoryFilterContext);
 
-    const [offertsData, setOfertsData] = useState(null)
-    const [offertsFetched, setOffertsFetched] = useState(false)
+    const [offertsData, setOfertsData] = useState(null);
 
     const [filtredDataForCards, setFiltredDataForCards] = useState([]);
     const [renderedCards, setRenderedCards] = useState(filtredDataForCards.slice(0, MAX_ITEMS_PER_PAGE));
@@ -29,6 +37,8 @@ export const MainPageProvider = ({ children }) => {
 
 
     const [currentPage, setCurrentPage] = useState(totalPages - (totalPages - 1));
+
+    const [fetchingOfferts, setFetchingOfferts] = useState(false);
 
 
     /**************************{ UseEfects }**************************/
@@ -50,44 +60,25 @@ export const MainPageProvider = ({ children }) => {
 
     /*                         { fetching de datos }                         */
 
-    
-    function areArraysEqual(arr1, arr2) {
-
-        if ( !arr1 || arr1.length !== arr2.length) return false;
- 
-        const serialize = (obj) => JSON.stringify(obj);
-
-        const set1 = new Set(arr1.map(serialize));
-        
-        for (const obj of arr2) {
-            if (!set1.has(serialize(obj))) {
-                return false; 
-            };
-        };
-
-        return true;
-    };
-
     const fetchOfferts = async () => {
         try {
-            setOffertsFetched(true);
+            setFetchingOfferts(true);
 
             const offerts = await get_MainPageOfferts();
-
-            console.log("FetchOfferts", offerts);
 
             //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
             if (areArraysEqual(offertsData, offerts)) {
                 console.log("no update")
+                setFetchingOfferts(false);
                 return true;
             };
 
             setOfertsData(offerts);
             setFiltredDataForCards(offerts);
+            setFetchingOfferts(false);
             return true;
-
         } catch (error) {
-            setOffertsFetched(false);
+            setFetchingOfferts(false);
             console.error(error);
             return false;
         };
@@ -128,59 +119,18 @@ export const MainPageProvider = ({ children }) => {
 
     const offertsFilter = useCallback(() => {
 
-        if (!offertsData) {
-            return
-        }
-
+        if (!offertsData) return;
+    
         const filteredCards = offertsData.filter((card) => {
 
-            //Funcion para leer filtros
-            const filterReader = (category, cardData) => {
+            //Filtros de Checkboxes
+            const typeFilter = categoryValidator(filterObj, 'Tipo', card.type);
 
-                //En base al tipo/ubicacion/etc, de la carta, se busca su valor en el filterObj y se devuelve
-                if (Object.values(filterObj[category]).some((value) => value === true)) {
-                    return filterObj[category][cardData];
-                };
+            const locationFilter = categoryValidator(filterObj, 'Ubicación', card.location);
+            
+            const servicesFilter = serviceFilterValidator(filterObj, card);
 
-                //En caso de que todos los valores de filterObj sean False, se devuelve true para que todas las cartas se muestren
-                return true
-            };
-
-            const typeFilter = filterReader('Tipo', card.type);
-
-            const locationFilter = filterReader('Ubicación', card.location);
-
-            //Funcion para filtro de servicios
-            const servicesFilter = Object.entries(filterObj['Servicios']).every(
-
-                //Excluye las cartas donde el servicio seleccionado sea false
-                ([service, isSelected]) => !isSelected || card.services[service]
-            );
-
-            //Filtro de disponibilidad
-            const availabilityFilter = (() => {
-
-                //Se guardan valores booleanos en base a la disponibilidad de la carta
-                const roomFilters = {
-                    'Una Habitación': card.availability.roomsAvailable === 1,
-                    'Dos a Cinco Hablitaciones': card.availability.roomsAvailable >= 2 && card.availability.roomsAvailable <= 5,
-                    'Cinco a Diez Habitaciones': card.availability.roomsAvailable >= 6 && card.availability.roomsAvailable <= 10,
-                    'Más de Diez Habitaciones': card.availability.roomsAvailable > 10,
-                };
-
-                if (Object.values(filterObj['Disponibilidad']).some((value) => value === true)) {
-                    return Object.entries(filterObj['Disponibilidad']).some(
-                        ([key, isSelected]) => isSelected && roomFilters[key]
-                    );
-                };
-                return true
-            });
-
-            const admitsFilter = Object.entries(filterObj['Admite']).every(
-
-                //Excluye las cartas donde admits seleccionado sea false
-                ([key, isSelected]) => !isSelected || card.admits[key]
-            );
+            const admitsFilter = admitsValidator(filterObj, card);
 
             const hiddenFilter = filterObj.showHidden ? true : !card.hidden;
 
@@ -190,34 +140,19 @@ export const MainPageProvider = ({ children }) => {
                 servicesFilter &&
                 admitsFilter &&
                 hiddenFilter &&
-                availabilityFilter()
+                availabilityValidator(filterObj, card)
             );
         });
 
-        const sortedFiltered = [...filteredCards].sort((a, b) => {
-            switch (filterObj.sortBy) {
-                case 'bestRated':
-                    return b.rating - a.rating;
-                case 'worstRated':
-                    return a.rating - b.rating;
-                case 'higherAvailability':
-                    return b.availability.roomsAvailable - a.availability.roomsAvailable;
-                case 'lowerAvailability':
-                    return a.availability.roomsAvailable - b.availability.roomsAvailable;
-                case 'latest':
-                    return new Date(b.createdAt) - new Date(a.createdAt);
-                case 'older':
-                    return new Date(a.createdAt) - new Date(b.createdAt);
-                default:
-                    return b.rating - a.rating;
-            };
-        });
+        //Filtro de DropList
+        const sortedFiltered = sortedValidator(filterObj, filteredCards);
 
         //Filtro de busqueda por nombre
         setFiltredDataForCards(sortedFiltered.filter(card =>
             card.title.toLowerCase().includes(searchTerm.toLowerCase())
         ));
 
+        //Se lleva a la pagina 1 al aplicar un filtro
         setCurrentPage(1);
     }, [offertsData, filterObj, searchTerm]);
 
@@ -246,6 +181,8 @@ export const MainPageProvider = ({ children }) => {
                 searchTerm,
 
                 offertsData,
+
+                fetchingOfferts,
 
                 fetchOfferts,
                 pageChangeHandler,

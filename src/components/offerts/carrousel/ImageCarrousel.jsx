@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import useEmblaCarousel from "embla-carousel-react";
 
@@ -11,12 +11,13 @@ import PrevButton from "./PrevButton";
 import NextButton from "./NextButton";
 import DotButton from "./DotButton";
 import ImageModal from "@/components/UI/utility/ImageModal";
+import { IS_DEVELOPMENT } from "@/config";
 
-export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
+export default function Carrousel({ offert, isEdit, isCreating, saving, deleteImg }) {
 
     const [emblaRef, emblaApi] = useEmblaCarousel();
     const [triggerImgModal, setTriggerImgModal] = useState(false);
-    const [base64Img, setBase64Img] = useState(offert.localImages)
+    const [images, setImages] = useState(IS_DEVELOPMENT && isEdit ? offert.localImages : offert.images)
 
     const {
         prevBtnDisabled,
@@ -31,11 +32,26 @@ export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
         onDotButtonClick
     } = useDotButton(emblaApi);
 
+    useEffect(() =>{
+        const formImg = () => {
+            if (isCreating) {
+                return offert.images
+            } else { 
+                return offert.localImages
+            } 
+        };
+
+        if(formImg() !== images) {  
+            console.log("imgupdate");
+            setImages(formImg());
+        };  
+    }, [offert]);
+
     return (
         <section className="embla overflow-hidden bg-subSectionThemeBackground sm:rounded-[20px] shadow-inner shadow-sectionThemeShadow my-4">
             <div className="embla__viewport" ref={emblaRef}>
                 <div className="embla__container flex">
-                    {offert.images.map((img, idx) => (
+                    { images?.map((img, idx) => (
                         <ImageComponent
                             key={idx}
                             idx={idx}
@@ -69,10 +85,9 @@ export default function Carrousel({ offert, isEdit, saving, deleteImg }) {
             <ImageModal
                 trigger={triggerImgModal}
                 setTrigger={setTriggerImgModal}
-                imgUrl={offert.images}
+                imgUrl={images}
                 selectedImg={selectedIndex}
             />
-
         </section>
     );
 

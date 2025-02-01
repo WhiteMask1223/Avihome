@@ -123,6 +123,7 @@ export default function NewOffertForm() {
                 setFormError={setFormError}
                 saving={saving}
                 setSaving={setSaving}
+                isOffertCreating={true}
             />
 
         </OffertsFormSection>

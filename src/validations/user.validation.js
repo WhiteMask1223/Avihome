@@ -9,4 +9,27 @@ export const validateEmail = (email) => {
 export const phoneNumberValidator = (phone) => {
     const regEx = /^\d{4}-\d{7}$/
     return regEx.test(phone)
-}
+};
+
+export const validateSignUpData = (registrationData, setterFunction, setError) => {
+    if (!validateEmail(registrationData.email)) {
+        setError([true, 'Ingrese un correo válido.']);
+        setterFunction("email", '');
+        return false
+    };
+
+    if (registrationData.password !== registrationData.passwordRepeat) {
+        setError([true, 'Las contraseñas no coinciden.']);
+        setterFunction("password", '');
+        setterFunction("passwordRepeat", '');
+        return false
+    };
+
+    if (!phoneNumberValidator(registrationData.phone)) {
+        setError([true, 'Ingrese un número de teléfono válido.']);
+        setterFunction("phone", '');
+        return false
+    };
+
+    return true
+};

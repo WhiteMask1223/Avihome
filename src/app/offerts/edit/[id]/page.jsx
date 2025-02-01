@@ -82,6 +82,8 @@ export default function EditOffertForm() {
         try {
             const offert = await get_OffertById(offertId);
 
+            console.log(offert);
+
             if (!offert.error) {
                 setOffertsFormData(offertsFormDataFormater(offert));
             }
@@ -169,7 +171,10 @@ export default function EditOffertForm() {
 
             if (!saveResponse.error) {
                 router.push(`/profile/${userData._id}`);
+                return;
             };
+
+            setSaving(false);
         } catch (error) {
             console.error(error);
         };
@@ -204,6 +209,7 @@ export default function EditOffertForm() {
                 setFormError={setFormError}
                 saving={saving}
                 setSaving={setSaving}
+                isOffertCreating={false}
             />
 
         </OffertsFormSection>

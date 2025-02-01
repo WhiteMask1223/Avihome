@@ -3,7 +3,6 @@ import OffertsFormSelector from "./OffertsFormSelector";
 import OffertsFormTextArea from "./OffertsFormTextArea";
 import OffertsFormDropList from "./OffertsFormDropList";
 
-import VariableInput from "@/components/UI/formElements/VariableInput";
 import Asterisk from "@/components/UI/formElements/Asterisk";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import DangerButton from "@/components/UI/utility/DangerButton";
@@ -24,6 +23,7 @@ export default function OffertsForm({
 
     //utility
     isOffertEdit,
+    isOffertCreating,
     clearForm,
     formError,
     setFormError,
@@ -103,6 +103,7 @@ export default function OffertsForm({
                 formError={formError}
                 setFormError={setFormError}
                 isOffertEdit={isOffertEdit}
+                isOffertCreate={isOffertCreating}
             />
 
             {/**************************{ Nombre de la oferta }**************************/}

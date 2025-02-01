@@ -14,7 +14,6 @@ export async function middleware(request) {
 
     if (!sessionToken) {    
         // Redirige a /login si no está autenticado
-        console.log("Redirigido")
         if (!isProduction) return NextResponse.redirect(new URL("/login", request.url));
     }
     // Permite el acceso si el usuario está autenticado

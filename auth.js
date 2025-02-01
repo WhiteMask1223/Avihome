@@ -15,24 +15,22 @@ const authOptions = {
                 email: { label: "username", type: "text" },
                 password: { label: "password", type: "password" },
             },
-
             authorize: async (credentials) => {
-                let user = null
-
-                user = await getUserWithPasswordByEmail_Controller(credentials.email)
+                let user = null;
 
                 try {
-                    if (!user) return
+                    user = await getUserWithPasswordByEmail_Controller(credentials.email);
 
-                    if (!await bcrypt.compare(credentials.password, user.password)) return
+                    if (!user) return;
 
+                    if (!await bcrypt.compare(credentials.password, user.password)) return;
                 } catch (error) {
-                    return
-                }
-
-                return user
-            }
-        })
+                    console.log("Auht error: ", error);
+                    return;
+                };
+                return user;
+            },
+        }),
     ],
     pages: {
         signIn: '/login',
@@ -46,15 +44,14 @@ const authOptions = {
         async jwt({ token, user }) {
             if (user) {
                 token.id = user.id;
-            }
+            };
             return token;
         },
         async session({ session, token }) {
             session.user.id = token.id;
-            return session
-        }
-    }
-}
-
+            return session;
+        },
+    },
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth(authOptions);

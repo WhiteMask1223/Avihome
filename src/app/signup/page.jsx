@@ -15,7 +15,9 @@ import Asterisk from "@/components/UI/formElements/Asterisk";
 
 import { registerUser } from "@/api/user.api";
 
-import { validateEmail, phoneNumberValidator } from "@/validations/user.validation";
+import { validateSignUpData } from "@/validations/user.validation";
+import { phoneNumberFormater } from "@/utils/offertsUtils";
+import SignUpInput from "@/components/auth/signup/SignupInput";
 
 export default function SingInPage() {
 
@@ -48,13 +50,8 @@ export default function SingInPage() {
 
     const updateRegistrationData = (key, newValue) => {
 
-        //Formatea los numeros telefonicos
         if (key === "phone") {
-            newValue = newValue.replace(/[^0-9]/g, "");
-
-            if (newValue.length > 4) {
-                newValue = newValue.slice(0, 4) + "-" + newValue.slice(4);
-            }
+            newValue = phoneNumberFormater(newValue);
         }
 
         setRegistrationData((prevRegistrationData) => ({
@@ -74,24 +71,7 @@ export default function SingInPage() {
         const email = registrationData.email
         const password = registrationData.password
 
-        if (!validateEmail(registrationData.email)) {
-            setCredentialsError([true, 'Ingrese un correo válido.']);
-            updateRegistrationData("email", '');
-            return
-        };
-
-        if (registrationData.password !== registrationData.passwordRepeat || registrationData.password < 6) {
-            setCredentialsError([true, 'Las contraseñas no coinciden.']);
-            updateRegistrationData("password", '');
-            updateRegistrationData("passwordRepeat", '');
-            return
-        };
-
-        if (!phoneNumberValidator(registrationData.phone)) {
-            setCredentialsError([true, 'Ingrese un número de teléfono válido.']);
-            updateRegistrationData("phone", '');
-            return
-        }
+        if (!validateSignUpData(registrationData, updateRegistrationData, setCredentialsError)) return;
 
         setSaving(true);
 
@@ -137,102 +117,70 @@ export default function SingInPage() {
 
                 <h2 className="text-center font-bold text-red-500">{credentialsError[1]}</h2>
 
-                {/* Name Input */}
-                <div className="mt-3">
-                    <label htmlFor="name" className="flex font-bold">
-                        Nombre <Asterisk />
-                    </label>
-                    <VariableInput
-                        type={"text"}
-                        id={"name"}
-                        value={registrationData.name}
-                        setStateFunction={updateRegistrationData}
-                        required
-                        autoComplete={"off"}
-                        error={credentialsError[0]}
-                    />
-                </div>
+                <SignUpInput
+                    id={"name"}
+                    tittle={"Nombre"}
+                    inputType={"text"}
+                    value={registrationData.name}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={true}
+                />
 
-                {/* Email Input */}
-                <div className="mt-1">
-                    <label htmlFor="email" className="flex font-bold">
-                        Correo Electrónico <Asterisk />
-                    </label>
-                    <VariableInput
-                        type={"email"}
-                        id={"email"}
-                        value={registrationData.email}
-                        setStateFunction={updateRegistrationData}
-                        required
-                        autoComplete={"off"}
-                        error={credentialsError[0]}
-                    />
-                </div>
+                <SignUpInput
+                    id={"email"}
+                    tittle={"Correo Electrónico"}
+                    inputType={"email"}
+                    value={registrationData.email}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={true}
+                />
 
-                {/* Password Input */}
-                <div className="mt-6">
-                    <label htmlFor="password" className="flex font-bold">
-                        Contraseña <Asterisk />
-                    </label>
-                    <VariableInput
-                        type={`${showPassword ? "text" : "password"}`}
-                        id={"password"}
-                        value={registrationData.password}
-                        setStateFunction={updateRegistrationData}
-                        required
-                        autoComplete={"off"}
-                        error={credentialsError[0]}
-                    />
-                </div>
+                <SignUpInput
+                    id={"password"}
+                    tittle={"Contraseña"}
+                    inputType={`${showPassword ? "text" : "password"}`}
+                    value={registrationData.password}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={true}
+                />
 
-                <div>
-                    <label htmlFor="passwordRepeat" className="flex font-bold">
-                        Repita su Contraseña <Asterisk />
-                    </label>
-                    <VariableInput
-                        type={`${showPassword ? "text" : "password"}`}
-                        id={"passwordRepeat"}
-                        value={registrationData.passwordRepeat} setStateFunction={updateRegistrationData}
-                        required
-                        autoComplete={"off"}
-                        error={credentialsError[0]}
-                    />
-
+                <SignUpInput
+                    id={"passwordRepeat"}
+                    tittle={"Repita su Contraseña"}
+                    inputType={`${showPassword ? "text" : "password"}`}
+                    value={registrationData.passwordRepeat}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={true}
+                >
                     <button type="button" onClick={() => { handleShowPassword() }} className="block ml-auto text-sm font-bold">Mostar Contraseña</button>
-                </div>
+                </SignUpInput>
 
-                {/* altEmail Input */}
-                <div className="mt-6">
-                    <label htmlFor="contEmail" className="font-bold">
-                        Correo Electrónico de Contacto
-                    </label>
-                    <VariableInput
-                        type={"text"}
-                        id={"contEmail"}
-                        value={registrationData.contEmail}
-                        setStateFunction={updateRegistrationData}
-                        autoComplete={"off"}
-                        error={credentialsError[0]}
-                    />
-                </div>
+                <SignUpInput
+                    id={"contEmail"}
+                    tittle={"Correo Electrónico de Contacto"}
+                    inputType={"email"}
+                    value={registrationData.contEmail}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={false}
+                />
 
-                {/* phoneNumber Input */}
-                <div className="mt-1">
-                    <label htmlFor="phone" className="flex font-bold">
-                        Teléfono de Contacto <Asterisk />
-                    </label>
-                    <VariableInput
-                        type={"tel"}
-                        id={"phone"}
-                        value={registrationData.phone}
-                        setStateFunction={updateRegistrationData}
-                        error={credentialsError[0]}
-                        required
-                        autoComplete={"off"}
-                        placeholder={"04XX-0000000"}
-                        maxLength="12"
-                    />
-                </div>
+
+                <SignUpInput
+                    id={"phone"}
+                    tittle={"Teléfono de Contacto"}
+                    inputType={"tel"}
+                    value={registrationData.phone}
+                    setStateFunction={updateRegistrationData}
+                    error={credentialsError[0]}
+                    required={true}
+                    placeholder={"04XX-0000000"}
+                    maxLength="12"
+                />
 
                 <h2 className="text-center text-grayFontThemeColor mt-2">* Indica que el Campo es Obligatorio</h2>
 

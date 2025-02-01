@@ -124,7 +124,7 @@ export default function OfferDetail() {
                 </div>
 
 
-                <Carrousel offert={offert} isEdit={false} />
+                <Carrousel offert={offert} isEdit={false} isCreating={false}/>
 
                 <div className="px-2 sm:px-0">
                     {/**************************{ Type & Availability }**************************/}

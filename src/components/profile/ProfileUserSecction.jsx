@@ -127,7 +127,7 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                     </div>
                 }
 
-                {userData.role === "Root" || userData.role === "Admin" && !sameUser ?
+                {(userData.role === "Root" || userData.role === "Admin") && !sameUser ?
                     <div>
                         <DangerButton styles={"w-full sm:w-fit mt-5 sm:mt-0"} text={"Eliminar Cuenta"} buttonFunction={triggerDelete} loader={false} />
 

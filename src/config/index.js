@@ -2,7 +2,7 @@
 export const SERVER_URL = process.env.SERVER_URL || `http://localhost:3000`;
 
 //Es local?
-export const IS_DEVELOPMENT = process.env.NODE_ENV === "development"
+export const IS_DEVELOPMENT = true //process.env.NODE_ENV === "development"
 
 //DB url
 export const MONGODB_URI = process.env.MONGODB_URI || `mongodb://localhost:27017`;

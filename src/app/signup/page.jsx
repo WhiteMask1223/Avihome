@@ -9,9 +9,7 @@ import { UserContext } from "@/contexts/User.context";
 import { UtilityContex } from "@/contexts/Utility.context";
 
 import AuthSecction from "@/components/auth/AuthSection";
-import VariableInput from "@/components/UI/formElements/VariableInput";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
-import Asterisk from "@/components/UI/formElements/Asterisk";
 
 import { registerUser } from "@/api/user.api";
 

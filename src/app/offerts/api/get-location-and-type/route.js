@@ -1,6 +1,8 @@
 import { getOffertsLocationAndType_Controller } from "@/controllers/locationsAndType.controller";
 import dbConnect from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     await dbConnect();
 

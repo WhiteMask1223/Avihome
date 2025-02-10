@@ -72,7 +72,7 @@ export default function AdminRegister() {
 
         e.preventDefault();
 
-        if (!validateSignUpData()) return;
+        if (!validateSignUpData(registrationData, setRegistrationData, setCredentialsError)) return;
         
         setSaving(true);
 

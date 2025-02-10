@@ -5,7 +5,7 @@ const url = '/offerts/comments/api/'
 
 /**************************{ Read }**************************/
 
-export const get_CommentById = async (id) => {
+export const get_CommentByOffertId = async (id) => {
     try {
         const response = await axios.post(`${url}get-comment-by-id`, id);
 

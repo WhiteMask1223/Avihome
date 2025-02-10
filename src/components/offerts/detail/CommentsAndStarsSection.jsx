@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from "react";
 
-import { save_Comment, get_CommentById } from "@/api/comments.api";
+import { save_Comment, get_CommentByOffertId } from "@/api/comments.api";
 
 import StarsInput from "@/components/UI/formElements/StarsInput";
 import Comment from "@/components/offerts/detail/OffertComment";
 import VariableInput from "@/components/UI/formElements/VariableInput";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
+import LoadingSpinners from "@/components/UI/utility/LoadingSpinners";
 
-export default function CommentsAndStarsSection({ offert, user }) {
+export default function CommentsAndStarsSection({ offert, user, getOffert }) {
 
     const commetTemplate = {
         offertId: offert._id,
@@ -22,6 +23,7 @@ export default function CommentsAndStarsSection({ offert, user }) {
     const [comments, setComments] = useState(null);
     const [savingComent, setSavingComent] = useState(false);
     const [formError, setFormError] = useState(false);
+    const [fetchingComments, setFetchingComments] = useState(false);
 
 
     const updateCommentForm = (field, newValue) => {
@@ -33,13 +35,17 @@ export default function CommentsAndStarsSection({ offert, user }) {
 
     const getComments = async () => {
         try {
+            setFetchingComments(true);
+
             if (!offert._id) return;
 
             const id = { _id: offert._id };
 
-            const fetchedComments = await get_CommentById(id);
+            const fetchedComments = await get_CommentByOffertId(id);
 
             setComments(fetchedComments);
+            setFetchingComments(false);
+            getOffert();
         } catch (error) {
             console.error("Error getComments: ", error);
         };
@@ -83,7 +89,7 @@ export default function CommentsAndStarsSection({ offert, user }) {
         };
     };
 
-    if (!offert || !comments) return;
+    if (!offert) return;
 
     return (
         <section>
@@ -125,14 +131,22 @@ export default function CommentsAndStarsSection({ offert, user }) {
                         </div>
                     </form>
 
-                    {comments.map((comment, index) => (
-                        <Comment
-                            key={index}
-                            comment={comment}
-                            user={user}
-                            getComments={getComments}
-                        />
-                    ))}
+                    {fetchingComments ?
+                        <div className="w-fit h-fit mx-auto">
+                            <LoadingSpinners size={"large"}/>
+                        </div>
+                        :
+                        <div>
+                            {comments?.map((comment, index) => (
+                                <Comment
+                                    key={index}
+                                    comment={comment}
+                                    user={user}
+                                    getComments={getComments}
+                                />
+                            ))}
+                        </div>
+                    }
 
                 </div>
 

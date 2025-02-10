@@ -82,8 +82,6 @@ export default function EditOffertForm() {
         try {
             const offert = await get_OffertById(offertId);
 
-            console.log(offert);
-
             if (!offert.error) {
                 setOffertsFormData(offertsFormDataFormater(offert));
             }
@@ -160,7 +158,7 @@ export default function EditOffertForm() {
         setSaving(true);
 
 
-        if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability || offertsFormData.images.length < 3) {
+        if (!offertsFormData.location || !offertsFormData.type || !offertsFormData.availability /*|| offertsFormData.images.length < 3*/) {
             setFormError([true, "Rellene todos los campos."]);
             setSaving(false);
             return

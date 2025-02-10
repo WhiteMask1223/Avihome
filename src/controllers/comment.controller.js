@@ -10,27 +10,16 @@ import { updateOffert_Service } from "@/services/offerts.service";
 import { getSession_Controller } from "./auth.controller";
 
 import { saveLogEntrie_Service } from "@/services/log.service";
+import { updateOffertStars } from "@/utils/commentsUtils";
 
 
 /**************************{ Read }**************************/
 
 export const getOffertsCommentById_Controller = async (offertId) => {
     try {
-        const comment = await getOffertsCommentById_Service(offertId);
+        const comments = await getOffertsCommentById_Service(offertId);
 
-        if (comment.length) {
-            const offertStars = comment.map((comment) => {
-                return comment.stars
-            });
-    
-            const sum = offertStars.reduce((totalStars, stars) => totalStars + stars, 0);
-    
-            const average = Math.round(sum / offertStars.length);
-    
-            await updateOffert_Service(offertId, { rating: average })
-        };
-
-        return comment;
+        return comments;
     } catch (error) {
         console.log("getOffertsCommentById_Controller error: ", error);
     };
@@ -42,6 +31,8 @@ export const getOffertsCommentById_Controller = async (offertId) => {
 export const saveOffertsComment_Controller = async (data) => {
     const res = await saveOffertsComment_Service(data);
 
+    await updateOffertStars(data.offertId);
+    
     const user = await getSession_Controller();
 
     await saveLogEntrie_Service({
@@ -70,6 +61,8 @@ export const deleteOffertsCommentById_Controller = async (id) => {
     const deletedComment = await getCommentById_Service(id);
     
     const res = await deleteOffertsCommentById_Service(id);
+
+    await updateOffertStars(deletedComment.offertId);
 
     const user = await getSession_Controller();
 

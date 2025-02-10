@@ -124,7 +124,7 @@ export default function OfferDetail() {
                 </div>
 
 
-                <Carrousel offert={offert} isEdit={false} isCreating={false}/>
+                <Carrousel offert={offert} isEdit={false} isCreating={false} />
 
                 <div className="px-2 sm:px-0">
                     {/**************************{ Type & Availability }**************************/}
@@ -196,7 +196,11 @@ export default function OfferDetail() {
 
                         {/**************************{ Comments }**************************/}
 
-                        <CommentsAndStarsSection offert={offert} user={userData} />
+                        <CommentsAndStarsSection
+                            offert={offert}
+                            user={userData}
+                            getOffert={getOffert}
+                        />
 
                     </div>
                     :

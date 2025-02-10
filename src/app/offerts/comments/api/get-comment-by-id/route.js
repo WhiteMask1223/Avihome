@@ -1,6 +1,8 @@
 import { getOffertsCommentById_Controller } from "@/controllers/comment.controller";
 import dbConnect from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request) {
     await dbConnect();
 

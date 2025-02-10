@@ -1,6 +1,8 @@
 import { getLogEntries_Service } from "@/services/log.service";
 import dbConnect from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     await dbConnect();
 

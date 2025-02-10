@@ -47,4 +47,4 @@ export const phoneNumberFormater = (newValue) => {
     };
 
     return newValue;
-}
+};

@@ -24,51 +24,56 @@ export default function ImgUploader({
     }
 
     const handleFilesChange = async (event) => {
-        setSaving(true);
+        try {
+            setSaving(true);
 
-        if (offertsFormData.images.length === 5) {
-            setFormError([false, "Límite de imágenes alcanzado."])
-            setSaving(false);
-            return
-        };
-
-        let files = Array.from(event.target.files);
-
-        if (!files || files.length === 0) {
-            setSaving(false);
-            return
-        };
-
-        if (files.length > 5) {
-            files = files.splice(0, 5);
-        };
-
-        if (files.length + offertsFormData.images.length > 5) {
-            files = files.splice(0, 5 - offertsFormData.images.length);
-        };
-
-        const fileReaders = files.map(async (file) => {
-
-            const compresedFile = await imageCompression(file, compressionOptions)
-
-            return new Promise((resolve, reject) => { //Base64
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(compresedFile);
-            });
-        });
-
-        Promise.all(fileReaders)
-            .then((selectedImages) => selectedImages.map((image) => {
-                setOffertsFormData(prevFormData => ({
-                    ...prevFormData,
-                    images: [...prevFormData.images, image],
-                    ...(isOffertEdit && { localImages: [...prevFormData.localImages, image]})
-                }));
+            if (offertsFormData.images.length === 5 || offertsFormData.localImages?.length === 5) {
+                setFormError([false, "Límite de imágenes alcanzado."])
                 setSaving(false);
-            }))
-            .catch((err) => console.error("Error al leer las imágenes:", err));
+                return
+            };
+
+            let files = Array.from(event.target.files);
+
+            if (!files || files.length === 0) {
+                setSaving(false);
+                return
+            };
+
+            if (files.length > 5) {
+                files = files.splice(0, 5);
+            };
+
+            if (files.length + offertsFormData.images.length > 5) {
+                files = files.splice(0, 5 - offertsFormData.images.length);
+            };
+
+            const fileReaders = files.map(async (file) => {
+
+                const compresedFile = await imageCompression(file, compressionOptions)
+
+                return new Promise((resolve, reject) => { //Base64
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(compresedFile);
+                });
+            });
+
+            Promise.all(fileReaders)
+                .then((selectedImages) => selectedImages.map((image) => {
+                    setOffertsFormData(prevFormData => ({
+                        ...prevFormData,
+                        images: [...prevFormData.images, image],
+                        ...(isOffertEdit && { localImages: [...prevFormData.localImages, image] })
+                    }));
+                    setSaving(false);
+                }))
+                .catch((err) => console.error("Error al leer las imágenes:", err));
+        } catch (error) {
+            console.log("handleFilesChange error: ", error);
+            setSaving(true);
+        }
     };
 
 
@@ -117,7 +122,7 @@ export default function ImgUploader({
                 </div>
             </div>
 
-            {offertsFormData.images.length || offertsFormData.localImages?.length  ? //TODO:DELETE ME
+            {offertsFormData.images.length || offertsFormData.localImages?.length ? //TODO:DELETE ME
                 <Carrousel
                     offert={offertsFormData}
                     isEdit={true}

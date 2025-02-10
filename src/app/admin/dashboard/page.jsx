@@ -5,6 +5,7 @@ import { useEffect, useContext } from "react";
 import { UtilityContex } from "@/contexts/Utility.context";
 
 import LocationAndTypesSection from "@/components/Admin/Dashboard/LocationAndTypesSection";
+import StadictisSection from "@/components/Admin/Dashboard/Stadistics";
 
 export default function AdminDashboard() {
 
@@ -18,6 +19,7 @@ export default function AdminDashboard() {
 
     return (
         <section className="pt-24 min-h-screen flex flex-col items-center">
+            {/*<StadictisSection />*/}
             <LocationAndTypesSection />
         </section>
     );

@@ -18,7 +18,7 @@ export default function LoadingBg({ conditional }) {
                     className="fixed flex flex-col items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50 cursor-wait">
 
                     <div className="m-5 animate-bounce">
-                        <AppLogo width={"60"} height={"60"} fixedTheme={false} />
+                        <AppLogo width={"50"} height={"50"} fixedTheme={false} />
                     </div>
 
                     <LoadingSpinners size={"large"} />
@@ -30,7 +30,7 @@ export default function LoadingBg({ conditional }) {
                         className="fixed flex flex-col items-center justify-center inset-0 bg-sectionThemeBackground text-center z-50 cursor-wait">
 
                         <div className="m-5 animate-bounce">
-                            <AppLogo width={"60"} height={"60"} fixedTheme={false} />
+                            <AppLogo width={"50"} height={"50"} fixedTheme={false} />
                         </div>
 
                         <LoadingSpinners size={"large"} />

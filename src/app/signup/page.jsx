@@ -111,7 +111,7 @@ export default function SingInPage() {
     return (
         <AuthSecction>
             <h1 className="m-auto w-fit p-2 text-2xl font-bold">Registro</h1>
-            <form onSubmit={handleSubmit} className="mt-2">
+            <form onSubmit={handleSubmit} className="">
 
                 <h2 className="text-center font-bold text-red-500">{credentialsError[1]}</h2>
 

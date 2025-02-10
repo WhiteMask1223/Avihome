@@ -93,7 +93,7 @@ export default function LoginPage() {
 
     return (
         <AuthSecction>
-            <h1 className="m-auto w-fit p-2 text-2xl font-bold">Iniciar Sesión</h1>
+            <h1 className="m-auto w-fit text-2xl font-bold">Iniciar Sesión</h1>
             <form onSubmit={handleSubmit} className="mt-2">
 
                 <h2 className="text-center font-bold text-red-500">{credentialsError[1]}</h2>

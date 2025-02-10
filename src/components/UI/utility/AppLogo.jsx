@@ -2,7 +2,8 @@ export default function AppLogo({ width, height, fixedTheme }) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-[50px] w-[50px]"
+            width={width}
+            height={height}
             viewBox="0 0 173.22964 176.75558"
             aria-label="App Logo"
         >

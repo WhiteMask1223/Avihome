@@ -92,7 +92,7 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
 
                 <form onSubmit={handleSubmit}>
 
-                    <div className="mt-2">
+                    {/*<div className="mt-2">
                         <label htmlFor="name" className="font-bold flex">
                             Nombre de Usuario: <Asterisk />
                         </label>
@@ -106,7 +106,7 @@ export default function EditInfoModal({ trigger, setTrigger, user, setUser }) {
                             autoComplete={"off"}
                             required
                         />
-                    </div>
+                    </div>*/}
 
                     <div className="mt-2">
                         <label htmlFor="phone" className="font-bold flex">

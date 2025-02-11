@@ -45,9 +45,12 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
             if (!deleteResponse.error) {
                 triggerDelete();
 
-                await signOut({ redirect: false });
-                logout();
-                fetchOfferts();
+                if (sameUser) {
+                    await signOut({ redirect: false });
+                    logout();       
+                };
+                
+                fetchOfferts(); 
                 router.push("/");
             };
         } catch (error) {

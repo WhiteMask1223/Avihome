@@ -21,7 +21,7 @@ export default function UserProfile() {
 
     const [user, setUser] = useState(null);
     const [sameUser, setSameUser] = useState(false);
-    const [userOfferts, setUserOfferts] = useState(null);
+    const [userOfferts, setUserOfferts] = useState([]);
 
     const { userData } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex)
@@ -42,6 +42,10 @@ export default function UserProfile() {
                     setUser(fetchedUser);
                 };
 
+                if (!fetchedUser.status == 404) {
+                    setUser(404);
+                };
+
                 return
             };
 
@@ -59,7 +63,6 @@ export default function UserProfile() {
         try {
             const user = await get_UserById(id)
 
-            console.log(user)
             return user
         } catch (error) {
             console.error("fetchUser error: ", error);
@@ -102,7 +105,7 @@ export default function UserProfile() {
 
     /**************************{ Return }**************************/
 
-    if (!user || !userOfferts) {
+    if (!user) {
         return <LoadingBg conditional={true} />
     };
 

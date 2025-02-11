@@ -11,7 +11,7 @@ export const getOffertsCommentById_Service = async (offertId) => {
         
         return comments;
     } catch (error) {
-        throw new Error('Error getOffertsCommentAndType_Service: ' + error.message);
+        throw new Error('Error getOffertsCommentById_Service: ' + error.message);
     }
 };
 
@@ -21,7 +21,17 @@ export const getCommentById_Service = async (commentId) => {
         
         return comment;
     } catch (error) {
-        throw new Error('Error getOffertsCommentAndType_Service: ' + error.message);
+        throw new Error('Error getCommentById_Service: ' + error.message);
+    }
+};
+
+export const getCommentsByUserId_Service = async (userId) => {
+    try {
+        const comments = await CommentModel.find({ userId: userId }).lean();
+        
+        return comments;
+    } catch (error) {
+        throw new Error('Error getCommentByUserId_Service: ' + error.message);
     }
 };
 
@@ -46,8 +56,22 @@ export const deleteOffertsCommentById_Service = async (commentId) => {
     try {
         const result = await CommentModel.deleteOne({ _id: commentId });
 
-        if (!result.deletedCount) {
-            return { error: true, status: 404, message: "Comentario no Encontrada" }
+        if (!result.acknowledged) {
+            return { error: true, status: 404, message: "Comentario no Encontrado" }
+        };
+
+        return result
+    } catch (error) {
+        throw new Error('Error deleteOffertsCommentById_Service: ' + error.message);
+    };
+};
+
+export const deleteOffertsCommentByUserId_Service = async (userId) => {
+    try {
+        const result = await CommentModel.deleteMany({ userId: userId });
+
+        if (!result.acknowledged) {
+            return { error: true, status: 404, message: "Comentarios no Encontrados" }
         };
 
         return result

@@ -1,4 +1,5 @@
 import UserModel from '@/models/User.model';
+import { validateEmail } from '@/validations/user.validation';
 
 const bcrypt = require('bcrypt');
 
@@ -8,6 +9,8 @@ const saltRounds = 10;
 /**************************{ Create }**************************/
 
 export const registerUser_Service = async (data) => {
+
+    if (!validateEmail(data.email)) return { error: true, message: "Ingrese un correo electrónico válido." }
 
     const registeredUser = await getUserByEmail_Service(data.email)
 
@@ -39,8 +42,21 @@ export const getAdmins_Service = async () => {
     } catch (error) {
         console.log(error);
         return { error: true, message: "Error interno" };
-    }
+    };
 };
+
+
+export const getAllUsers_Service = async () => {
+    try {
+        const users = await UserModel.find({ role: "User" }).lean();
+
+        return users;
+    } catch (error) {
+        console.log(error);
+        return { error: true, message: "Error interno" };
+    };
+};
+
 
 export const getUserById_Service = async (_id) => {
     try {

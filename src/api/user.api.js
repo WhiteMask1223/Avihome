@@ -9,6 +9,11 @@ export const get_Admins = async () => {
     return response.data
 };
 
+export const get_TotalUsers = async () => {
+    const response = await axios.get('/admin/api/get-total-users');
+
+    return response.data
+};
 
 export const get_UserById = async (data) => {
     const response = await axios.post('/login/api/get-user-by-id', data);

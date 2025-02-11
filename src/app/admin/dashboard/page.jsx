@@ -19,7 +19,7 @@ export default function AdminDashboard() {
 
     return (
         <section className="pt-24 min-h-screen flex flex-col items-center">
-            {/*<StadictisSection />*/}
+            <StadictisSection />
             <LocationAndTypesSection />
         </section>
     );

@@ -54,6 +54,13 @@ export const MainPageProvider = ({ children }) => {
         offertsFilter();
     }, [filterObj, searchTerm, offertsData]);
 
+    //Hace Fetchin a las ofertas siempre que sean null
+    useEffect(() => {
+        if(!offertsData) {
+            fetchOfferts();
+        };
+    }, [offertsData]);
+
 
     /**************************{ Funciones }**************************/
 
@@ -68,7 +75,6 @@ export const MainPageProvider = ({ children }) => {
 
             //Compara las ofertas existentes con las ofertas de la DB, de serlo no se realizan cambios
             if (areArraysEqual(offertsData, offerts)) {
-                console.log("no update")
                 setFetchingOfferts(false);
                 return true;
             };

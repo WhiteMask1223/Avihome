@@ -7,6 +7,7 @@ import Asterisk from "@/components/UI/formElements/Asterisk";
 import SubmitButton from "@/components/UI/formElements/SubmitButton";
 import DangerButton from "@/components/UI/utility/DangerButton";
 import NumberSelector from "./OffertsFormNumberSelector";
+import LoadingBg from "@/components/UI/utility/LoadingBg";
 
 export default function OffertsForm({
 
@@ -88,6 +89,8 @@ export default function OffertsForm({
 
     /**************************{ Return }**************************/
 
+    if (offertsType === null || offertsLocation === null ) return <LoadingBg conditional={false} />
+    
     return (
         <form onSubmit={handleSubmit}>
 

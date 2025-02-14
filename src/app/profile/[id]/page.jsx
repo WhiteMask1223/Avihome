@@ -74,6 +74,7 @@ export default function UserProfile() {
 
         try {
             const offerts = await get_OffertsByUserId(userId);
+            
 
             if (offerts.error) {
                 setUserOfferts([]);
@@ -93,14 +94,14 @@ export default function UserProfile() {
             fetchUserData();
         };
 
-        if (!userOfferts) {
+        if (!userOfferts.length) {
             fetchOfferts();
         };
 
         if (loading) {
             setLoading(!loading);
         };
-    }, [user, userData, userOfferts]);
+    }, [userData, user, userOfferts]);
 
 
     /**************************{ Return }**************************/

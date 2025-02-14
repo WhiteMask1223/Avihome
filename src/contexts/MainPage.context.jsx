@@ -51,7 +51,7 @@ export const MainPageProvider = ({ children }) => {
 
     //Se renderiza la pagina cada que cambian los filtros
     useEffect(() => {
-        offertsFilter();
+        if(filterObj !== null ) offertsFilter();
     }, [filterObj, searchTerm, offertsData]);
 
     //Hace Fetchin a las ofertas siempre que sean null

@@ -14,17 +14,19 @@ export const CategoryFilterProvider = ({ children }) => {
 
     /**************************{ Declaraciones }**************************/
 
-    const [offertsType, setOffertsType] = useState({});
-    const [offertsLocation, setOffertsLocation] = useState({});
+    const [offertsType, setOffertsType] = useState(null);
+    const [offertsLocation, setOffertsLocation] = useState(null);
 
     const [rawType, setRawType] = useState([]);
     const [rawLocation, setRawLocation] = useState([]);
 
-    const [filterObj, setFilterObj] = useState(filterObjTemplate(offertsType, offertsLocation));
+    const [filterObj, setFilterObj] = useState(null);
 
     const locationAndTypeFetch = async () => {
         try {
             const data = await get_OffertsLocationAndType();
+
+            if (!data.length) {}
 
             setOffertsLocation(dbArrayToObject(data.locations));
             setOffertsType(dbArrayToObject(data.types));
@@ -53,8 +55,7 @@ export const CategoryFilterProvider = ({ children }) => {
 
     useEffect(() => {
         if (
-            Object.keys(offertsType).length === 0 ||
-            Object.keys(offertsLocation).length === 0
+            !offertsLocation || !offertsType
         ) {
             try {
                 locationAndTypeFetch()

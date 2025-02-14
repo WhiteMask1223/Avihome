@@ -1,6 +1,8 @@
 import { getOffertsByUserId_Controller } from "@/controllers/offerts.controller";
 import dbConnect from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request) {
     await dbConnect();
 

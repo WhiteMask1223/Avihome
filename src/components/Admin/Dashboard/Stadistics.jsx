@@ -56,7 +56,7 @@ export default function StadictisSection() {
                 <h1 className="w-fit p-2 text-2xl font-bold mb-5">Estadisticas del Sistema:</h1>
 
                 <div>
-                    {!offertsData || !totalUsers || !totalAdmins
+                    { offertsData === null || totalUsers === null || totalAdmins === null
                         ?
                         <div className="w-fit mx-auto my-14">
                             <LoadingSpinners size={"large"} />
@@ -72,7 +72,7 @@ export default function StadictisSection() {
                                 number={totalUsers}
                             />
                             <StadisticsCard
-                                tittle={"ADMINISTRADORES REGISTRADOS:"}
+                                tittle={"ADMINISTRADORES:"}
                                 number={totalAdmins}
                             />
                         </div>

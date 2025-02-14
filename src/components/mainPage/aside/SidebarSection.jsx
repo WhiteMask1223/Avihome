@@ -7,6 +7,7 @@ import { UtilityContex } from '@/contexts/Utility.context';
 
 import FilterCategory from '@/components/mainPage/aside/FilterCategory';
 import SearchBar from '@/components/navbar/SearchBar';
+import LoadingBg from '@/components/UI/utility/LoadingBg';
 
 import { ASIDE_STYLES } from './asideStyles';
 
@@ -15,6 +16,8 @@ export default function SidebarSection() {
 
     const { filterObj, handleCheckboxChange, sortAndHiddenHandler, resetFilters } = useContext(CategoryFilterContext);
     const { filterSidebar } = useContext(UtilityContex)
+
+    if(!filterObj) return <LoadingBg conditional={false}/>
 
     return (
         <section className={ASIDE_STYLES.MAIN_SECTION(filterSidebar)}>

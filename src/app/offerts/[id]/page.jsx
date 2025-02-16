@@ -79,7 +79,7 @@ export default function OfferDetail() {
 
     /**************************{ Return }**************************/
 
-    if (!offert || !userData) {
+    if (!offert) {
         return <LoadingBg conditional={true} />
     };
 
@@ -227,12 +227,16 @@ export default function OfferDetail() {
                 }
             </div>
 
-            <CreateReportModal
-                trigger={reportModal}
-                setTrigger={setReportModal}
-                user={userData}
-                offert={offert}
-            />
+            {userData ?
+                <CreateReportModal
+                    trigger={reportModal}
+                    setTrigger={setReportModal}
+                    user={userData}
+                    offert={offert}
+                />
+                :
+                ""
+            }
         </div>
     );
 };

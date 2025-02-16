@@ -183,7 +183,7 @@ export default function OfferDetail() {
                     {/**************************{ Description }**************************/}
 
                     <h2 className="text-lg font-semibold mt-4">Descripción:</h2>
-                    <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.description}.</p>
+                    <p className="bg-subSectionThemeBackground p-4 rounded-lg shadow-inner shadow-sectionThemeShadow mt-4">{offert.description}</p>
 
 
                     {/**************************{ Admits }**************************/}

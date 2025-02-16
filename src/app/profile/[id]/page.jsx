@@ -22,6 +22,7 @@ export default function UserProfile() {
     const [user, setUser] = useState(null);
     const [sameUser, setSameUser] = useState(false);
     const [userOfferts, setUserOfferts] = useState([]);
+    const [ fetching, setFetching] = useState(false);
 
     const { userData } = useContext(UserContext);
     const { loading, setLoading } = useContext(UtilityContex)
@@ -72,16 +73,19 @@ export default function UserProfile() {
     const fetchOfferts = async () => {
         if (!userData) return
 
+        setFetching(true);
+
         try {
             const offerts = await get_OffertsByUserId(userId);
             
-
             if (offerts.error) {
                 setUserOfferts([]);
+                setFetching(false);
                 return
             };
 
             setUserOfferts(offerts);
+            setFetching(false);
         } catch (error) {
             console.error("fetchOfferts error: ", error);
         }
@@ -116,7 +120,7 @@ export default function UserProfile() {
             <ProfileUserSecction user={user} sameUser={sameUser} setUser={setUser}/>
 
             {user.role === "Admin" || user.role === "Root" ? "" :
-                <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} />
+                <ProfileOffertsSecction userOfferts={userOfferts} sameUser={sameUser} setUserOfferts={setUserOfferts} fetching={fetching} />
             }
 
         </section>

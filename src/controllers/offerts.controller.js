@@ -65,9 +65,9 @@ export const getOffertById_Controller = async (offertId) => {
 export const saveOffert_Controller = async (formData) => {
     try {
 
-        if (formData.images.length < 3) {
+        /* if (formData.images.length < 3) {
             return { error: true, status: 400, message: "Error del Cliente" }
-        }
+        } */
 
         let imgUrls = [];
 
@@ -203,10 +203,12 @@ export const changeRoomsAvailable_Controller = async (offertId, newAvailabilityV
 };
 
 export const updateOffert_Controller = async (offertId, newOffertData) => {
-    try {
-        if (newOffertData.images.length < 3) {
+    try {        
+        /* if (newOffertData.images.length < 3) {
+            console.log("faltan img");
+            
             return { error: true, status: 400, message: "Error del Cliente" };
-        };
+        }; */
 
         const originalOffertData = await getOffertById_Controller(offertId.id);
 
@@ -280,7 +282,7 @@ export const updateOffert_Controller = async (offertId, newOffertData) => {
                 name: originalOffertData.user.name
             }
         });
-
+        
         return updatedOffert;
     } catch (error) {
         console.log(error)

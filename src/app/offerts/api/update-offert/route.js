@@ -1,6 +1,8 @@
 import { updateOffert_Controller } from "@/controllers/offerts.controller";
 import dbConnect from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function PUT(request) {
     await dbConnect();
 

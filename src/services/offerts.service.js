@@ -69,7 +69,7 @@ export const getOffertsByUserId_Service = async (userId) => {
 
 export const getOffertById_Service = async (offertId) => {
     try {
-        const offert = await OffertModel.findById(offertId).populate({ path: 'user', select: 'name email contEmail phone' }).lean();
+        const offert = await OffertModel.findById(offertId).populate({ path: 'user', select: 'name email contEmail phone' });
 
         if (!offert) {
             return { error: true, status: 404, message: "Oferta no Encontrada" }
@@ -130,9 +130,9 @@ export const updateOffert_Service = async (id, newOffertData) => {
             newOffertData,
             { new: true, runVailidators: true }
         );
-
+        console.log(updatedOffert);
         if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada." }
-
+        
         return updatedOffert;
     } catch (error) {
         console.log(error)

@@ -18,6 +18,13 @@ export const validateSignUpData = (registrationData, setterFunction, setError) =
         return false
     };
 
+    if (registrationData.password.length < 8) {
+        setError([true, 'La contraseña debe tener mas de 8 caracteres.']);
+        setterFunction("password", '');
+        setterFunction("passwordRepeat", '');
+        return false
+    };
+
     if (registrationData.password !== registrationData.passwordRepeat) {
         setError([true, 'Las contraseñas no coinciden.']);
         setterFunction("password", '');

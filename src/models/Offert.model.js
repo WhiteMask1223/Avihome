@@ -15,10 +15,10 @@ const OffertSchema = mongoose.Schema({
     title: { type: String, trim: true, required: true },
     type: { type: String, trim: true, required: true },
 
-    location: { type: String, trim: true, required: true },
-    address: { type: String, trim: true, required: true },
+    location: { type: String, trim: false, required: true },
+    address: { type: String, trim: false, required: true },
 
-    description: { type: String, trim: true, required: true},
+    description: { type: String, trim: false, required: true},
 
     services:{
         "Agua": { type: Boolean, default: false, required: true },
@@ -28,7 +28,7 @@ const OffertSchema = mongoose.Schema({
         "Internet": { type: Boolean, default: false, required: true }
     },
 
-    otherServices: { type: String, trim: true, required: true},
+    otherServices: { type: String, trim: false, required: true},
 
     availability: {
         capacity: { type: Number, min: 0, required: true },

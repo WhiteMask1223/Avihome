@@ -60,6 +60,12 @@ export default function LoginPage() {
             return
         };
 
+        if (loginData.password.length < 8) {
+            setCredentialsError([true, 'La contraseña debe tener mas de 8 caracteres.']);
+            updateLoginData("password", '');
+            return false
+        };
+
         setHandleLoading(true);
 
         const authResult = await signIn("credentials", {

@@ -45,6 +45,8 @@ export default function NavSessionSidebar() {
                                     }
 
                                     <SidebarMenuLi text={"Historial de Registro"} href={'/admin/dashboard/log-page'} onClick={toggleSessionSidebar} />
+
+                                    <SidebarMenuLi text={"Reportes de Usuarios"} href={'/admin/reports'} onClick={toggleSessionSidebar} />
                                 </div>
                                 :
                                 ""

@@ -17,7 +17,7 @@ export default function SidebarSection() {
     const { filterObj, handleCheckboxChange, sortAndHiddenHandler, resetFilters } = useContext(CategoryFilterContext);
     const { filterSidebar } = useContext(UtilityContex)
 
-    if(!filterObj) return <LoadingBg conditional={false}/>
+    if(!filterObj) return <LoadingBg conditional={true}/>
 
     return (
         <section className={ASIDE_STYLES.MAIN_SECTION(filterSidebar)}>

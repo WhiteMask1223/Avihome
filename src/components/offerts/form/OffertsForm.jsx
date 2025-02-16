@@ -89,7 +89,7 @@ export default function OffertsForm({
 
     /**************************{ Return }**************************/
 
-    if (offertsType === null || offertsLocation === null ) return <LoadingBg conditional={false} />
+    if (offertsType === null || offertsLocation === null ) return <LoadingBg conditional={true} />
     
     return (
         <form onSubmit={handleSubmit}>

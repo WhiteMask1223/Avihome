@@ -25,6 +25,12 @@ export default function Contact({ offert }) {
         }));
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setEmailForm(emailTemplate)
+    }
+
     return (
         <div className="bg-subSectionThemeBackground p-4 sm:rounded-lg shadow-inner shadow-sectionThemeShadow mt-2 mb-6">
 
@@ -46,7 +52,7 @@ export default function Contact({ offert }) {
                 </div>
             </div>
 
-            <form className="space-y-4 mt-5 sm:mt-0 sm:w-full">
+            <form  onSubmit={handleSubmit} className="space-y-4 mt-5 sm:mt-0 sm:w-full">
                 <h2 className="font-semibold">Enviar un Correo Electrónico:</h2>
                 <div className="flex space-x-4">
 

@@ -19,6 +19,7 @@ import LoadingSpinners from "@/components/UI/utility/LoadingSpinners";
 
 
 import LoadingBg from "@/components/UI/utility/LoadingBg";
+import CreateReportModal from "@/components/Admin/reports/ReportsModal";
 
 export default function OfferDetail() {
 
@@ -32,6 +33,8 @@ export default function OfferDetail() {
 
     const [offert, setOffert] = useState(null);
     const [deleting, setDeleting] = useState(false);
+
+    const [reportModal, setReportModal] = useState(false);
 
     const getOffert = useCallback(async () => {
         try {
@@ -76,7 +79,7 @@ export default function OfferDetail() {
 
     /**************************{ Return }**************************/
 
-    if (!offert) {
+    if (!offert || !userData) {
         return <LoadingBg conditional={true} />
     };
 
@@ -97,15 +100,17 @@ export default function OfferDetail() {
                         {offert.title}
                     </h1>
 
-                    <div className="text-2xl">
-                        {Array(5).fill().map((_, index) => (
-                            <span key={index}>
-                                {index < offert.rating ? <i className="ri-star-fill text-checkboxThemeSelected"></i> : <i className="ri-star-line text-checkboxThemeSelected"></i>}
-                            </span>
-                        ))}
+                    <div className="flex space-x-2">
+                        <div className="text-2xl">
+                            {Array(5).fill().map((_, index) => (
+                                <span key={index}>
+                                    {index < offert.rating ? <i className="ri-star-fill text-checkboxThemeSelected"></i> : <i className="ri-star-line text-checkboxThemeSelected"></i>}
+                                </span>
+                            ))}
+                        </div>
                         {userData?.role === "Admin" || userData?.role === "Root" ?
                             <button
-                                className="ml-2 px-1 bg-dangerButtonThemeColor rounded"
+                                className="ml-2 px-1 bg-dangerButtonThemeColor rounded text-2xl"
                                 type="button"
                                 onClick={deleteOffertHandeler}
                             >
@@ -118,7 +123,19 @@ export default function OfferDetail() {
                                 }
                             </button>
                             :
-                            ""
+                            <div className="text-2xl">
+                                {userData && userData._id !== offert.user._id ?
+                                    <button
+                                        className="ml-2 px-1 bg-sectionThemeBackground rounded"
+                                        type="button"
+                                        onClick={() => setReportModal(!reportModal)}
+                                    >
+                                        <i className="ri-flag-line text-checkboxThemeSelected dark:text-white " />
+                                    </button>
+                                    :
+                                    ""
+                                }
+                            </div>
                         }
                     </div>
                 </div>
@@ -209,6 +226,13 @@ export default function OfferDetail() {
                     </div>
                 }
             </div>
+
+            <CreateReportModal
+                trigger={reportModal}
+                setTrigger={setReportModal}
+                user={userData}
+                offert={offert}
+            />
         </div>
     );
 };

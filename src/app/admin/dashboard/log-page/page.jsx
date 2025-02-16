@@ -16,8 +16,6 @@ export default function LogPage() {
         try {
             const entries = await get_LogEntries();
 
-            console.log(entries)
-
             if (!entries.error) {
                 setLogEntries(entries);
             };

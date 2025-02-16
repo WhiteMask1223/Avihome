@@ -20,7 +20,7 @@ export const saveLogEntrie_Service = async (data) => {
     try {
         const newEntrie = new LogEntrieModel(data);
         const savedEntrie = await newEntrie.save();
-        console.log(savedEntrie)
+
         return savedEntrie;
     } catch (error) {
         throw new Error('Error saveLogEntrie_Service: ' + error.message);

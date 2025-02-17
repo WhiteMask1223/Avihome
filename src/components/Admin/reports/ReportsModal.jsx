@@ -1,8 +1,6 @@
 "use client"
 
-import { useState, useContext } from "react";
-
-import { UserContext } from "@/contexts/User.context";
+import { useState } from "react";
 
 import Asterisk from "@/components/UI/formElements/Asterisk";
 import ModalSection from "@/components/UI/utility/ModalSecction";
@@ -21,8 +19,6 @@ export default function CreateReportModal({ trigger, setTrigger, user, offert })
         reportedUserId: offert.user._id,
         text: ""
     };
-
-    const { setUserData } = useContext(UserContext);
 
     const [formData, setFormData] = useState(formDataTemplate);
     const [updating, setUpdating] = useState(false);
@@ -57,8 +53,6 @@ export default function CreateReportModal({ trigger, setTrigger, user, offert })
 
             setTrigger(!trigger);
             setUpdating(false);
-            setUserData(response)
-            setUser(response);
         } catch (error) {
             console.error("Error al acatualizar contraseña: ", error)
         };

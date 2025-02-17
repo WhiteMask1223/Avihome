@@ -105,7 +105,7 @@ export default function UserProfile() {
         if (loading) {
             setLoading(!loading);
         };
-    }, [userData, user, userOfferts]);
+    }, [userData, user]);
 
 
     /**************************{ Return }**************************/

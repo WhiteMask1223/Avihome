@@ -82,6 +82,7 @@ export default function CommentsAndStarsSection({ offert, user, getOffert }) {
                 getComments();
                 setCommentForm(commetTemplate);
                 setSavingComent(false);
+                setFormError(false);
             };
         } catch (error) {
             console.error("Error Creando comentario: ", error);

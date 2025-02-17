@@ -47,10 +47,10 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
 
                 if (sameUser) {
                     await signOut({ redirect: false });
-                    logout();       
+                    logout();
                 };
-                
-                fetchOfferts(); 
+
+                fetchOfferts();
                 router.push("/");
             };
         } catch (error) {
@@ -101,17 +101,24 @@ export default function ProfileUserSecction({ user, sameUser, setUser }) {
                             />
 
 
-                            <Button
-                                styles={"w-full px-4 py-2 mt-2"}
-                                text={"Cambiar Información"}
-                                buttonFunction={triggerEditInfoFunction}
-                            />
-                            <EditInfoModal
-                                trigger={triggerEditInfo}
-                                setTrigger={setTriggerEditInfo}
-                                user={user}
-                                setUser={setUser}
-                            />
+
+                            {user.role === "Root" || user.role === "Admin" ?
+                                ""
+                                :
+                                <div>
+                                    <Button
+                                        styles={"w-full px-4 py-2 mt-2"}
+                                        text={"Cambiar Información"}
+                                        buttonFunction={triggerEditInfoFunction}
+                                    />
+                                    <EditInfoModal
+                                        trigger={triggerEditInfo}
+                                        setTrigger={setTriggerEditInfo}
+                                        user={user}
+                                        setUser={setUser}
+                                    />
+                                </div>
+                            }
                         </div>
 
                         {user.role === "Root" || user.role === "Admin" ?

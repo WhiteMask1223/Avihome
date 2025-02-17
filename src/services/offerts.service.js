@@ -130,7 +130,7 @@ export const updateOffert_Service = async (id, newOffertData) => {
             newOffertData,
             { new: true, runVailidators: true }
         );
-        console.log(updatedOffert);
+
         if (!updatedOffert) return { error: true, status: 404, message: "Oferta no encontrada." }
         
         return updatedOffert;

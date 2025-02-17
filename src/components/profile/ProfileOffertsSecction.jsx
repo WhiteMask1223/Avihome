@@ -6,7 +6,7 @@ import UserOffertsNotFound from "@/components/profile/UserOffertsNotFound";
 import LoadingBg from "../UI/utility/LoadingBg";
 import LoadingSpinners from "../UI/utility/LoadingSpinners";
 
-export default function ProfileOffertsSecction({ userOfferts, sameUser, setUserOfferts, fetching }) {
+export default function ProfileOffertsSecction({ userOfferts, sameUser, fetchOfferts, fetching }) {
 
     if (!userOfferts) return (
         <LoadingBg conditional={true} />
@@ -29,7 +29,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser, setUserO
                 </div>
 
                 {fetching ? 
-                    <div className="w-fit mx-auto">
+                    <div className="w-fit mx-auto py-24">
                         <LoadingSpinners size={"large"}/>
                     </div>
                     :
@@ -43,7 +43,7 @@ export default function ProfileOffertsSecction({ userOfferts, sameUser, setUserO
                                         key={offert._id}
                                         offert={offert}
                                         sameUser={sameUser}
-                                        setUserOfferts={setUserOfferts}
+                                        fetchUserOfferts={fetchOfferts}
                                     />
                                 ))
                         }

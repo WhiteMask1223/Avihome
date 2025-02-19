@@ -81,6 +81,7 @@ export default function AdminRegister() {
         if (!registerResponse.error) {
             setRegistrationData(registrationDataObjTemplate);
             setSaving(false);
+            fetchAdmins();
             return;
         };
 

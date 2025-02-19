@@ -12,6 +12,9 @@ export const phoneNumberValidator = (phone) => {
 };
 
 export const validateSignUpData = (registrationData, setterFunction, setError) => {
+    console.log(registrationData);
+    
+    
     if (!validateEmail(registrationData.email)) {
         setError([true, 'Ingrese un correo válido.']);
         setterFunction("email", '');
